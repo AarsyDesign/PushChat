@@ -189,18 +189,31 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 12px;
+            padding: 9px 12px;
             border-radius: 6px;
-            color: var(--sidebar-text);
+            color: var(--sidebar-muted);
             text-decoration: none;
-            font-size: 0.875rem;
+            font-size: 0.84375rem;
             font-weight: 500;
+            background: transparent;
+            border: 1px solid transparent;
+            margin-bottom: 2px;
+            cursor: pointer;
+        }
+
+        .nav-item:hover {
+            color: var(--sidebar-text);
+            background: var(--sidebar-item-hover);
+        }
+
+        .nav-item.active {
+            color: var(--sidebar-text);
             background: var(--sidebar-item-active);
             border: 1px solid var(--border-color);
         }
 
         .nav-item svg {
-            color: var(--text-main);
+            color: currentColor;
             flex-shrink: 0;
         }
 
@@ -290,6 +303,65 @@
             width: 100%;
             margin: 0 auto;
             padding: 24px 28px 48px 28px;
+        }
+
+        /* Route View Container */
+        .route-view {
+            display: none;
+        }
+
+        .route-view.active {
+            display: block;
+        }
+
+        /* Empty State Placeholder for routes without content */
+        .empty-view-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 64px 24px;
+            text-align: center;
+            max-width: 600px;
+            margin: 40px auto 0 auto;
+        }
+
+        .empty-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .empty-desc {
+            font-size: 0.84375rem;
+            color: var(--text-muted);
+            max-width: 400px;
+            margin: 0 auto 20px auto;
+            line-height: 1.5;
+        }
+
+        .empty-badge {
+            display: inline-block;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
         /* Metric Grid Cards */
@@ -616,15 +688,60 @@
         </div>
 
         <div class="sidebar-nav">
-            <div class="nav-label">Navigation</div>
-            <a href="#" class="nav-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <div class="nav-label">Core</div>
+            <a href="#dashboard" class="nav-item active" onclick="navigate('dashboard', event)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="3" y="3" width="7" height="7"></rect>
                     <rect x="14" y="3" width="7" height="7"></rect>
                     <rect x="14" y="14" width="7" height="7"></rect>
                     <rect x="3" y="14" width="7" height="7"></rect>
                 </svg>
                 <span>Dashboard</span>
+            </a>
+            <a href="#rules" class="nav-item" onclick="navigate('rules', event)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" y1="21" x2="4" y2="14"></line>
+                    <line x1="4" y1="10" x2="4" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12" y2="3"></line>
+                    <line x1="20" y1="21" x2="20" y2="16"></line>
+                    <line x1="20" y1="12" x2="20" y2="3"></line>
+                    <line x1="1" y1="14" x2="7" y2="14"></line>
+                    <line x1="9" y1="8" x2="15" y2="8"></line>
+                    <line x1="17" y1="16" x2="23" y2="16"></line>
+                </svg>
+                <span>Automation Rules</span>
+            </a>
+            <a href="#history" class="nav-item" onclick="navigate('history', event)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span>Interaction Log</span>
+            </a>
+
+            <div class="nav-label" style="margin-top: 18px;">Settings</div>
+            <a href="#accounts" class="nav-item" onclick="navigate('accounts', event)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                <span>Connected Accounts</span>
+            </a>
+            <a href="#billing" class="nav-item" onclick="navigate('billing', event)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+                <span>Billing & QRIS</span>
+            </a>
+            <a href="#settings" class="nav-item" onclick="navigate('settings', event)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>General Settings</span>
             </a>
         </div>
 
@@ -677,140 +794,222 @@
 
         <!-- Body Content -->
         <main class="content-body">
-            <!-- Metric Performance Cards -->
-            <div class="metric-grid">
-                <div class="metric-card">
-                    <div class="metric-label">Subscription Tier</div>
-                    <div class="metric-value">Creator Pro</div>
-                    <div class="metric-sub">Active until Dec 1, 2026</div>
+            <!-- View: Dashboard -->
+            <div id="view-dashboard" class="route-view active">
+                <!-- Metric Performance Cards -->
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Subscription Tier</div>
+                        <div class="metric-value">Creator Pro</div>
+                        <div class="metric-sub">Active until Dec 1, 2026</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total DMs Dispatched</div>
+                        <div class="metric-value" id="stat-total-dm">0</div>
+                        <div class="metric-sub">Unlimited contact volume</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Active Automation Rules</div>
+                        <div class="metric-value" id="stat-active-rules">0</div>
+                        <div class="metric-sub">Instant real-time triggers</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Unified QRIS Wallet Balance</div>
+                        <div class="metric-value" id="stat-shared-credits">0</div>
+                        <div class="metric-sub">Shared PushNotif credits</div>
+                    </div>
                 </div>
-                <div class="metric-card">
-                    <div class="metric-label">Total DMs Dispatched</div>
-                    <div class="metric-value" id="stat-total-dm">0</div>
-                    <div class="metric-sub">Unlimited contact volume</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Active Automation Rules</div>
-                    <div class="metric-value" id="stat-active-rules">0</div>
-                    <div class="metric-sub">Instant real-time triggers</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-label">Unified QRIS Wallet Balance</div>
-                    <div class="metric-value" id="stat-shared-credits">0</div>
-                    <div class="metric-sub">Shared PushNotif credits</div>
+
+                <!-- 2 Columns Responsive Workspace -->
+                <div class="workspace">
+                    <!-- Left: Rule Builder & Rules Table -->
+                    <div>
+                        <!-- 3-Step Setup Form -->
+                        <div class="card" style="margin-bottom: 24px;">
+                            <div class="card-header">
+                                <h2 class="card-title">New Automation Rule (Zero-Spaghetti Flow)</h2>
+                            </div>
+
+                            <form id="form-rule" onsubmit="handleCreateRule(event)">
+                                <div class="form-group">
+                                    <label class="form-label">Campaign / Post Identifier</label>
+                                    <input type="text" id="rule_name" class="form-control" placeholder="e.g. Summer Recipe Guide Reels Promo" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Trigger Keywords in Comments</label>
+                                    <input type="text" id="trigger_keywords" class="form-control" placeholder="recipe, link, guide, discount" required oninput="updateLivePreview()">
+                                    <div class="form-hint">Separate with commas. The bot responds whenever any keyword appears in comments.</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Public Comment Reply (Optional)</label>
+                                    <input type="text" id="reply_public_comment" class="form-control" placeholder="Check your inbox (DM), link dispatched!">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Private DM Payload Message</label>
+                                    <textarea id="reply_dm_text" class="form-control" placeholder="Hey there! Here is the exclusive guide you requested:" required oninput="updateLivePreview()"></textarea>
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                    <div class="form-group">
+                                        <label class="form-label">Action Button Label</label>
+                                        <input type="text" id="button_label" class="form-control" placeholder="Open Guide" oninput="updateLivePreview()">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Destination URL</label>
+                                        <input type="url" id="button_url" class="form-control" placeholder="https://mybrand.com/promo" oninput="updateLivePreview()">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="require_follow">
+                                        <span><strong>Follow-Gate:</strong> Require the user to follow your account before unlocking the destination URL.</span>
+                                    </label>
+                                </div>
+
+                                <button type="submit" class="btn-primary" style="margin-top: 12px;">Save & Deploy Rule</button>
+                            </form>
+                        </div>
+
+                        <!-- Active Rules Table -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">Deployed Automation Rules</h2>
+                            </div>
+
+                            <div style="overflow-x: auto;">
+                                <table class="rules-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Rule Identifier</th>
+                                            <th>Keywords</th>
+                                            <th>Status</th>
+                                            <th>Dispatched</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="rules-tbody">
+                                        <tr>
+                                            <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading rules engine...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Real-time Live Mobile Simulation -->
+                    <div class="preview-sticky-wrap">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title" style="font-size: 0.95rem;">Live Instagram Preview</h2>
+                            </div>
+
+                            <div class="phone-mockup">
+                                <div class="phone-screen">
+                                    <div class="phone-header">
+                                        <div class="phone-avatar"></div>
+                                        <div>
+                                            <div class="phone-username">creatorbrand.id</div>
+                                            <div style="font-size: 0.6875rem; color: var(--text-muted);">Active now</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="phone-chat">
+                                        <div class="chat-bubble-user" id="preview-user-bubble">
+                                            recipe
+                                        </div>
+                                        <div class="chat-bubble-bot">
+                                            <span id="preview-bot-text">Hey there! Here is the exclusive guide you requested:</span>
+                                            <a href="#" id="preview-btn-card" class="preview-btn">Open Guide</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 2 Columns Responsive Workspace -->
-            <div class="workspace">
-                <!-- Left: Rule Builder & Rules Table -->
-                <div>
-                    <!-- 3-Step Setup Form -->
-                    <div class="card" style="margin-bottom: 24px;">
-                        <div class="card-header">
-                            <h2 class="card-title">New Automation Rule (Zero-Spaghetti Flow)</h2>
-                        </div>
-
-                        <form id="form-rule" onsubmit="handleCreateRule(event)">
-                            <div class="form-group">
-                                <label class="form-label">Campaign / Post Identifier</label>
-                                <input type="text" id="rule_name" class="form-control" placeholder="e.g. Summer Recipe Guide Reels Promo" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Trigger Keywords in Comments</label>
-                                <input type="text" id="trigger_keywords" class="form-control" placeholder="recipe, link, guide, discount" required oninput="updateLivePreview()">
-                                <div class="form-hint">Separate with commas. The bot responds whenever any keyword appears in comments.</div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Public Comment Reply (Optional)</label>
-                                <input type="text" id="reply_public_comment" class="form-control" placeholder="Check your inbox (DM), link dispatched!">
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Private DM Payload Message</label>
-                                <textarea id="reply_dm_text" class="form-control" placeholder="Hey there! Here is the exclusive guide you requested:" required oninput="updateLivePreview()"></textarea>
-                            </div>
-
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                                <div class="form-group">
-                                    <label class="form-label">Action Button Label</label>
-                                    <input type="text" id="button_label" class="form-control" placeholder="Open Guide" oninput="updateLivePreview()">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Destination URL</label>
-                                    <input type="url" id="button_url" class="form-control" placeholder="https://mybrand.com/promo" oninput="updateLivePreview()">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" id="require_follow">
-                                    <span><strong>Follow-Gate:</strong> Require the user to follow your account before unlocking the destination URL.</span>
-                                </label>
-                            </div>
-
-                            <button type="submit" class="btn-primary" style="margin-top: 12px;">Save & Deploy Rule</button>
-                        </form>
+            <!-- View: Automation Rules (Placeholder) -->
+            <div id="view-rules" class="route-view">
+                <div class="empty-view-card">
+                    <div class="empty-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="21" x2="4" y2="14"></line>
+                            <line x1="4" y1="10" x2="4" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12" y2="3"></line>
+                            <line x1="20" y1="21" x2="20" y2="16"></line>
+                            <line x1="20" y1="12" x2="20" y2="3"></line>
+                        </svg>
                     </div>
-
-                    <!-- Active Rules Table -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title">Deployed Automation Rules</h2>
-                        </div>
-
-                        <div style="overflow-x: auto;">
-                            <table class="rules-table">
-                                <thead>
-                                    <tr>
-                                        <th>Rule Identifier</th>
-                                        <th>Keywords</th>
-                                        <th>Status</th>
-                                        <th>Dispatched</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="rules-tbody">
-                                    <tr>
-                                        <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading rules engine...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <h3 class="empty-title">Automation Rules</h3>
+                    <p class="empty-desc">Comprehensive rule list, multi-post targeting, and bulk keyword management engine.</p>
+                    <span class="empty-badge">Route: /rules &bull; Standby for Module Hook</span>
                 </div>
+            </div>
 
-                <!-- Right: Real-time Live Mobile Simulation -->
-                <div class="preview-sticky-wrap">
-                    <div class="card">
-                        <div class="card-header">
-                            <h2 class="card-title" style="font-size: 0.95rem;">Live Instagram Preview</h2>
-                        </div>
-
-                        <div class="phone-mockup">
-                            <div class="phone-screen">
-                                <div class="phone-header">
-                                    <div class="phone-avatar"></div>
-                                    <div>
-                                        <div class="phone-username">creatorbrand.id</div>
-                                        <div style="font-size: 0.6875rem; color: var(--text-muted);">Active now</div>
-                                    </div>
-                                </div>
-
-                                <div class="phone-chat">
-                                    <div class="chat-bubble-user" id="preview-user-bubble">
-                                        recipe
-                                    </div>
-                                    <div class="chat-bubble-bot">
-                                        <span id="preview-bot-text">Hey there! Here is the exclusive guide you requested:</span>
-                                        <a href="#" id="preview-btn-card" class="preview-btn">Open Guide</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <!-- View: Interaction Log (Placeholder) -->
+            <div id="view-history" class="route-view">
+                <div class="empty-view-card">
+                    <div class="empty-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
                     </div>
+                    <h3 class="empty-title">Interaction Log</h3>
+                    <p class="empty-desc">Real-time webhook inbound payload history, delivery latency, and follower verification audit trail.</p>
+                    <span class="empty-badge">Route: /history &bull; Standby for Module Hook</span>
+                </div>
+            </div>
+
+            <!-- View: Connected Accounts (Placeholder) -->
+            <div id="view-accounts" class="route-view">
+                <div class="empty-view-card">
+                    <div class="empty-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="empty-title">Connected Accounts</h3>
+                    <p class="empty-desc">Meta OAuth token refresh, Facebook Page bridging, and Instagram Professional Account connections.</p>
+                    <span class="empty-badge">Route: /accounts &bull; Standby for Module Hook</span>
+                </div>
+            </div>
+
+            <!-- View: Billing & QRIS (Placeholder) -->
+            <div id="view-billing" class="route-view">
+                <div class="empty-view-card">
+                    <div class="empty-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                    </div>
+                    <h3 class="empty-title">Billing & QRIS</h3>
+                    <p class="empty-desc">Prepaid 30-day subscription renewals, instant dynamic QRIS top-up, and shared PushNotif balance.</p>
+                    <span class="empty-badge">Route: /billing &bull; Standby for Module Hook</span>
+                </div>
+            </div>
+
+            <!-- View: General Settings (Placeholder) -->
+            <div id="view-settings" class="route-view">
+                <div class="empty-view-card">
+                    <div class="empty-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="empty-title">General Settings</h3>
+                    <p class="empty-desc">Webhooks secret configuration, developer API access tokens, and optional AI Assistant BYOK keys.</p>
+                    <span class="empty-badge">Route: /settings &bull; Standby for Module Hook</span>
                 </div>
             </div>
         </main>
@@ -818,6 +1017,55 @@
 
     <script>
         const TENANT_ID = 'tnt_demo';
+
+        // Client-side Navigation Router
+        const ROUTE_TITLES = {
+            'dashboard': 'Automation Overview',
+            'rules': 'Automation Rules Engine',
+            'history': 'Interaction & Payload Log',
+            'accounts': 'Connected Meta Accounts',
+            'billing': 'Subscription & QRIS Billing',
+            'settings': 'General & AI Settings'
+        };
+
+        function navigate(route, event) {
+            if (event) event.preventDefault();
+            
+            // Update hash without jumping
+            window.location.hash = route;
+
+            // Update Top Bar Title
+            const topbarTitle = document.querySelector('.topbar-title');
+            if (topbarTitle && ROUTE_TITLES[route]) {
+                topbarTitle.textContent = ROUTE_TITLES[route];
+            }
+
+            // Update Active Sidebar Link
+            document.querySelectorAll('.sidebar-nav .nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${route}`) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Toggle Visible View
+            document.querySelectorAll('.route-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            const activeView = document.getElementById(`view-${route}`);
+            if (activeView) {
+                activeView.classList.add('active');
+            }
+        }
+
+        function handleHashChange() {
+            const hash = window.location.hash.replace('#', '') || 'dashboard';
+            const validRoutes = ['dashboard', 'rules', 'history', 'accounts', 'billing', 'settings'];
+            const targetRoute = validRoutes.includes(hash) ? hash : 'dashboard';
+            navigate(targetRoute);
+        }
+
+        window.addEventListener('hashchange', handleHashChange);
 
         // Theme Toggle Logic (Full Light vs Full Dark Monochrome)
         function initTheme() {
@@ -971,6 +1219,7 @@
 
         // Initialize
         initTheme();
+        handleHashChange();
         updateLivePreview();
         loadRules();
     </script>
