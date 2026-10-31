@@ -596,6 +596,7 @@
         async function loadRules() {
             try {
                 const res = await fetch(`/api/v1/rules?tenant_id=${TENANT_ID}`);
+                if (!res.ok) throw new Error("API Offline");
                 const data = await res.json();
                 renderRules(data.rules || []);
                 
@@ -610,7 +611,27 @@
                 const bData = await bRes.json();
                 document.getElementById('stat-shared-credits').textContent = bData.shared_pushnotif_credits || 0;
             } catch (err) {
-                console.error(err);
+                // Fallback demo interaktif untuk GitHub Pages (Static Hosting)
+                const demoRules = [
+                    {
+                        id: "demo_1",
+                        rule_name: "Auto-DM Resep & Panduan Masak",
+                        trigger_keywords: "resep, panduan, mau",
+                        is_active: 1,
+                        total_triggered: 1420
+                    },
+                    {
+                        id: "demo_2",
+                        rule_name: "Kupon Diskon 50% Shopee Affiliate",
+                        trigger_keywords: "diskon, promo, voucher",
+                        is_active: 1,
+                        total_triggered: 890
+                    }
+                ];
+                renderRules(demoRules);
+                document.getElementById('stat-active-rules').textContent = "2";
+                document.getElementById('stat-total-dm').textContent = "2.310";
+                document.getElementById('stat-shared-credits').textContent = "10.000";
             }
         }
 
