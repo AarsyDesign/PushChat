@@ -20,6 +20,14 @@
             --border-focus: #0F172A;
             --danger: #EF4444;
             --danger-bg: #FEF2F2;
+
+            /* Side Panel Theme: Dark Navy Blue */
+            --sidebar-bg: #0A1124;
+            --sidebar-hover: #131E3A;
+            --sidebar-active: #1A284D;
+            --sidebar-border: #162447;
+            --sidebar-text: #E2E8F0;
+            --sidebar-muted: #8E9DB8;
         }
 
         * {
@@ -35,43 +43,121 @@
             line-height: 1.5;
             font-size: 0.9375rem;
             -webkit-font-smoothing: antialiased;
+            display: flex;
+            min-height: 100vh;
         }
 
-        /* Top Bar */
-        .topbar {
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            height: 56px;
+        /* Side Panel */
+        .sidebar {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
+            flex-direction: column;
+            flex-shrink: 0;
             position: sticky;
             top: 0;
-            z-index: 20;
+            height: 100vh;
+            color: var(--sidebar-text);
+            z-index: 30;
         }
 
-        .brand-wrap {
+        .sidebar-brand {
+            height: 60px;
+            padding: 0 20px;
             display: flex;
             align-items: center;
             gap: 12px;
+            border-bottom: 1px solid var(--sidebar-border);
         }
 
         .brand-logo {
-            width: 28px;
-            height: 28px;
-            background: var(--primary);
-            color: #fff;
+            width: 30px;
+            height: 30px;
+            background: #1E2D54;
+            border: 1px solid #2B3D6B;
+            color: #FFFFFF;
             border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
         }
 
         .brand-title {
             font-size: 1.05rem;
             font-weight: 600;
             letter-spacing: -0.02em;
+            color: #FFFFFF;
+        }
+
+        .sidebar-nav {
+            padding: 20px 12px;
+            flex: 1;
+        }
+
+        .nav-label {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--sidebar-muted);
+            padding: 0 12px 8px 12px;
+            font-weight: 600;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+            background: var(--sidebar-active);
+            border: 1px solid #243663;
+        }
+
+        .nav-item svg {
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--sidebar-border);
+            font-size: 0.75rem;
+            color: var(--sidebar-muted);
+        }
+
+        /* Main Content Layout */
+        .main-layout {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        /* Top Bar */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .topbar-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
         }
 
         .topbar-actions {
@@ -104,8 +190,8 @@
             background: none;
             border: 1px solid var(--border);
             border-radius: 6px;
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -120,10 +206,11 @@
         }
 
         /* Container Layout */
-        .container {
-            max-width: 1200px;
+        .content-body {
+            max-width: 1240px;
+            width: 100%;
             margin: 0 auto;
-            padding: 24px;
+            padding: 24px 28px 48px 28px;
         }
 
         /* Metric Grid */
@@ -138,7 +225,7 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 16px 20px;
+            padding: 18px 20px;
         }
 
         .metric-label {
@@ -169,9 +256,21 @@
             align-items: start;
         }
 
-        @media (max-width: 960px) {
+        @media (max-width: 1024px) {
             .workspace {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .content-body {
+                padding: 16px;
+            }
+            .topbar {
+                padding: 0 16px;
             }
         }
 
@@ -190,7 +289,7 @@
         }
 
         .card-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             letter-spacing: -0.01em;
         }
@@ -204,8 +303,8 @@
             display: block;
             font-size: 0.8125rem;
             font-weight: 500;
-            color: var(--primary);
             margin-bottom: 6px;
+            color: var(--primary);
         }
 
         .form-hint {
@@ -219,10 +318,10 @@
             padding: 9px 12px;
             border: 1px solid var(--border);
             border-radius: 6px;
-            font-size: 0.875rem;
             font-family: inherit;
-            color: var(--primary);
+            font-size: 0.875rem;
             background: var(--surface);
+            color: var(--primary);
             outline: none;
             transition: border-color 0.15s ease;
         }
@@ -233,27 +332,21 @@
 
         textarea.form-control {
             resize: vertical;
-            min-height: 80px;
-        }
-
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.875rem;
-            cursor: pointer;
-            user-select: none;
-            margin-top: 8px;
+            min-height: 84px;
         }
 
         .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             background: var(--primary);
-            color: #fff;
-            border: none;
+            color: #FFFFFF;
             padding: 10px 18px;
             border-radius: 6px;
-            font-size: 0.875rem;
+            border: none;
             font-weight: 500;
+            font-size: 0.875rem;
             cursor: pointer;
             transition: background 0.15s ease;
             width: 100%;
@@ -263,89 +356,103 @@
             background: var(--primary-hover);
         }
 
-        /* Rules List Table */
+        .checkbox-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            color: var(--secondary);
+            user-select: none;
+        }
+
+        .checkbox-label input {
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        /* Table Rules */
         .rules-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 12px;
+            font-size: 0.8125rem;
         }
 
         .rules-table th {
             text-align: left;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--secondary);
-            font-weight: 500;
             padding: 10px 12px;
             border-bottom: 1px solid var(--border);
+            color: var(--secondary);
+            font-weight: 500;
         }
 
         .rules-table td {
             padding: 12px;
             border-bottom: 1px solid var(--border);
-            font-size: 0.875rem;
             vertical-align: middle;
-        }
-
-        .badge-active {
-            background: var(--accent-bg);
-            color: var(--accent);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .badge-paused {
-            background: var(--surface-muted);
-            color: var(--secondary);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 500;
         }
 
         .tag {
             display: inline-block;
             background: var(--surface-muted);
             border: 1px solid var(--border);
-            padding: 2px 6px;
+            padding: 2px 8px;
             border-radius: 4px;
             font-size: 0.75rem;
-            margin-right: 4px;
+            margin: 2px 2px 2px 0;
+            color: var(--secondary);
+        }
+
+        .badge-active {
+            display: inline-block;
+            background: var(--accent-bg);
+            color: #065F46;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-paused {
+            display: inline-block;
+            background: #F1F5F9;
+            color: #64748B;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
         }
 
         /* Mobile Live Preview Device */
         .preview-sticky-wrap {
             position: sticky;
-            top: 80px;
+            top: 84px;
         }
 
         .phone-mockup {
             border: 1px solid var(--border);
             border-radius: 28px;
-            padding: 14px;
-            background: #fff;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            padding: 10px;
+            background: #FFFFFF;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             max-width: 320px;
             margin: 0 auto;
         }
 
         .phone-screen {
-            border: 1px solid var(--border);
+            border: 1px solid #E5E7EB;
             border-radius: 20px;
-            overflow: hidden;
             background: #FAFAFA;
-            height: 480px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
+            min-height: 480px;
         }
 
         .phone-header {
-            background: #fff;
+            background: #FFFFFF;
+            border-bottom: 1px solid #EFEFEF;
             padding: 12px 14px;
-            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -355,241 +462,273 @@
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            background: #E2E8F0;
+            background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF);
         }
 
         .phone-username {
             font-size: 0.8125rem;
             font-weight: 600;
+            color: #262626;
+            line-height: 1.2;
         }
 
         .phone-chat {
-            flex: 1;
-            padding: 14px;
+            padding: 16px 12px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            overflow-y: auto;
+            flex: 1;
         }
 
         .chat-bubble-user {
             align-self: flex-end;
-            background: #0095F6;
-            color: #fff;
+            background: #3797F0;
+            color: #FFFFFF;
             padding: 8px 12px;
-            border-radius: 14px 14px 2px 14px;
+            border-radius: 16px 16px 4px 16px;
             font-size: 0.8125rem;
             max-width: 80%;
+            word-break: break-word;
         }
 
         .chat-bubble-bot {
             align-self: flex-start;
             background: #EFEFEF;
-            color: #000;
+            color: #262626;
             padding: 10px 12px;
-            border-radius: 14px 14px 14px 2px;
+            border-radius: 16px 16px 16px 4px;
             font-size: 0.8125rem;
             max-width: 85%;
+            word-break: break-word;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .preview-btn {
-            display: block;
-            margin-top: 8px;
-            background: #fff;
-            border: 1px solid #0095F6;
-            color: #0095F6;
-            text-align: center;
-            padding: 6px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            display: inline-block;
+            background: #FFFFFF;
+            color: #3797F0;
             text-decoration: none;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #DBDBDB;
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Navigation Bar -->
-    <header class="topbar">
-        <div class="brand-wrap">
+    <!-- Dark Navy Blue Side Panel -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
             <div class="brand-logo">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                 </svg>
             </div>
             <span class="brand-title">PushChat</span>
         </div>
-        <div class="topbar-actions">
-            <div class="account-badge">
-                <span class="status-dot"></span>
-                <span>@tokokreator.id (Instagram)</span>
-            </div>
-            <button class="btn-icon" title="Refresh Data" onclick="loadRules()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="23 4 23 10 17 10"></polyline>
-                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+
+        <div class="sidebar-nav">
+            <div class="nav-label">Menu</div>
+            <a href="#" class="nav-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
                 </svg>
-            </button>
-        </div>
-    </header>
-
-    <div class="container">
-        <!-- Metric Strip -->
-        <div class="metric-grid">
-            <div class="metric-card">
-                <div class="metric-label">Status Langganan</div>
-                <div class="metric-value" style="color: var(--accent); font-size: 1.25rem;">Creator Pro</div>
-                <div class="metric-sub">Aktif s/d 30 Nov 2026</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-label">Total DM Terkirim</div>
-                <div class="metric-value" id="stat-total-dm">0</div>
-                <div class="metric-sub">Tanpa batas kontak</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-label">Aturan Aktif</div>
-                <div class="metric-value" id="stat-active-rules">0</div>
-                <div class="metric-sub">Siap merespon instan</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-label">Saldo Terpadu PushNotif</div>
-                <div class="metric-value" id="stat-shared-credits">0</div>
-                <div class="metric-sub">Kredit QRIS bersama</div>
-            </div>
+                <span>Dashboard</span>
+            </a>
         </div>
 
-        <!-- 2 Columns Workspace -->
-        <div class="workspace">
-            <!-- Left: Rule Builder & Table -->
-            <div>
-                <!-- 3-Step Setup Form -->
-                <div class="card" style="margin-bottom: 24px;">
-                    <div class="card-header">
-                        <h2 class="card-title">Buat Aturan Baru (Zero-Spaghetti)</h2>
-                    </div>
+        <div class="sidebar-footer">
+            <div>PushChat Engine v1.0</div>
+            <div style="color: #556B8D; margin-top: 2px;">Meta Cloud API Partner</div>
+        </div>
+    </aside>
 
-                    <form id="form-rule" onsubmit="handleCreateRule(event)">
-                        <div class="form-group">
-                            <label class="form-label">Nama Kampanye / Postingan</label>
-                            <input type="text" id="rule_name" class="form-control" placeholder="Contoh: Promo Reels Resep Masakan" required>
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-title">Ringkasan Otomasi</div>
+            <div class="topbar-actions">
+                <div class="account-badge">
+                    <span class="status-dot"></span>
+                    <span>@tokokreator.id (Instagram)</span>
+                </div>
+                <button class="btn-icon" title="Perbarui Data" onclick="loadRules()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 4 23 10 17 10"></polyline>
+                        <polyline points="1 20 1 14 7 14"></polyline>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="content-body">
+            <!-- Metric Cards -->
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Status Langganan</div>
+                    <div class="metric-value" style="color: var(--accent);">Creator Pro</div>
+                    <div class="metric-sub">Aktif s/d 30 Nov 2026</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Total DM Terkirim</div>
+                    <div class="metric-value" id="stat-total-dm">0</div>
+                    <div class="metric-sub">Tanpa batas kontak</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Aturan Aktif</div>
+                    <div class="metric-value" id="stat-active-rules">0</div>
+                    <div class="metric-sub">Siap merespon instan</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Saldo Terpadu PushNotif</div>
+                    <div class="metric-value" id="stat-shared-credits">0</div>
+                    <div class="metric-sub">Kredit QRIS bersama</div>
+                </div>
+            </div>
+
+            <!-- 2 Columns Workspace -->
+            <div class="workspace">
+                <!-- Left: Rule Builder & Table -->
+                <div>
+                    <!-- 3-Step Setup Form -->
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div class="card-header">
+                            <h2 class="card-title">Buat Aturan Baru (Zero-Spaghetti)</h2>
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Kata Kunci Pemicu di Komentar</label>
-                            <input type="text" id="trigger_keywords" class="form-control" placeholder="mau, link, resep, harga" required oninput="updateLivePreview()">
-                            <div class="form-hint">Pisahkan dengan koma. Bot merespon jika ada kata kunci ini di komentar.</div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Balasan Publik di Kolom Komentar (Opsional)</label>
-                            <input type="text" id="reply_public_comment" class="form-control" placeholder="Cek pesan masuk (DM) ya kak!">
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Teks Pesan Masuk (DM Privat)</label>
-                            <textarea id="reply_dm_text" class="form-control" placeholder="Halo kak! Ini link panduan lengkap yang diminta ya:" required oninput="updateLivePreview()"></textarea>
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <form id="form-rule" onsubmit="handleCreateRule(event)">
                             <div class="form-group">
-                                <label class="form-label">Teks Tombol DM</label>
-                                <input type="text" id="button_label" class="form-control" placeholder="Buka Halaman" oninput="updateLivePreview()">
+                                <label class="form-label">Nama Kampanye / Postingan</label>
+                                <input type="text" id="rule_name" class="form-control" placeholder="Contoh: Promo Reels Resep Masakan" required>
                             </div>
+
                             <div class="form-group">
-                                <label class="form-label">Tautan Tujuan (URL)</label>
-                                <input type="url" id="button_url" class="form-control" placeholder="https://tokoku.com/promo" oninput="updateLivePreview()">
+                                <label class="form-label">Kata Kunci Pemicu di Komentar</label>
+                                <input type="text" id="trigger_keywords" class="form-control" placeholder="mau, link, resep, harga" required oninput="updateLivePreview()">
+                                <div class="form-hint">Pisahkan dengan koma. Bot merespon jika ada kata kunci ini di komentar.</div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="require_follow">
-                                <span><strong>Follow-Gate:</strong> Kunci link sebelum pengunjung mengikuti (follow) akun ini.</span>
-                            </label>
-                        </div>
+                            <div class="form-group">
+                                <label class="form-label">Balasan Publik di Kolom Komentar (Opsional)</label>
+                                <input type="text" id="reply_public_comment" class="form-control" placeholder="Cek pesan masuk (DM) ya kak!">
+                            </div>
 
-                        <button type="submit" class="btn-primary" style="margin-top: 12px;">Simpan dan Aktifkan Aturan</button>
-                    </form>
-                </div>
+                            <div class="form-group">
+                                <label class="form-label">Teks Pesan Masuk (DM Privat)</label>
+                                <textarea id="reply_dm_text" class="form-control" placeholder="Halo kak! Ini link panduan lengkap yang diminta ya:" required oninput="updateLivePreview()"></textarea>
+                            </div>
 
-                <!-- Existing Rules List -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title">Daftar Aturan Otomasi</h2>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <div class="form-group">
+                                    <label class="form-label">Teks Tombol DM</label>
+                                    <input type="text" id="button_label" class="form-control" placeholder="Buka Halaman" oninput="updateLivePreview()">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Tautan Tujuan (URL)</label>
+                                    <input type="url" id="button_url" class="form-control" placeholder="https://tokoku.com/promo" oninput="updateLivePreview()">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="require_follow">
+                                    <span><strong>Follow-Gate:</strong> Kunci link sebelum pengunjung mengikuti (follow) akun ini.</span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn-primary" style="margin-top: 12px;">Simpan dan Aktifkan Aturan</button>
+                        </form>
                     </div>
 
-                    <div style="overflow-x: auto;">
-                        <table class="rules-table">
-                            <thead>
-                                <tr>
-                                    <th>Nama Aturan</th>
-                                    <th>Pemicu</th>
-                                    <th>Status</th>
-                                    <th>Tereksekusi</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="rules-tbody">
-                                <tr>
-                                    <td colspan="5" style="text-align: center; color: var(--secondary); padding: 24px;">Memuat aturan otomasi...</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- Existing Rules List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Daftar Aturan Otomasi</h2>
+                        </div>
+
+                        <div style="overflow-x: auto;">
+                            <table class="rules-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nama Aturan</th>
+                                        <th>Pemicu</th>
+                                        <th>Status</th>
+                                        <th>Tereksekusi</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rules-tbody">
+                                    <tr>
+                                        <td colspan="5" style="text-align: center; color: var(--secondary); padding: 24px;">Memuat aturan otomasi...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Real-time Live Preview Device -->
+                <div class="preview-sticky-wrap">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title" style="font-size: 0.95rem;">Simulasi Tampilan di Instagram</h2>
+                        </div>
+
+                        <div class="phone-mockup">
+                            <div class="phone-screen">
+                                <div class="phone-header">
+                                    <div class="phone-avatar"></div>
+                                    <div>
+                                        <div class="phone-username">tokokreator.id</div>
+                                        <div style="font-size: 0.6875rem; color: #8E8E8E;">Aktif sekarang</div>
+                                    </div>
+                                </div>
+
+                                <div class="phone-chat">
+                                    <div class="chat-bubble-user" id="preview-user-bubble">
+                                        resep
+                                    </div>
+                                    <div class="chat-bubble-bot">
+                                        <span id="preview-bot-text">Halo kak! Ini link panduan lengkap yang diminta ya:</span>
+                                        <a href="#" id="preview-btn-card" class="preview-btn">Buka Halaman</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Right: Real-time Live Preview Device -->
-            <div class="preview-sticky-wrap">
-                <div class="card">
-                    <div class="card-header">
-                        <h2 class="card-title" style="font-size: 0.95rem;">Simulasi Tampilan di Instagram</h2>
-                    </div>
-
-                    <div class="phone-mockup">
-                        <div class="phone-screen">
-                            <div class="phone-header">
-                                <div class="phone-avatar"></div>
-                                <div>
-                                    <div class="phone-username">tokokreator.id</div>
-                                    <div style="font-size: 0.6875rem; color: #8E8E8E;">Aktif sekarang</div>
-                                </div>
-                            </div>
-
-                            <div class="phone-chat">
-                                <div class="chat-bubble-user" id="preview-user-bubble">
-                                    resep
-                                </div>
-                                <div class="chat-bubble-bot">
-                                    <span id="preview-bot-text">Halo kak! Ini link panduan lengkap yang diminta ya:</span>
-                                    <a href="#" id="preview-btn-card" class="preview-btn">Buka Halaman</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </main>
     </div>
 
     <script>
-        const TENANT_ID = 'tenant_default';
+        const TENANT_ID = 'tnt_demo';
 
         function updateLivePreview() {
             const keywords = document.getElementById('trigger_keywords').value.trim();
-            const firstKw = keywords ? keywords.split(',')[0].trim() : 'resep';
-            document.getElementById('preview-user-bubble').textContent = firstKw;
-
             const dmText = document.getElementById('reply_dm_text').value.trim();
-            document.getElementById('preview-bot-text').textContent = dmText || 'Halo kak! Ini link panduan lengkap yang diminta ya:';
-
             const btnLabel = document.getElementById('button_label').value.trim();
-            const previewBtn = document.getElementById('preview-btn-card');
+
+            document.getElementById('preview-user-bubble').textContent = keywords ? keywords.split(',')[0].trim() : 'resep';
+            document.getElementById('preview-bot-text').textContent = dmText || 'Halo kak! Ini link panduan lengkap yang diminta ya:';
+            
+            const btnCard = document.getElementById('preview-btn-card');
             if (btnLabel) {
-                previewBtn.style.display = 'block';
-                previewBtn.textContent = btnLabel;
+                btnCard.style.display = 'inline-block';
+                btnCard.textContent = btnLabel;
             } else {
-                previewBtn.style.display = 'none';
+                btnCard.style.display = 'none';
             }
         }
 
@@ -600,13 +739,11 @@
                 const data = await res.json();
                 renderRules(data.rules || []);
                 
-                // Update stats
                 document.getElementById('stat-active-rules').textContent = (data.rules || []).filter(r => r.is_active === 1).length;
                 let totalTriggered = 0;
                 (data.rules || []).forEach(r => totalTriggered += (r.total_triggered || 0));
                 document.getElementById('stat-total-dm').textContent = totalTriggered;
 
-                // Load shared balance
                 const bRes = await fetch(`/api/v1/tenant/${TENANT_ID}/balance`);
                 const bData = await bRes.json();
                 document.getElementById('stat-shared-credits').textContent = bData.shared_pushnotif_credits || 0;
