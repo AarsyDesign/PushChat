@@ -35,6 +35,7 @@ def init_pushchat_db():
         reply_dm_text TEXT NOT NULL, -- isi pesan DM privat
         button_label TEXT, -- e.g. 'Beli Sekarang'
         button_url TEXT, -- e.g. 'https://tokoku.com/promo'
+        require_follow INTEGER DEFAULT 0, -- Follow-Gate: 1 jika wajib follow
         is_active INTEGER DEFAULT 1,
         total_triggered INTEGER DEFAULT 0,
         created_at TEXT NOT NULL
@@ -58,6 +59,55 @@ def init_pushchat_db():
     conn.commit()
     conn.close()
 
+def list_rules(tenant_id: str):
+    conn = sqlite3.connect(PUSHCHAT_DB_PATH)
+    conn.row_factory = sqlite3.Row
+    rows = conn.execute("SELECT * FROM auto_dm_rules WHERE tenant_id = ? ORDER BY created_at DESC", (tenant_id,)).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+def create_rule(tenant_id: str, data: dict):
+    rule_id = f"rule_{uuid.uuid4().hex[:10]}"
+    now_str = datetime.now(timezone.utc).isoformat()
+    conn = sqlite3.connect(PUSHCHAT_DB_PATH)
+    conn.execute("""
+        INSERT INTO auto_dm_rules (id, tenant_id, rule_name, trigger_keywords, reply_public_comment, reply_dm_text, button_label, button_url, require_follow, is_active, total_triggered, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, 0, ?)
+    """, (
+        rule_id,
+        tenant_id,
+        data.get("rule_name", "Aturan Baru"),
+        data.get("trigger_keywords", ""),
+        data.get("reply_public_comment", ""),
+        data.get("reply_dm_text", ""),
+        data.get("button_label", ""),
+        data.get("button_url", ""),
+        1 if data.get("require_follow") else 0,
+        now_str
+    ))
+    conn.commit()
+    conn.close()
+    return rule_id
+
+def toggle_rule(rule_id: str, tenant_id: str):
+    conn = sqlite3.connect(PUSHCHAT_DB_PATH)
+    row = conn.execute("SELECT is_active FROM auto_dm_rules WHERE id = ? AND tenant_id = ?", (rule_id, tenant_id)).fetchone()
+    if not row:
+        conn.close()
+        return None
+    new_state = 0 if row[0] == 1 else 1
+    conn.execute("UPDATE auto_dm_rules SET is_active = ? WHERE id = ? AND tenant_id = ?", (new_state, rule_id, tenant_id))
+    conn.commit()
+    conn.close()
+    return new_state
+
+def delete_rule(rule_id: str, tenant_id: str):
+    conn = sqlite3.connect(PUSHCHAT_DB_PATH)
+    conn.execute("DELETE FROM auto_dm_rules WHERE id = ? AND tenant_id = ?", (rule_id, tenant_id))
+    conn.commit()
+    conn.close()
+    return True
+
 def get_tenant_balance(tenant_id: str) -> int:
     """Mengambil saldo kredit resmi dari shared database PushNotif"""
     try:
@@ -74,7 +124,6 @@ def deduct_credit_for_dm(tenant_id: str, rule_name: str, recipient: str, credits
         conn = sqlite3.connect(PUSHNOTIF_DB_PATH)
         cursor = conn.cursor()
         
-        # Cek saldo saat ini
         row = cursor.execute("SELECT credits FROM tenants WHERE id = ?", (tenant_id,)).fetchone()
         if not row or row[0] < credits_needed:
             conn.close()
@@ -83,10 +132,8 @@ def deduct_credit_for_dm(tenant_id: str, rule_name: str, recipient: str, credits
         current_credits = row[0]
         new_balance = current_credits - credits_needed
         
-        # Potong saldo di tabel tenants
         cursor.execute("UPDATE tenants SET credits = ? WHERE id = ?", (new_balance, tenant_id))
         
-        # Catat ke buku besar (credit_ledger) PushNotif
         ledger_id = f"tx_pc_{uuid.uuid4().hex[:10]}"
         now_str = datetime.now(timezone.utc).isoformat()
         cursor.execute("""
