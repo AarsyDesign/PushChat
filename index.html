@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PushChat - Otomasi Pesan Instagram</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --primary-hover: #1E293B;
+            --secondary: #475569;
+            --accent: #10B981;
+            --accent-bg: #ECFDF5;
+            --surface: #FFFFFF;
+            --surface-muted: #F8FAFC;
+            --border: #E2E8F0;
+            --border-focus: #0F172A;
+            --danger: #EF4444;
+            --danger-bg: #FEF2F2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Geist', system-ui, -apple-system, sans-serif;
+            background-color: var(--surface-muted);
+            color: var(--primary);
+            line-height: 1.5;
+            font-size: 0.9375rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Bar */
+        .topbar {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .brand-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 28px;
+            height: 28px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .account-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--surface-muted);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .btn-icon {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--secondary);
+            transition: all 0.15s ease;
+        }
+
+        .btn-icon:hover {
+            border-color: var(--border-focus);
+            color: var(--primary);
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        /* Metric Grid */
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+        }
+
+        .metric-label {
+            font-size: 0.8125rem;
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .metric-sub {
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Main Workspace: 2 Columns */
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 24px;
+            align-items: start;
+        }
+
+        @media (max-width: 960px) {
+            .workspace {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+
+        .form-hint {
+            font-size: 0.75rem;
+            color: var(--secondary);
+            margin-top: 4px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            color: var(--primary);
+            background: var(--surface);
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--border-focus);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            user-select: none;
+            margin-top: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Rules List Table */
+        .rules-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+
+        .rules-table th {
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--secondary);
+            font-weight: 500;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rules-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+            vertical-align: middle;
+        }
+
+        .badge-active {
+            background: var(--accent-bg);
+            color: var(--accent);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-paused {
+            background: var(--surface-muted);
+            color: var(--secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .tag {
+            display: inline-block;
+            background: var(--surface-muted);
+            border: 1px solid var(--border);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 4px;
+        }
+
+        /* Mobile Live Preview Device */
+        .preview-sticky-wrap {
+            position: sticky;
+            top: 80px;
+        }
+
+        .phone-mockup {
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 14px;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .phone-screen {
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            background: #FAFAFA;
+            height: 480px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .phone-header {
+            background: #fff;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phone-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #E2E8F0;
+        }
+
+        .phone-username {
+            font-size: 0.8125rem;
+            font-weight: 600;
+        }
+
+        .phone-chat {
+            flex: 1;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            overflow-y: auto;
+        }
+
+        .chat-bubble-user {
+            align-self: flex-end;
+            background: #0095F6;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 14px 14px 2px 14px;
+            font-size: 0.8125rem;
+            max-width: 80%;
+        }
+
+        .chat-bubble-bot {
+            align-self: flex-start;
+            background: #EFEFEF;
+            color: #000;
+            padding: 10px 12px;
+            border-radius: 14px 14px 14px 2px;
+            font-size: 0.8125rem;
+            max-width: 85%;
+        }
+
+        .preview-btn {
+            display: block;
+            margin-top: 8px;
+            background: #fff;
+            border: 1px solid #0095F6;
+            color: #0095F6;
+            text-align: center;
+            padding: 6px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="topbar">
+        <div class="brand-wrap">
+            <div class="brand-logo">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+            </div>
+            <span class="brand-title">PushChat</span>
+        </div>
+        <div class="topbar-actions">
+            <div class="account-badge">
+                <span class="status-dot"></span>
+                <span>@tokokreator.id (Instagram)</span>
+            </div>
+            <button class="btn-icon" title="Refresh Data" onclick="loadRules()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Metric Strip -->
+        <div class="metric-grid">
+            <div class="metric-card">
+                <div class="metric-label">Status Langganan</div>
+                <div class="metric-value" style="color: var(--accent); font-size: 1.25rem;">Creator Pro</div>
+                <div class="metric-sub">Aktif s/d 30 Nov 2026</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Total DM Terkirim</div>
+                <div class="metric-value" id="stat-total-dm">0</div>
+                <div class="metric-sub">Tanpa batas kontak</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Aturan Aktif</div>
+                <div class="metric-value" id="stat-active-rules">0</div>
+                <div class="metric-sub">Siap merespon instan</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Saldo Terpadu PushNotif</div>
+                <div class="metric-value" id="stat-shared-credits">0</div>
+                <div class="metric-sub">Kredit QRIS bersama</div>
+            </div>
+        </div>
+
+        <!-- 2 Columns Workspace -->
+        <div class="workspace">
+            <!-- Left: Rule Builder & Table -->
+            <div>
+                <!-- 3-Step Setup Form -->
+                <div class="card" style="margin-bottom: 24px;">
+                    <div class="card-header">
+                        <h2 class="card-title">Buat Aturan Baru (Zero-Spaghetti)</h2>
+                    </div>
+
+                    <form id="form-rule" onsubmit="handleCreateRule(event)">
+                        <div class="form-group">
+                            <label class="form-label">Nama Kampanye / Postingan</label>
+                            <input type="text" id="rule_name" class="form-control" placeholder="Contoh: Promo Reels Resep Masakan" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Kata Kunci Pemicu di Komentar</label>
+                            <input type="text" id="trigger_keywords" class="form-control" placeholder="mau, link, resep, harga" required oninput="updateLivePreview()">
+                            <div class="form-hint">Pisahkan dengan koma. Bot merespon jika ada kata kunci ini di komentar.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Balasan Publik di Kolom Komentar (Opsional)</label>
+                            <input type="text" id="reply_public_comment" class="form-control" placeholder="Cek pesan masuk (DM) ya kak!">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Teks Pesan Masuk (DM Privat)</label>
+                            <textarea id="reply_dm_text" class="form-control" placeholder="Halo kak! Ini link panduan lengkap yang diminta ya:" required oninput="updateLivePreview()"></textarea>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="form-group">
+                                <label class="form-label">Teks Tombol DM</label>
+                                <input type="text" id="button_label" class="form-control" placeholder="Buka Halaman" oninput="updateLivePreview()">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Tautan Tujuan (URL)</label>
+                                <input type="url" id="button_url" class="form-control" placeholder="https://tokoku.com/promo" oninput="updateLivePreview()">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="require_follow">
+                                <span><strong>Follow-Gate:</strong> Kunci link sebelum pengunjung mengikuti (follow) akun ini.</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="margin-top: 12px;">Simpan dan Aktifkan Aturan</button>
+                    </form>
+                </div>
+
+                <!-- Existing Rules List -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Daftar Aturan Otomasi</h2>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="rules-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama Aturan</th>
+                                    <th>Pemicu</th>
+                                    <th>Status</th>
+                                    <th>Tereksekusi</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rules-tbody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: var(--secondary); padding: 24px;">Memuat aturan otomasi...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Real-time Live Preview Device -->
+            <div class="preview-sticky-wrap">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title" style="font-size: 0.95rem;">Simulasi Tampilan di Instagram</h2>
+                    </div>
+
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <div class="phone-header">
+                                <div class="phone-avatar"></div>
+                                <div>
+                                    <div class="phone-username">tokokreator.id</div>
+                                    <div style="font-size: 0.6875rem; color: #8E8E8E;">Aktif sekarang</div>
+                                </div>
+                            </div>
+
+                            <div class="phone-chat">
+                                <div class="chat-bubble-user" id="preview-user-bubble">
+                                    resep
+                                </div>
+                                <div class="chat-bubble-bot">
+                                    <span id="preview-bot-text">Halo kak! Ini link panduan lengkap yang diminta ya:</span>
+                                    <a href="#" id="preview-btn-card" class="preview-btn">Buka Halaman</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TENANT_ID = 'tenant_default';
+
+        function updateLivePreview() {
+            const keywords = document.getElementById('trigger_keywords').value.trim();
+            const firstKw = keywords ? keywords.split(',')[0].trim() : 'resep';
+            document.getElementById('preview-user-bubble').textContent = firstKw;
+
+            const dmText = document.getElementById('reply_dm_text').value.trim();
+            document.getElementById('preview-bot-text').textContent = dmText || 'Halo kak! Ini link panduan lengkap yang diminta ya:';
+
+            const btnLabel = document.getElementById('button_label').value.trim();
+            const previewBtn = document.getElementById('preview-btn-card');
+            if (btnLabel) {
+                previewBtn.style.display = 'block';
+                previewBtn.textContent = btnLabel;
+            } else {
+                previewBtn.style.display = 'none';
+            }
+        }
+
+        async function loadRules() {
+            try {
+                const res = await fetch(`/api/v1/rules?tenant_id=${TENANT_ID}`);
+                const data = await res.json();
+                renderRules(data.rules || []);
+                
+                // Update stats
+                document.getElementById('stat-active-rules').textContent = (data.rules || []).filter(r => r.is_active === 1).length;
+                let totalTriggered = 0;
+                (data.rules || []).forEach(r => totalTriggered += (r.total_triggered || 0));
+                document.getElementById('stat-total-dm').textContent = totalTriggered;
+
+                // Load shared balance
+                const bRes = await fetch(`/api/v1/tenant/${TENANT_ID}/balance`);
+                const bData = await bRes.json();
+                document.getElementById('stat-shared-credits').textContent = bData.shared_pushnotif_credits || 0;
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function renderRules(rules) {
+            const tbody = document.getElementById('rules-tbody');
+            if (rules.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--secondary); padding: 24px;">Belum ada aturan aktif. Buat aturan pertama di atas.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = rules.map(r => {
+                const tags = r.trigger_keywords.split(',').map(k => `<span class="tag">${k.trim()}</span>`).join('');
+                const statusBadge = r.is_active === 1 
+                    ? `<span class="badge-active">Aktif</span>` 
+                    : `<span class="badge-paused">Dijeda</span>`;
+                return `
+                    <tr>
+                        <td><strong>${r.rule_name}</strong></td>
+                        <td>${tags}</td>
+                        <td>${statusBadge}</td>
+                        <td>${r.total_triggered} kali</td>
+                        <td>
+                            <button onclick="toggleRule('${r.id}')" style="background:none; border:none; cursor:pointer; font-size:0.8125rem; color:var(--primary); text-decoration:underline; margin-right:8px;">
+                                ${r.is_active === 1 ? 'Jeda' : 'Aktifkan'}
+                            </button>
+                            <button onclick="deleteRule('${r.id}')" style="background:none; border:none; cursor:pointer; font-size:0.8125rem; color:var(--danger);">
+                                Hapus
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function handleCreateRule(e) {
+            e.preventDefault();
+            const payload = {
+                rule_name: document.getElementById('rule_name').value,
+                trigger_keywords: document.getElementById('trigger_keywords').value,
+                reply_public_comment: document.getElementById('reply_public_comment').value,
+                reply_dm_text: document.getElementById('reply_dm_text').value,
+                button_label: document.getElementById('button_label').value,
+                button_url: document.getElementById('button_url').value,
+                require_follow: document.getElementById('require_follow').checked
+            };
+
+            await fetch(`/api/v1/rules?tenant_id=${TENANT_ID}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            document.getElementById('form-rule').reset();
+            updateLivePreview();
+            loadRules();
+        }
+
+        async function toggleRule(ruleId) {
+            await fetch(`/api/v1/rules/${ruleId}/toggle?tenant_id=${TENANT_ID}`, { method: 'POST' });
+            loadRules();
+        }
+
+        async function deleteRule(ruleId) {
+            if (!confirm('Yakin ingin menghapus aturan otomasi ini?')) return;
+            await fetch(`/api/v1/rules/${ruleId}?tenant_id=${TENANT_ID}`, { method: 'DELETE' });
+            loadRules();
+        }
+
+        // Initial setup
+        updateLivePreview();
+        loadRules();
+    </script>
+</body>
+</html>
