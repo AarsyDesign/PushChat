@@ -9,92 +9,105 @@
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Full Light Theme (Default / Toggleable) */
-            --bg-body: #F8FAFC;
+            /* Full Light Monochrome (Pure Black & White + Grayscale) */
+            --bg-body: #FFFFFF;
             --bg-surface: #FFFFFF;
-            --bg-surface-subtle: #F1F5F9;
-            --border-color: #E2E8F0;
-            --border-hover: #CBD5E1;
-            --text-main: #0F172A;
-            --text-muted: #64748B;
-            --text-subtle: #94A3B8;
+            --bg-surface-subtle: #F4F4F5;
+            --border-color: #E4E4E7;
+            --border-hover: #A1A1AA;
+            --text-main: #09090B;
+            --text-muted: #71717A;
+            --text-subtle: #A1A1AA;
 
-            /* Accents */
-            --accent-green: #10B981;
-            --accent-green-bg: #ECFDF5;
-            --accent-green-text: #065F46;
-            --danger: #EF4444;
-            --danger-bg: #FEF2F2;
-
-            /* Sidebar */
-            --sidebar-bg: #FFFFFF;
-            --sidebar-border: #E2E8F0;
-            --sidebar-item-active: #F1F5F9;
-            --sidebar-item-hover: #F8FAFC;
-            --sidebar-text: #0F172A;
-            --sidebar-muted: #64748B;
+            /* Sidebar Light */
+            --sidebar-bg: #FAFAFA;
+            --sidebar-border: #E4E4E7;
+            --sidebar-item-active: #EEEEEE;
+            --sidebar-item-hover: #F4F4F5;
+            --sidebar-text: #09090B;
+            --sidebar-muted: #71717A;
 
             /* Form & Inputs */
             --input-bg: #FFFFFF;
-            --input-border: #CBD5E1;
-            --input-focus: #0F172A;
-            --btn-primary-bg: #0F172A;
+            --input-border: #D4D4D8;
+            --input-focus: #09090B;
+            --btn-primary-bg: #09090B;
             --btn-primary-text: #FFFFFF;
-            --btn-primary-hover: #1E293B;
+            --btn-primary-hover: #27272A;
 
-            /* Phone Mockup */
+            /* Phone Mockup Light */
             --phone-outer: #FFFFFF;
-            --phone-screen-bg: #FAFAFA;
-            --phone-header-bg: #FFFFFF;
-            --phone-header-border: #EFEFEF;
-            --phone-bot-bubble: #EFEFEF;
-            --phone-bot-text: #262626;
+            --phone-screen-bg: #FFFFFF;
+            --phone-header-bg: #FAFAFA;
+            --phone-header-border: #E4E4E7;
+            --phone-avatar-bg: #27272A;
+            --phone-user-bubble: #18181B;
+            --phone-user-text: #FFFFFF;
+            --phone-bot-bubble: #F4F4F5;
+            --phone-bot-text: #09090B;
             --phone-btn-bg: #FFFFFF;
-            --phone-btn-text: #3797F0;
-            --phone-btn-border: #DBDBDB;
+            --phone-btn-text: #09090B;
+            --phone-btn-border: #D4D4D8;
+
+            /* Badges & Status */
+            --status-dot: #09090B;
+            --badge-active-bg: #18181B;
+            --badge-active-text: #FFFFFF;
+            --badge-active-border: #18181B;
+            --badge-paused-bg: #F4F4F5;
+            --badge-paused-text: #71717A;
+            --badge-paused-border: #E4E4E7;
         }
 
         [data-theme="dark"] {
-            /* Full Dark Theme */
-            --bg-body: #080D1A;
-            --bg-surface: #0E1626;
-            --bg-surface-subtle: #141F36;
-            --border-color: #1E2D4A;
-            --border-hover: #2B3E66;
-            --text-main: #F8FAFC;
-            --text-muted: #94A3B8;
-            --text-subtle: #64748B;
+            /* Full Dark Monochrome (Pure Black & White + Grayscale) */
+            --bg-body: #000000;
+            --bg-surface: #0A0A0A;
+            --bg-surface-subtle: #141414;
+            --border-color: #262626;
+            --border-hover: #404040;
+            --text-main: #FFFFFF;
+            --text-muted: #A3A3A3;
+            --text-subtle: #737373;
 
             /* Sidebar Dark */
-            --sidebar-bg: #070B16;
-            --sidebar-border: #152238;
-            --sidebar-item-active: #141F36;
-            --sidebar-item-hover: #0E1626;
-            --sidebar-text: #F8FAFC;
-            --sidebar-muted: #8E9DB8;
+            --sidebar-bg: #050505;
+            --sidebar-border: #1F1F1F;
+            --sidebar-item-active: #181818;
+            --sidebar-item-hover: #121212;
+            --sidebar-text: #FFFFFF;
+            --sidebar-muted: #888888;
 
             /* Form & Inputs Dark */
-            --input-bg: #0B1322;
-            --input-border: #1E2D4A;
-            --input-focus: #38BDF8;
-            --btn-primary-bg: #F8FAFC;
-            --btn-primary-text: #0F172A;
-            --btn-primary-hover: #E2E8F0;
+            --input-bg: #0A0A0A;
+            --input-border: #262626;
+            --input-focus: #FFFFFF;
+            --btn-primary-bg: #FFFFFF;
+            --btn-primary-text: #000000;
+            --btn-primary-hover: #E5E5E5;
 
             /* Phone Mockup Dark */
-            --phone-outer: #0F172A;
+            --phone-outer: #0A0A0A;
             --phone-screen-bg: #000000;
-            --phone-header-bg: #121212;
-            --phone-header-border: #262626;
-            --phone-bot-bubble: #262626;
-            --phone-bot-text: #F5F5F5;
-            --phone-btn-bg: #1A1A1A;
-            --phone-btn-text: #38BDF8;
+            --phone-header-bg: #0A0A0A;
+            --phone-header-border: #1F1F1F;
+            --phone-avatar-bg: #FFFFFF;
+            --phone-user-bubble: #FFFFFF;
+            --phone-user-text: #000000;
+            --phone-bot-bubble: #1F1F1F;
+            --phone-bot-text: #FFFFFF;
+            --phone-btn-bg: #141414;
+            --phone-btn-text: #FFFFFF;
             --phone-btn-border: #333333;
 
-            /* Accents */
-            --accent-green-bg: rgba(16, 185, 129, 0.12);
-            --accent-green-text: #34D399;
+            /* Badges & Status */
+            --status-dot: #FFFFFF;
+            --badge-active-bg: #FFFFFF;
+            --badge-active-text: #000000;
+            --badge-active-border: #FFFFFF;
+            --badge-paused-bg: #1A1A1A;
+            --badge-paused-text: #A3A3A3;
+            --badge-paused-border: #333333;
         }
 
         * {
@@ -187,7 +200,7 @@
         }
 
         .nav-item svg {
-            color: var(--accent-green);
+            color: var(--text-main);
             flex-shrink: 0;
         }
 
@@ -248,7 +261,7 @@
         .status-dot {
             width: 8px;
             height: 8px;
-            background: var(--accent-green);
+            background: var(--status-dot);
             border-radius: 50%;
         }
 
@@ -310,7 +323,7 @@
 
         .metric-sub {
             font-size: 0.75rem;
-            color: var(--accent-green);
+            color: var(--text-muted);
             margin-top: 4px;
             font-weight: 500;
         }
@@ -419,7 +432,7 @@
         }
 
         .btn-primary:hover {
-            opacity: 0.92;
+            opacity: 0.85;
         }
 
         .checkbox-label {
@@ -435,6 +448,7 @@
         .checkbox-label input {
             margin-top: 3px;
             cursor: pointer;
+            accent-color: var(--text-main);
         }
 
         /* Rules Table */
@@ -467,13 +481,14 @@
             border-radius: 4px;
             font-size: 0.75rem;
             margin: 2px 2px 2px 0;
-            color: var(--text-muted);
+            color: var(--text-main);
         }
 
         .badge-active {
             display: inline-block;
-            background: var(--accent-green-bg);
-            color: var(--accent-green-text);
+            background: var(--badge-active-bg);
+            color: var(--badge-active-text);
+            border: 1px solid var(--badge-active-border);
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 0.75rem;
@@ -482,8 +497,9 @@
 
         .badge-paused {
             display: inline-block;
-            background: var(--bg-surface-subtle);
-            color: var(--text-muted);
+            background: var(--badge-paused-bg);
+            color: var(--badge-paused-text);
+            border: 1px solid var(--badge-paused-border);
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 0.75rem;
@@ -501,7 +517,7 @@
             border-radius: 28px;
             padding: 10px;
             background: var(--phone-outer);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             max-width: 320px;
             margin: 0 auto;
         }
@@ -529,7 +545,7 @@
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF);
+            background: var(--phone-avatar-bg);
         }
 
         .phone-username {
@@ -549,8 +565,8 @@
 
         .chat-bubble-user {
             align-self: flex-end;
-            background: #3797F0;
-            color: #FFFFFF;
+            background: var(--phone-user-bubble);
+            color: var(--phone-user-text);
             padding: 8px 12px;
             border-radius: 16px 16px 4px 16px;
             font-size: 0.8125rem;
@@ -665,7 +681,7 @@
             <div class="metric-grid">
                 <div class="metric-card">
                     <div class="metric-label">Subscription Tier</div>
-                    <div class="metric-value" style="color: var(--accent-green);">Creator Pro</div>
+                    <div class="metric-value">Creator Pro</div>
                     <div class="metric-sub">Active until Dec 1, 2026</div>
                 </div>
                 <div class="metric-card">
@@ -779,7 +795,7 @@
                                     <div class="phone-avatar"></div>
                                     <div>
                                         <div class="phone-username">creatorbrand.id</div>
-                                        <div style="font-size: 0.6875rem; color: #8E8E8E;">Active now</div>
+                                        <div style="font-size: 0.6875rem; color: var(--text-muted);">Active now</div>
                                     </div>
                                 </div>
 
@@ -803,7 +819,7 @@
     <script>
         const TENANT_ID = 'tnt_demo';
 
-        // Theme Toggle Logic (Full Light vs Full Dark)
+        // Theme Toggle Logic (Full Light vs Full Dark Monochrome)
         function initTheme() {
             const savedTheme = localStorage.getItem('pushchat_theme') || 'dark';
             setTheme(savedTheme);
@@ -907,10 +923,10 @@
                         <td>${statusBadge}</td>
                         <td>${r.total_triggered.toLocaleString()} times</td>
                         <td>
-                            <button onclick="toggleRule('${r.id}')" style="background:none; border:none; cursor:pointer; font-size:0.8125rem; color:var(--text-main); text-decoration:underline; margin-right:8px;">
+                            <button onclick="toggleRule('${r.id}')" style="background:none; border:none; cursor:pointer; font-size:0.8125rem; color:var(--text-main); text-decoration:underline; margin-right:12px;">
                                 ${r.is_active === 1 ? 'Pause' : 'Resume'}
                             </button>
-                            <button onclick="deleteRule('${r.id}')" style="background:none; border:none; cursor:pointer; font-size:0.8125rem; color:var(--danger);">
+                            <button onclick="deleteRule('${r.id}')" style="background:none; border:none; cursor:pointer; font-size:0.8125rem; color:var(--text-muted); text-decoration:underline;">
                                 Delete
                             </button>
                         </td>
