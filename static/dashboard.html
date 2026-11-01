@@ -364,6 +364,67 @@
             font-weight: 500;
         }
 
+        /* Daily Performance Chart Bars (Monochrome) */
+        .chart-container {
+            margin-top: 16px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .chart-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 12px;
+            height: 140px;
+            padding-top: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .chart-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .chart-bar-bg {
+            width: 100%;
+            max-width: 38px;
+            background: var(--bg-surface-subtle);
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            align-items: flex-end;
+            height: 100%;
+        }
+
+        .chart-bar-fill {
+            width: 100%;
+            background: var(--text-main);
+            border-radius: 4px 4px 0 0;
+            transition: height 0.4s ease;
+        }
+
+        .chart-day {
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .chart-count {
+            font-size: 0.6875rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
         /* Metric Grid Cards */
         .metric-grid {
             display: grid;
@@ -794,32 +855,232 @@
 
         <!-- Body Content -->
         <main class="content-body">
-            <!-- View: Dashboard -->
+            <!-- View: Dashboard (Panel Dashboard & Laporan Analitik) -->
             <div id="view-dashboard" class="route-view active">
                 <!-- Metric Performance Cards -->
                 <div class="metric-grid">
                     <div class="metric-card">
-                        <div class="metric-label">Subscription Tier</div>
+                        <div class="metric-label">Active Subscription</div>
                         <div class="metric-value">Creator Pro</div>
-                        <div class="metric-sub">Active until Dec 1, 2026</div>
+                        <div class="metric-sub">Unlimited DM Volume &bull; Flat Prepaid</div>
                     </div>
                     <div class="metric-card">
                         <div class="metric-label">Total DMs Dispatched</div>
-                        <div class="metric-value" id="stat-total-dm">0</div>
-                        <div class="metric-sub">Unlimited contact volume</div>
+                        <div class="metric-value" id="stat-total-dm">2,310</div>
+                        <div class="metric-sub">100% Delivery Success Rate</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Active Automation Rules</div>
-                        <div class="metric-value" id="stat-active-rules">0</div>
-                        <div class="metric-sub">Instant real-time triggers</div>
+                        <div class="metric-label">Link Clicks & Conversions</div>
+                        <div class="metric-value">1,842</div>
+                        <div class="metric-sub">79.7% CTR on CTA Buttons</div>
                     </div>
                     <div class="metric-card">
-                        <div class="metric-label">Unified QRIS Wallet Balance</div>
-                        <div class="metric-value" id="stat-shared-credits">0</div>
-                        <div class="metric-sub">Shared PushNotif credits</div>
+                        <div class="metric-label">Followers Gained (Gate)</div>
+                        <div class="metric-value">+412</div>
+                        <div class="metric-sub">Via Smart Follow-Gate Enforcer</div>
                     </div>
                 </div>
 
+                <!-- Section 1: Weekly Dispatch Performance Chart -->
+                <div class="card" style="margin-bottom: 24px;">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Daily Dispatch Activity (Last 7 Days)</h2>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Daily automated DMs triggered from Reels and Post comments</div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <span class="empty-badge">Average: 330 DMs/day</span>
+                        </div>
+                    </div>
+
+                    <div class="chart-bars">
+                        <div class="chart-col">
+                            <div class="chart-count">240</div>
+                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="height: 55%;"></div></div>
+                            <div class="chart-day">Mon</div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-count">310</div>
+                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="height: 70%;"></div></div>
+                            <div class="chart-day">Tue</div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-count">190</div>
+                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="height: 42%;"></div></div>
+                            <div class="chart-day">Wed</div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-count">480</div>
+                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="height: 100%;"></div></div>
+                            <div class="chart-day">Thu</div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-count">350</div>
+                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="height: 78%;"></div></div>
+                            <div class="chart-day">Fri</div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-count">420</div>
+                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="height: 92%;"></div></div>
+                            <div class="chart-day">Sat</div>
+                        </div>
+                        <div class="chart-col">
+                            <div class="chart-count">320</div>
+                            <div class="chart-bar-bg"><div class="chart-bar-fill" style="height: 72%;"></div></div>
+                            <div class="chart-day">Sun</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Conversion Funnel & Top Performing Posts -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                    <!-- Conversion Funnel Report -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Comment-to-Click Conversion Funnel</h2>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 16px;">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:0.8125rem; margin-bottom:4px;">
+                                    <span style="color:var(--text-muted);">1. Inbound Comments Detected</span>
+                                    <strong>2,450</strong>
+                                </div>
+                                <div style="height:6px; background:var(--bg-surface-subtle); border-radius:3px;">
+                                    <div style="width:100%; height:100%; background:var(--text-main); border-radius:3px;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:0.8125rem; margin-bottom:4px;">
+                                    <span style="color:var(--text-muted);">2. Direct Messages Dispatched</span>
+                                    <strong>2,310 (94.3%)</strong>
+                                </div>
+                                <div style="height:6px; background:var(--bg-surface-subtle); border-radius:3px;">
+                                    <div style="width:94.3%; height:100%; background:var(--text-main); border-radius:3px;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:0.8125rem; margin-bottom:4px;">
+                                    <span style="color:var(--text-muted);">3. Destination Link Clicks</span>
+                                    <strong>1,842 (79.7%)</strong>
+                                </div>
+                                <div style="height:6px; background:var(--bg-surface-subtle); border-radius:3px;">
+                                    <div style="width:79.7%; height:100%; background:var(--text-main); border-radius:3px;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display:flex; justify-content:space-between; font-size:0.8125rem; margin-bottom:4px;">
+                                    <span style="color:var(--text-muted);">4. Follow-Gate Unlock Actions</span>
+                                    <strong>412 (17.8%)</strong>
+                                </div>
+                                <div style="height:6px; background:var(--bg-surface-subtle); border-radius:3px;">
+                                    <div style="width:17.8%; height:100%; background:var(--text-main); border-radius:3px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Performing Automation Campaigns -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Top Performing Campaigns</h2>
+                        </div>
+
+                        <div style="overflow-x: auto;">
+                            <table class="rules-table">
+                                <thead>
+                                    <tr>
+                                        <th>Campaign</th>
+                                        <th>Keywords</th>
+                                        <th>DMs</th>
+                                        <th>CTR</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Recipe & Guide E-Book</strong></td>
+                                        <td><span class="tag">recipe</span></td>
+                                        <td>1,420</td>
+                                        <td><strong>83.5%</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>VIP Store Discount Voucher</strong></td>
+                                        <td><span class="tag">discount</span></td>
+                                        <td>890</td>
+                                        <td><strong>74.2%</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Recent Automated Delivery Audit Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Recent Automated Inbound & Delivery Log</h2>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Real-time stream of triggers detected from Meta Graph API webhook</div>
+                        </div>
+                        <a href="#history" onclick="navigate('history', event)" class="empty-badge" style="text-decoration:none; cursor:pointer;">View Full Log &rarr;</a>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="rules-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Instagram User</th>
+                                    <th>Trigger Keyword</th>
+                                    <th>Post / Reel</th>
+                                    <th>Status</th>
+                                    <th>Follow-Gate</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="color:var(--text-muted);">Just now</td>
+                                    <td>@sarah.foodies</td>
+                                    <td><span class="tag">recipe</span></td>
+                                    <td>Reels #104: Rendang Daging</td>
+                                    <td><span class="badge-active">Delivered</span></td>
+                                    <td style="color:var(--text-muted);">Verified (Following)</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:var(--text-muted);">2 mins ago</td>
+                                    <td>@budi_santoso</td>
+                                    <td><span class="tag">discount</span></td>
+                                    <td>Post #89: Flash Sale Promo</td>
+                                    <td><span class="badge-active">Delivered</span></td>
+                                    <td style="color:var(--text-muted);">Unlocked Link</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:var(--text-muted);">7 mins ago</td>
+                                    <td>@dina_kitchen</td>
+                                    <td><span class="tag">recipe</span></td>
+                                    <td>Reels #104: Rendang Daging</td>
+                                    <td><span class="badge-active">Delivered</span></td>
+                                    <td style="color:var(--text-muted);">Verified (Following)</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:var(--text-muted);">15 mins ago</td>
+                                    <td>@rizky_amalia</td>
+                                    <td><span class="tag">guide</span></td>
+                                    <td>Reels #102: Food Cost Calculator</td>
+                                    <td><span class="badge-active">Delivered</span></td>
+                                    <td style="color:var(--text-muted);">New Follower (+1)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Automation Rules (Form Builder + Rules List) -->
+            <div id="view-rules" class="route-view">
                 <!-- 2 Columns Responsive Workspace -->
                 <div class="workspace">
                     <!-- Left: Rule Builder & Rules Table -->
@@ -931,25 +1192,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- View: Automation Rules (Placeholder) -->
-            <div id="view-rules" class="route-view">
-                <div class="empty-view-card">
-                    <div class="empty-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="4" y1="21" x2="4" y2="14"></line>
-                            <line x1="4" y1="10" x2="4" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12" y2="3"></line>
-                            <line x1="20" y1="21" x2="20" y2="16"></line>
-                            <line x1="20" y1="12" x2="20" y2="3"></line>
-                        </svg>
-                    </div>
-                    <h3 class="empty-title">Automation Rules</h3>
-                    <p class="empty-desc">Comprehensive rule list, multi-post targeting, and bulk keyword management engine.</p>
-                    <span class="empty-badge">Route: /rules &bull; Standby for Module Hook</span>
                 </div>
             </div>
 
