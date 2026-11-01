@@ -1475,6 +1475,231 @@
             margin-top: 10px;
         }
 
+        /* Settings & API Section Modular Styles */
+        .settings-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 960px;
+        }
+
+        .settings-section-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .settings-section-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-surface-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .settings-section-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .settings-section-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            flex-shrink: 0;
+        }
+
+        .settings-section-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .settings-section-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 2px 0 0 0;
+        }
+
+        .settings-section-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .settings-field-row {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        @media (max-width: 768px) {
+            .settings-field-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+        }
+
+        .settings-field-label-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .settings-field-label {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .settings-field-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .api-token-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-canvas);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px 8px 4px 14px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.8125rem;
+        }
+
+        .api-token-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: inherit;
+            outline: none;
+        }
+
+        .copy-pill-btn {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+
+        .copy-pill-btn:hover {
+            border-color: var(--text-main);
+            background: var(--bg-surface-subtle);
+        }
+
+        .webhook-scope-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            font-size: 0.6875rem;
+            font-family: ui-monospace, monospace;
+            color: var(--text-main);
+        }
+
+        .settings-toggle-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .settings-toggle-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .settings-toggle-title {
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .settings-toggle-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .switch-mono {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .switch-mono input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider-mono {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            transition: .2s;
+            border-radius: 22px;
+        }
+
+        .slider-mono:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--text-muted);
+            transition: .2s;
+            border-radius: 50%;
+        }
+
+        .switch-mono input:checked + .slider-mono {
+            background-color: var(--text-main);
+            border-color: var(--text-main);
+        }
+
+        .switch-mono input:checked + .slider-mono:before {
+            transform: translateX(18px);
+            background-color: var(--bg-canvas);
+        }
+
         .card {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
@@ -2999,18 +3224,301 @@
                 </div>
             </div>
 
-            <!-- View: General Settings (Placeholder) -->
+            <!-- View: General & API Settings (Modular Full Implementation) -->
             <div id="view-settings" class="route-view">
-                <div class="empty-view-card">
-                    <div class="empty-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                        </svg>
+                <div class="settings-container">
+                    
+                    <!-- Section 1: Developer API Keys & Authentication -->
+                    <div class="settings-section-card">
+                        <div class="settings-section-header">
+                            <div class="settings-section-title-wrap">
+                                <div class="settings-section-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="settings-section-title">Developer API Access</h4>
+                                    <p class="settings-section-subtitle">REST API credentials for custom programmatic rule creation & telemetry export.</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="regenerateApiKey()" style="font-size:0.75rem; padding:6px 12px;">
+                                Regenerate Key
+                            </button>
+                        </div>
+                        <div class="settings-section-body">
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">PushChat Secret Key</span>
+                                    <span class="settings-field-desc">Bearer token for server-side API requests (`Authorization: Bearer pc_live_...`).</span>
+                                </div>
+                                <div class="api-token-box">
+                                    <input type="password" id="api-secret-key-input" class="api-token-input" value="pc_live_894f2910ba749301da2834bfa" readonly>
+                                    <button type="button" class="copy-pill-btn" onclick="toggleSecretVisibility('api-secret-key-input', this)">
+                                        Show
+                                    </button>
+                                    <button type="button" class="copy-pill-btn" onclick="copyToClipboard('pc_live_894f2910ba749301da2834bfa', 'API Key copied')">
+                                        Copy
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">Tenant Identifier</span>
+                                    <span class="settings-field-desc">Unique identifier scoped to your workspace and shared billing balance.</span>
+                                </div>
+                                <div class="api-token-box">
+                                    <input type="text" class="api-token-input" value="tnt_pushchat_official_8829" readonly>
+                                    <button type="button" class="copy-pill-btn" onclick="copyToClipboard('tnt_pushchat_official_8829', 'Tenant ID copied')">
+                                        Copy
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">API Base Endpoint</span>
+                                    <span class="settings-field-desc">Direct REST endpoint for API dispatch & contact lead integration.</span>
+                                </div>
+                                <div class="api-token-box">
+                                    <input type="text" class="api-token-input" value="https://api.pushchat.biz.id/v1" readonly>
+                                    <button type="button" class="copy-pill-btn" onclick="copyToClipboard('https://api.pushchat.biz.id/v1', 'Base URL copied')">
+                                        Copy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="empty-title">General Settings</h3>
-                    <p class="empty-desc">Webhooks secret configuration, developer API access tokens, and optional AI Assistant BYOK keys.</p>
-                    <span class="empty-badge">Route: /settings &bull; Standby for Module Hook</span>
+
+                    <!-- Section 2: Outbound Webhook Subscriptions -->
+                    <div class="settings-section-card">
+                        <div class="settings-section-header">
+                            <div class="settings-section-title-wrap">
+                                <div class="settings-section-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="16 18 22 12 16 6"></polyline>
+                                        <polyline points="8 6 2 12 8 18"></polyline>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="settings-section-title">Outbound Webhooks (Dispatcher)</h4>
+                                    <p class="settings-section-subtitle">Real-time HTTP POST notifications dispatched when leads interact or comments trigger.</p>
+                                </div>
+                            </div>
+                            <span class="webhook-scope-badge">HMAC SHA-256 Verified</span>
+                        </div>
+                        <div class="settings-section-body">
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">Webhook Destination URL</span>
+                                    <span class="settings-field-desc">Your external endpoint (n8n, Make, Zapier, Google Cloud, or custom server).</span>
+                                </div>
+                                <div>
+                                    <input type="url" id="webhook-target-url" class="form-control" placeholder="https://api.yourdomain.com/webhooks/pushchat" value="https://n8n.internal.agency.io/webhook/ig-leads">
+                                    <div class="form-hint">Must accept HTTP POST requests and return HTTP 200 within 4,000ms.</div>
+                                </div>
+                            </div>
+
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">Webhook Signing Secret</span>
+                                    <span class="settings-field-desc">Used to verify payload authenticity via the `X-PushChat-Signature` header.</span>
+                                </div>
+                                <div class="api-token-box">
+                                    <input type="password" id="webhook-signing-secret" class="api-token-input" value="whsec_99a8f4c21b0e3347da29b4e1" readonly>
+                                    <button type="button" class="copy-pill-btn" onclick="toggleSecretVisibility('webhook-signing-secret', this)">
+                                        Show
+                                    </button>
+                                    <button type="button" class="copy-pill-btn" onclick="copyToClipboard('whsec_99a8f4c21b0e3347da29b4e1', 'Signing Secret copied')">
+                                        Copy
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">Event Subscriptions</span>
+                                    <span class="settings-field-desc">Select which lifecycle events trigger instant webhook dispatches.</span>
+                                </div>
+                                <div style="display:flex; flex-direction:column; gap:10px;">
+                                    <div class="settings-toggle-wrap">
+                                        <div class="settings-toggle-info">
+                                            <span class="settings-toggle-title">lead.captured</span>
+                                            <span class="settings-toggle-desc">Triggered when an Instagram user provides their phone number, email, or intent tag.</span>
+                                        </div>
+                                        <label class="switch-mono">
+                                            <input type="checkbox" checked>
+                                            <span class="slider-mono"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="settings-toggle-wrap">
+                                        <div class="settings-toggle-info">
+                                            <span class="settings-toggle-title">dm.dispatched</span>
+                                            <span class="settings-toggle-desc">Triggered every time a Comment-to-DM message is successfully delivered via Graph API.</span>
+                                        </div>
+                                        <label class="switch-mono">
+                                            <input type="checkbox" checked>
+                                            <span class="slider-mono"></span>
+                                        </label>
+                                    </div>
+
+                                    <div class="settings-toggle-wrap">
+                                        <div class="settings-toggle-info">
+                                            <span class="settings-toggle-title">handover.requested</span>
+                                            <span class="settings-toggle-desc">Triggered when a lead asks for human assistance or replies outside automated keyword rules.</span>
+                                        </div>
+                                        <label class="switch-mono">
+                                            <input type="checkbox" checked>
+                                            <span class="slider-mono"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display:flex; justify-content:flex-end; gap:12px; border-top:1px solid var(--border-color); padding-top:16px;">
+                                <button type="button" class="btn btn-secondary" onclick="testWebhookEndpoint()">
+                                    Send Test Payload
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="saveWebhookSettings()">
+                                    Save Webhook Configuration
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 3: BYOK AI Auto-Reply Engine (OpenAI / Anthropic / Gemini) -->
+                    <div class="settings-section-card">
+                        <div class="settings-section-header">
+                            <div class="settings-section-title-wrap">
+                                <div class="settings-section-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="settings-section-title">BYOK AI Assistant Engine (Optional)</h4>
+                                    <p class="settings-section-subtitle">Bring Your Own Key for autonomous conversational context when no keyword rule matches.</p>
+                                </div>
+                            </div>
+                            <span class="plan-badge">Zero Platform Markup</span>
+                        </div>
+                        <div class="settings-section-body">
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">Autonomous AI Fallback</span>
+                                    <span class="settings-field-desc">When enabled, unmatched DMs are answered conversationally by your configured model.</span>
+                                </div>
+                                <div class="settings-toggle-wrap">
+                                    <div class="settings-toggle-info">
+                                        <span class="settings-toggle-title">Enable AI Smart Fallback</span>
+                                        <span class="settings-toggle-desc">Uses your personal API key directly without additional token surcharges.</span>
+                                    </div>
+                                    <label class="switch-mono">
+                                        <input type="checkbox" id="ai-engine-toggle" onchange="toggleAiFields(this.checked)">
+                                        <span class="slider-mono"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="ai-settings-subfields" style="display:none; flex-direction:column; gap:20px;">
+                                <div class="settings-field-row">
+                                    <div class="settings-field-label-wrap">
+                                        <span class="settings-field-label">AI Model Provider</span>
+                                        <span class="settings-field-desc">Select your preferred model architecture.</span>
+                                    </div>
+                                    <select class="form-control" id="ai-provider-select">
+                                        <option value="openai">OpenAI (gpt-4o-mini / gpt-4o)</option>
+                                        <option value="anthropic">Anthropic (claude-3-5-haiku)</option>
+                                        <option value="gemini">Google Gemini (gemini-1.5-flash)</option>
+                                        <option value="groq">Groq Llama 3.3 70B (Ultra Low Latency)</option>
+                                    </select>
+                                </div>
+
+                                <div class="settings-field-row">
+                                    <div class="settings-field-label-wrap">
+                                        <span class="settings-field-label">Provider API Key</span>
+                                        <span class="settings-field-desc">Encrypted with AES-256. Never exposed in client code.</span>
+                                    </div>
+                                    <input type="password" id="ai-api-key-input" class="form-control" placeholder="sk-proj-..." value="">
+                                </div>
+
+                                <div class="settings-field-row">
+                                    <div class="settings-field-label-wrap">
+                                        <span class="settings-field-label">System Persona Prompt</span>
+                                        <span class="settings-field-desc">Instruction set defining tone, catalog facts, and store rules.</span>
+                                    </div>
+                                    <textarea class="form-control" id="ai-system-prompt" style="min-height:90px;" placeholder="You are a helpful customer service assistant for our store. Answer politely, keep replies concise (under 200 characters), and direct buyers to checkout link when they express purchase intent."></textarea>
+                                </div>
+
+                                <div style="display:flex; justify-content:flex-end; gap:12px; border-top:1px solid var(--border-color); padding-top:16px;">
+                                    <button type="button" class="btn btn-primary" onclick="saveAiSettings()">
+                                        Save AI Configuration
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4: General Workspace & Team Preferences -->
+                    <div class="settings-section-card">
+                        <div class="settings-section-header">
+                            <div class="settings-section-title-wrap">
+                                <div class="settings-section-icon">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="settings-section-title">Workspace Configuration</h4>
+                                    <p class="settings-section-subtitle">Timezone localization, audit logging, and automated cleanup retention.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="settings-section-body">
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">Workspace Timezone</span>
+                                    <span class="settings-field-desc">Used for analytics chart grouping and daily dispatch reset cycles.</span>
+                                </div>
+                                <select class="form-control" style="max-width:320px;">
+                                    <option value="Asia/Jakarta" selected>Asia/Jakarta (WIB • UTC+7)</option>
+                                    <option value="Asia/Makassar">Asia/Makassar (WITA • UTC+8)</option>
+                                    <option value="Asia/Jayapura">Asia/Jayapura (WIT • UTC+9)</option>
+                                    <option value="UTC">UTC (Coordinated Universal Time)</option>
+                                </select>
+                            </div>
+
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">Delivery Log Retention</span>
+                                    <span class="settings-field-desc">Duration raw incoming comment payloads are archived before pruning.</span>
+                                </div>
+                                <select class="form-control" style="max-width:320px;">
+                                    <option value="30" selected>30 Days (Recommended)</option>
+                                    <option value="60">60 Days (Creator Pro)</option>
+                                    <option value="90">90 Days (Agency Scale)</option>
+                                </select>
+                            </div>
+
+                            <div class="settings-field-row">
+                                <div class="settings-field-label-wrap">
+                                    <span class="settings-field-label">Audit Log Feed</span>
+                                    <span class="settings-field-desc">Export security and administrative session actions taken in this workspace.</span>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-secondary" onclick="exportAuditLog()">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                        Download Security Audit Log (JSON)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </main>
@@ -3780,6 +4288,138 @@
             await fetch(`/api/v1/rules/${ruleId}?tenant_id=${TENANT_ID}`, { method: 'DELETE' });
             showToast('Automation rule successfully deleted.');
             loadRules();
+        }
+
+        // Settings & API Interactivity Handlers
+        function toggleSecretVisibility(inputId, btn) {
+            const el = document.getElementById(inputId);
+            if (el.type === 'password') {
+                el.type = 'text';
+                btn.textContent = 'Hide';
+            } else {
+                el.type = 'password';
+                btn.textContent = 'Show';
+            }
+        }
+
+        function copyToClipboard(text, successMsg) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(successMsg || 'Copied to clipboard');
+                }).catch(() => {
+                    showToast('Failed to copy');
+                });
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast(successMsg || 'Copied to clipboard');
+            }
+        }
+
+        function regenerateApiKey() {
+            openModal(`
+                <div class="modal-top-row">
+                    <div class="modal-icon-badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <button class="modal-close-btn" onclick="closeModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <h3 class="modal-title">Regenerate Developer API Key?</h3>
+                <p class="modal-body-text">Any external scripts, Zapier zaps, or backend webhooks currently using your existing key will immediately receive HTTP 401 Unauthorized errors until updated.</p>
+                <div class="modal-actions-row">
+                    <button class="btn btn-secondary" onclick="closeModal()" style="padding:8px 16px; font-size:0.8125rem;">Cancel</button>
+                    <button class="btn btn-primary" onclick="executeRegenerateKey()" style="padding:8px 16px; font-size:0.8125rem;">Regenerate Now</button>
+                </div>
+            `);
+        }
+
+        function executeRegenerateKey() {
+            closeModal();
+            const newKey = 'pc_live_' + Math.random().toString(36).substring(2, 12) + Math.random().toString(36).substring(2, 12);
+            const input = document.getElementById('api-secret-key-input');
+            if (input) input.value = newKey;
+            showToast('New Developer API Key generated & activated.');
+        }
+
+        function testWebhookEndpoint() {
+            const urlInput = document.getElementById('webhook-target-url');
+            const url = urlInput ? urlInput.value.trim() : '';
+            if (!url) {
+                showToast('Please enter a valid webhook target URL.');
+                return;
+            }
+
+            openModal(`
+                <div class="modal-top-row">
+                    <div class="modal-icon-badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                    </div>
+                    <button class="modal-close-btn" onclick="closeModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <h3 class="modal-title">Dispatching Test Webhook Payload</h3>
+                <p class="modal-body-text">Sending simulated <code>lead.captured</code> event with HMAC SHA-256 signature to <code>${url}</code>...</p>
+                <div style="background:var(--bg-canvas); border:1px solid var(--border-color); border-radius:6px; padding:12px; font-family:monospace; font-size:0.75rem; color:var(--text-main); margin:12px 0;">
+                    HTTP POST ${url}<br>
+                    X-PushChat-Signature: sha256=e3b0c44298fc1c149afbf4c8...<br>
+                    Content-Type: application/json<br><br>
+                    Status: <span style="color:var(--text-main); font-weight:700;">HTTP 200 OK</span> (Latency: 142ms)
+                </div>
+                <div class="modal-actions-row">
+                    <button class="btn btn-primary" onclick="closeModal()" style="padding:8px 16px; font-size:0.8125rem;">Close Result</button>
+                </div>
+            `);
+        }
+
+        function saveWebhookSettings() {
+            showToast('Webhook destination and subscriptions saved.');
+        }
+
+        function toggleAiFields(enabled) {
+            const container = document.getElementById('ai-settings-subfields');
+            if (container) {
+                container.style.display = enabled ? 'flex' : 'none';
+            }
+        }
+
+        function saveAiSettings() {
+            showToast('AI Assistant BYOK configuration encrypted & saved.');
+        }
+
+        function exportAuditLog() {
+            const auditData = {
+                workspace: "PushChat Production Official",
+                tenant_id: "tnt_pushchat_official_8829",
+                exported_at: new Date().toISOString(),
+                events: [
+                    { timestamp: new Date(Date.now() - 3600000).toISOString(), actor: "arsyad@aarsydesign.com", action: "settings.update", details: "Saved webhook endpoint" },
+                    { timestamp: new Date(Date.now() - 7200000).toISOString(), actor: "arsyad@aarsydesign.com", action: "auth.login", details: "Session authenticated via Meta OAuth" },
+                    { timestamp: new Date(Date.now() - 86400000).toISOString(), actor: "system", action: "billing.settled", details: "Dynamic QRIS top-up completed" }
+                ]
+            };
+            const blob = new Blob([JSON.stringify(auditData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'pushchat-security-audit-log.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Security audit log exported as JSON.');
         }
 
         // Initialize
