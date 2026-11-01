@@ -1311,6 +1311,156 @@
             }
         }
 
+        /* Billing & Dynamic QRIS Section Styles */
+        .billing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .billing-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: border-color 0.15s ease;
+        }
+
+        .billing-card.featured-plan {
+            border-color: var(--border-hover);
+        }
+
+        .billing-plan-header {
+            margin-bottom: 20px;
+        }
+
+        .plan-badge {
+            display: inline-block;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .plan-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin: 12px 0 6px 0;
+        }
+
+        .plan-price-val {
+            font-size: 1.875rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
+        }
+
+        .plan-price-period {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+        }
+
+        .plan-feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 0.8125rem;
+            color: var(--text-main);
+        }
+
+        .plan-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.4;
+        }
+
+        .plan-feature-item.muted-feature {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .plan-feature-icon {
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* Shared PushNotif Wallet Card */
+        .shared-wallet-banner {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .wallet-stat-block {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .wallet-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+        }
+
+        /* QRIS Invoice Sandbox Display */
+        .qris-canvas-box {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 16px;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 14px 0;
+            border: 1px solid #E4E4E7;
+        }
+
+        .qris-code-svg {
+            width: 180px;
+            height: 180px;
+        }
+
+        .qris-meta-strip {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: #09090B;
+            border-top: 1px dashed #D4D4D8;
+            padding-top: 8px;
+            margin-top: 10px;
+        }
+
         .card {
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
@@ -2624,18 +2774,202 @@
                 </div>
             </div>
 
-            <!-- View: Billing & QRIS (Placeholder) -->
+            <!-- View: Billing & QRIS (Subscription & Dynamic QRIS Sandbox) -->
             <div id="view-billing" class="route-view">
-                <div class="empty-view-card">
-                    <div class="empty-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                            <line x1="1" y1="10" x2="23" y2="10"></line>
-                        </svg>
+                <!-- Shared Balance Banner -->
+                <div class="shared-wallet-banner">
+                    <div class="wallet-stat-block">
+                        <div class="wallet-icon-box">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                                <line x1="2" y1="10" x2="22" y2="10"></line>
+                            </svg>
+                        </div>
+                        <div>
+                            <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); font-weight:600;">PushNotif Unified Wallet</div>
+                            <div style="display:flex; align-items:baseline; gap:8px; margin-top:2px;">
+                                <span style="font-size:1.5rem; font-weight:700; color:var(--text-main);" id="wallet-balance-val">Rp 250.000</span>
+                                <span style="font-size:0.75rem; color:var(--text-muted);">Shared with WABA & Web Push</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="empty-title">Billing & QRIS</h3>
-                    <p class="empty-desc">Prepaid 30-day subscription renewals, instant dynamic QRIS top-up, and shared PushNotif balance.</p>
-                    <span class="empty-badge">Route: /billing &bull; Standby for Module Hook</span>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-secondary" onclick="openTopupModal('sandbox')" style="font-size:0.8125rem; padding:8px 14px; gap:6px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            Sandbox QRIS Test
+                        </button>
+                        <button class="btn btn-primary" onclick="openTopupModal('production')" style="font-size:0.8125rem; padding:8px 16px; gap:6px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            Top-Up Balance
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Plans Comparison Grid -->
+                <div class="billing-grid">
+                    <!-- Plan 1: Starter Free (Active) -->
+                    <div class="billing-card">
+                        <div class="billing-plan-header">
+                            <span class="plan-badge">Current Active Plan</span>
+                            <h3 style="font-size:1.25rem; font-weight:600; color:var(--text-main); margin:0 0 4px 0;">Starter Free</h3>
+                            <p style="font-size:0.8125rem; color:var(--text-muted); margin:0; line-height:1.4;">Zero-risk trial tier modeled after Repliz for early creators & testing.</p>
+                            <div class="plan-price-row">
+                                <span class="plan-price-val">Rp 0</span>
+                                <span class="plan-price-period">/ forever</span>
+                            </div>
+                        </div>
+                        <ul class="plan-feature-list">
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span><strong>1 Connected Instagram Account</strong></span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>100 Automated DMs / month</span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>2 Active Keyword Automation Rules</span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Standard DM delivery stream</span>
+                            </li>
+                            <li class="plan-feature-item muted-feature">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <span>Follow-Gate Enforcer lock</span>
+                            </li>
+                            <li class="plan-feature-item muted-feature">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <span>No watermark (Powered by tag)</span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-secondary" disabled style="width:100%; opacity:0.6; cursor:default; font-size:0.8125rem; padding:10px;">
+                            Active Current Plan
+                        </button>
+                    </div>
+
+                    <!-- Plan 2: Creator Pro (Featured Upgrade) -->
+                    <div class="billing-card featured-plan">
+                        <div class="billing-plan-header">
+                            <span class="plan-badge" style="background:var(--text-main); color:var(--bg-canvas); border-color:var(--text-main);">Recommended</span>
+                            <h3 style="font-size:1.25rem; font-weight:600; color:var(--text-main); margin:0 0 4px 0;">Creator Pro</h3>
+                            <p style="font-size:0.8125rem; color:var(--text-muted); margin:0; line-height:1.4;">Uncapped automated Comment-to-DM for viral Reels & online shops.</p>
+                            <div class="plan-price-row">
+                                <span class="plan-price-val">Rp 49.000</span>
+                                <span class="plan-price-period">/ 30 days</span>
+                            </div>
+                        </div>
+                        <ul class="plan-feature-list">
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span><strong>Unlimited Automated DMs</strong> (No viral penalties)</span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span><strong>Up to 3 Connected Accounts</strong></span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span><strong>Follow-Gate Enforcer</strong> (Force follow before link)</span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span><strong>100% White-Label</strong> (Zero PushChat watermark)</span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span><strong>Full Live Inbox Handover</strong> (Multi-operator CS)</span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Unlimited Trigger Automation Rules</span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-primary" onclick="openSubscriptionQRISModal('Creator Pro', 49000)" style="width:100%; font-size:0.8125rem; padding:10px;">
+                            Upgrade via Instant QRIS (Rp 49.000)
+                        </button>
+                    </div>
+
+                    <!-- Plan 3: Agency & Brand Scale -->
+                    <div class="billing-card">
+                        <div class="billing-plan-header">
+                            <span class="plan-badge">Scale & Multi-Brand</span>
+                            <h3 style="font-size:1.25rem; font-weight:600; color:var(--text-main); margin:0 0 4px 0;">Agency Pro</h3>
+                            <p style="font-size:0.8125rem; color:var(--text-muted); margin:0; line-height:1.4;">Dedicated infrastructure for high-volume agencies & enterprise stores.</p>
+                            <div class="plan-price-row">
+                                <span class="plan-price-val">Rp 149.000</span>
+                                <span class="plan-price-period">/ 30 days</span>
+                            </div>
+                        </div>
+                        <ul class="plan-feature-list">
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span><strong>Up to 10 Connected Accounts</strong></span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Unlimited DMs & Live Webhook Bridge</span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Team Seat Management (5 Operator Logins)</span>
+                            </li>
+                            <li class="plan-feature-item">
+                                <svg class="plan-feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span>Direct Dedicated Account Manager</span>
+                            </li>
+                        </ul>
+                        <button class="btn btn-secondary" onclick="openSubscriptionQRISModal('Agency Pro', 149000)" style="width:100%; font-size:0.8125rem; padding:10px;">
+                            Subscribe Agency (Rp 149.000)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Transaction & Invoicing History -->
+                <div class="card" style="margin-top:24px;">
+                    <div class="card-header" style="margin-bottom:14px;">
+                        <div>
+                            <h4 style="font-size:0.9375rem; font-weight:600; color:var(--text-main); margin:0 0 4px 0;">Prepaid Invoicing & Renewal History</h4>
+                            <p style="font-size:0.8125rem; color:var(--text-muted); margin:0;">Real-time settlement logs powered by Bank Indonesia National Standard QRIS.</p>
+                        </div>
+                        <button class="btn-export" onclick="showToast('Exporting transaction history statement...')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            Export Statement
+                        </button>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; font-size:0.8125rem;">
+                            <thead>
+                                <tr style="border-bottom:1px solid var(--border-color); color:var(--text-muted); text-align:left;">
+                                    <th style="padding:10px 12px; font-weight:500;">Invoice Reference</th>
+                                    <th style="padding:10px 12px; font-weight:500;">Description</th>
+                                    <th style="padding:10px 12px; font-weight:500;">Amount</th>
+                                    <th style="padding:10px 12px; font-weight:500;">Method</th>
+                                    <th style="padding:10px 12px; font-weight:500;">Status</th>
+                                    <th style="padding:10px 12px; font-weight:500;">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom:1px solid var(--border-color);">
+                                    <td style="padding:12px; font-family:monospace; color:var(--text-main);">INV-PC-20261028-091</td>
+                                    <td style="padding:12px; color:var(--text-main);">Wallet Prepaid Top-Up (Shared Balance)</td>
+                                    <td style="padding:12px; font-weight:600; color:var(--text-main);">Rp 250.000</td>
+                                    <td style="padding:12px; color:var(--text-muted);">QRIS Instant</td>
+                                    <td style="padding:12px;"><span style="display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.6875rem; font-weight:600; background:var(--bg-surface-subtle); border:1px solid var(--border-color); color:var(--text-main);">SETTLED</span></td>
+                                    <td style="padding:12px; color:var(--text-muted);">28 Oct 2026, 14:22</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding:12px; font-family:monospace; color:var(--text-main);">INV-PC-20261001-002</td>
+                                    <td style="padding:12px; color:var(--text-main);">Starter Free Account Activation</td>
+                                    <td style="padding:12px; font-weight:600; color:var(--text-main);">Rp 0</td>
+                                    <td style="padding:12px; color:var(--text-muted);">Complimentary</td>
+                                    <td style="padding:12px;"><span style="display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.6875rem; font-weight:600; background:var(--bg-surface-subtle); border:1px solid var(--border-color); color:var(--text-main);">ACTIVE</span></td>
+                                    <td style="padding:12px; color:var(--text-muted);">01 Oct 2026, 09:00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -3038,6 +3372,211 @@
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeModal();
         });
+
+        // Billing & Dynamic QRIS Modal System
+        function generateQRISMatrixSVG(invoiceId, amount) {
+            // High-fidelity standard QRIS SVG generator pattern
+            return `
+                <svg class="qris-code-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" fill="#FFFFFF"/>
+                    <!-- Corner Positioning Markers -->
+                    <rect x="8" y="8" width="24" height="24" fill="#000000"/>
+                    <rect x="12" y="12" width="16" height="16" fill="#FFFFFF"/>
+                    <rect x="16" y="16" width="8" height="8" fill="#000000"/>
+
+                    <rect x="68" y="8" width="24" height="24" fill="#000000"/>
+                    <rect x="72" y="12" width="16" height="16" fill="#FFFFFF"/>
+                    <rect x="76" y="16" width="8" height="8" fill="#000000"/>
+
+                    <rect x="8" y="68" width="24" height="24" fill="#000000"/>
+                    <rect x="12" y="72" width="16" height="16" fill="#FFFFFF"/>
+                    <rect x="16" y="76" width="8" height="8" fill="#000000"/>
+
+                    <!-- Data Grid Modules -->
+                    <rect x="36" y="10" width="4" height="4" fill="#000000"/>
+                    <rect x="44" y="10" width="8" height="4" fill="#000000"/>
+                    <rect x="56" y="10" width="4" height="4" fill="#000000"/>
+                    <rect x="36" y="18" width="8" height="4" fill="#000000"/>
+                    <rect x="48" y="18" width="4" height="4" fill="#000000"/>
+                    <rect x="56" y="18" width="8" height="4" fill="#000000"/>
+                    <rect x="36" y="26" width="4" height="4" fill="#000000"/>
+                    <rect x="44" y="26" width="4" height="4" fill="#000000"/>
+                    <rect x="52" y="26" width="8" height="4" fill="#000000"/>
+
+                    <rect x="10" y="36" width="4" height="8" fill="#000000"/>
+                    <rect x="18" y="36" width="8" height="4" fill="#000000"/>
+                    <rect x="30" y="36" width="4" height="4" fill="#000000"/>
+                    <rect x="38" y="36" width="24" height="4" fill="#000000"/>
+                    <rect x="66" y="36" width="8" height="4" fill="#000000"/>
+                    <rect x="78" y="36" width="12" height="4" fill="#000000"/>
+
+                    <rect x="10" y="48" width="8" height="4" fill="#000000"/>
+                    <rect x="22" y="48" width="4" height="8" fill="#000000"/>
+                    <rect x="34" y="44" width="8" height="8" fill="#000000"/>
+                    <rect x="46" y="48" width="8" height="4" fill="#000000"/>
+                    <rect x="58" y="44" width="12" height="4" fill="#000000"/>
+                    <rect x="74" y="48" width="4" height="8" fill="#000000"/>
+                    <rect x="82" y="44" width="8" height="4" fill="#000000"/>
+
+                    <rect x="10" y="58" width="4" height="4" fill="#000000"/>
+                    <rect x="18" y="58" width="8" height="4" fill="#000000"/>
+                    <rect x="30" y="58" width="8" height="4" fill="#000000"/>
+                    <rect x="42" y="56" width="4" height="8" fill="#000000"/>
+                    <rect x="50" y="58" width="8" height="4" fill="#000000"/>
+                    <rect x="62" y="58" width="8" height="4" fill="#000000"/>
+                    <rect x="74" y="58" width="16" height="4" fill="#000000"/>
+
+                    <rect x="36" y="68" width="4" height="4" fill="#000000"/>
+                    <rect x="44" y="68" width="8" height="4" fill="#000000"/>
+                    <rect x="56" y="68" width="4" height="4" fill="#000000"/>
+                    <rect x="64" y="68" width="8" height="4" fill="#000000"/>
+                    <rect x="76" y="68" width="4" height="8" fill="#000000"/>
+                    <rect x="84" y="68" width="6" height="4" fill="#000000"/>
+
+                    <rect x="36" y="78" width="8" height="4" fill="#000000"/>
+                    <rect x="48" y="78" width="4" height="8" fill="#000000"/>
+                    <rect x="56" y="78" width="8" height="4" fill="#000000"/>
+                    <rect x="68" y="78" width="4" height="4" fill="#000000"/>
+                    <rect x="84" y="78" width="6" height="8" fill="#000000"/>
+
+                    <rect x="36" y="86" width="4" height="4" fill="#000000"/>
+                    <rect x="44" y="86" width="12" height="4" fill="#000000"/>
+                    <rect x="60" y="86" width="8" height="4" fill="#000000"/>
+                    <rect x="72" y="86" width="8" height="4" fill="#000000"/>
+                </svg>
+            `;
+        }
+
+        function openSubscriptionQRISModal(planName, priceInt) {
+            const invId = 'INV-PC-' + Date.now().toString().slice(-6);
+            const formattedPrice = 'Rp ' + priceInt.toLocaleString('id-ID');
+            
+            openModal(`
+                <div class="modal-top-row">
+                    <div class="modal-icon-badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                        </svg>
+                    </div>
+                    <button class="modal-close-btn" onclick="closeModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <h3 class="modal-title">Upgrade to ${planName}</h3>
+                <p class="modal-body-text">Scan the dynamic QRIS code below using BCA, Mandiri, GoPay, OVO, Dana, or any banking app. Subscription activates instantly upon settlement.</p>
+                
+                <div style="text-align:center;">
+                    <div class="qris-canvas-box">
+                        <div style="font-size:0.75rem; font-weight:700; color:#09090B; letter-spacing:0.05em; margin-bottom:6px;">QRIS STANDAR PEMBAYARAN NASIONAL</div>
+                        ${generateQRISMatrixSVG(invId, priceInt)}
+                        <div class="qris-meta-strip">
+                            <span>NMID: ID1024391048291</span>
+                            <span>AARSYSYACH TECH</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-meta-box">
+                    <div class="modal-meta-row">
+                        <span style="color:var(--text-muted);">Invoice Reference</span>
+                        <span style="font-family:monospace; color:var(--text-main); font-weight:600;">${invId}</span>
+                    </div>
+                    <div class="modal-meta-row">
+                        <span style="color:var(--text-muted);">Payable Amount</span>
+                        <span style="color:var(--text-main); font-weight:700; font-size:1rem;">${formattedPrice}</span>
+                    </div>
+                    <div class="modal-meta-row">
+                        <span style="color:var(--text-muted);">Duration</span>
+                        <span style="color:var(--text-main);">30 Days Uncapped Access</span>
+                    </div>
+                    <div class="modal-meta-row">
+                        <span style="color:var(--text-muted);">Mode</span>
+                        <span style="color:var(--text-main); font-weight:600;">Live Production Gateway</span>
+                    </div>
+                </div>
+
+                <div class="modal-actions-row">
+                    <button class="btn btn-secondary" onclick="closeModal()" style="padding:8px 16px; font-size:0.8125rem;">Cancel</button>
+                    <button class="btn btn-primary" onclick="simulateSandboxPayment('${invId}', '${planName}', ${priceInt})" style="padding:8px 16px; font-size:0.8125rem;">
+                        Simulate Instant Settlement
+                    </button>
+                </div>
+            `);
+        }
+
+        function openTopupModal(mode = 'sandbox') {
+            const isSandbox = mode === 'sandbox';
+            const invId = (isSandbox ? 'SBX-' : 'INV-') + Date.now().toString().slice(-6);
+            const amount = 50000;
+            
+            openModal(`
+                <div class="modal-top-row">
+                    <div class="modal-icon-badge">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                    </div>
+                    <button class="modal-close-btn" onclick="closeModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <h3 class="modal-title">${isSandbox ? 'Sandbox QRIS Simulator' : 'Prepaid Top-Up QRIS'}</h3>
+                <p class="modal-body-text">${isSandbox ? 'Test the dynamic QRIS settlement webhook in isolated sandbox mode without debiting real bank accounts.' : 'Top up your unified balance shared across PushChat, WhatsApp WABA, and Web Push notifications.'}</p>
+                
+                <div style="text-align:center;">
+                    <div class="qris-canvas-box">
+                        <div style="font-size:0.75rem; font-weight:700; color:#09090B; letter-spacing:0.05em; margin-bottom:6px;">${isSandbox ? 'SANDBOX QRIS TEST VENDOR' : 'QRIS NASIONAL STANDAR'}</div>
+                        ${generateQRISMatrixSVG(invId, amount)}
+                        <div class="qris-meta-strip">
+                            <span>REF: ${invId}</span>
+                            <span>${isSandbox ? 'SIMULATOR MODE' : 'PROD SETTLEMENT'}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-meta-box">
+                    <div class="modal-meta-row">
+                        <span style="color:var(--text-muted);">Invoice Reference</span>
+                        <span style="font-family:monospace; color:var(--text-main); font-weight:600;">${invId}</span>
+                    </div>
+                    <div class="modal-meta-row">
+                        <span style="color:var(--text-muted);">Top-Up Amount</span>
+                        <span style="color:var(--text-main); font-weight:700;">Rp 50.000</span>
+                    </div>
+                    <div class="modal-meta-row">
+                        <span style="color:var(--text-muted);">Destination Wallet</span>
+                        <span style="color:var(--text-main);">PushNotif Shared Pool</span>
+                    </div>
+                    <div class="modal-meta-row">
+                        <span style="color:var(--text-muted);">Environment</span>
+                        <span style="color:var(--text-main); font-weight:600;">${isSandbox ? 'Sandbox Mock (Zero Cost)' : 'Production'}</span>
+                    </div>
+                </div>
+
+                <div class="modal-actions-row">
+                    <button class="btn btn-secondary" onclick="closeModal()" style="padding:8px 16px; font-size:0.8125rem;">Cancel</button>
+                    <button class="btn btn-primary" onclick="simulateSandboxPayment('${invId}', 'Prepaid Balance', 50000)" style="padding:8px 16px; font-size:0.8125rem;">
+                        Trigger Paid Webhook (HTTP 200)
+                    </button>
+                </div>
+            `);
+        }
+
+        function simulateSandboxPayment(invId, desc, amount) {
+            closeModal();
+            showToast(`Payment Confirmed: ${invId} marked as SETTLED. Upgraded to ${desc}!`);
+            
+            // Increment UI wallet balance if top-up
+            if (desc.includes('Balance')) {
+                const walletEl = document.getElementById('wallet-balance-val');
+                if (walletEl) {
+                    walletEl.innerText = 'Rp 300.000';
+                }
+            }
+        }
 
         // Connected Accounts Specific Custom Modals
         function openWebhookDiagnosticModal() {
