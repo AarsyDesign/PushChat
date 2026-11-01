@@ -2634,24 +2634,24 @@
 
                                     <div class="form-group">
                                         <label class="form-label">Private Direct Message Text</label>
-                                        <textarea id="reply_dm_text" class="form-control" style="min-height:90px;" placeholder="Hey there! Here is the exclusive download link you requested:" required oninput="updateLivePreview()"></textarea>
+                                        <textarea id="reply_dm_text" class="form-control" style="min-height:90px;" placeholder="Hey there! Here is the exclusive download link you requested:" required oninput="updateLivePreview()">Hey there! Here is the exclusive download link you requested:</textarea>
                                         <div class="form-hint">Supports personalization variable: <code style="background:var(--bg-surface); padding:2px 4px; border-radius:3px;">{{username}}</code></div>
                                     </div>
 
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom:14px;">
                                         <div class="form-group" style="margin-bottom:0;">
                                             <label class="form-label">CTA Button Label</label>
-                                            <input type="text" id="button_label" class="form-control" placeholder="Open Download Guide" oninput="updateLivePreview()">
+                                            <input type="text" id="button_label" class="form-control" value="Open Download Guide" placeholder="Open Download Guide" oninput="updateLivePreview()">
                                         </div>
                                         <div class="form-group" style="margin-bottom:0;">
                                             <label class="form-label">Destination URL</label>
-                                            <input type="url" id="button_url" class="form-control" placeholder="https://mybrand.com/exclusive-guide" oninput="updateLivePreview()">
+                                            <input type="url" id="button_url" class="form-control" value="https://mybrand.com/exclusive-guide" placeholder="https://mybrand.com/exclusive-guide" oninput="updateLivePreview()">
                                         </div>
                                     </div>
 
                                     <div class="form-group" style="margin-bottom:0;">
                                         <label class="checkbox-label" style="align-items:flex-start;">
-                                            <input type="checkbox" id="require_follow" onchange="updateLivePreview()">
+                                            <input type="checkbox" id="require_follow" checked onchange="updateLivePreview()">
                                             <span style="font-size:0.8125rem; line-height:1.4;">
                                                 <strong>Follow-Gate Enforcer:</strong> Verify if user follows <span style="text-decoration:underline;">@creatorbrand.id</span> before delivering the destination button. If unverified, sends friendly follow request card first.
                                             </span>
