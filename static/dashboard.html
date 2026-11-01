@@ -1314,9 +1314,15 @@
         /* Billing & Dynamic QRIS Section Styles */
         .billing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
             margin-bottom: 24px;
+        }
+
+        @media (max-width: 1080px) {
+            .billing-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .billing-card {
@@ -2860,7 +2866,7 @@
                     <!-- Plan 2: Creator Pro (Featured Upgrade) -->
                     <div class="billing-card featured-plan">
                         <div class="billing-plan-header">
-                            <span class="plan-badge" style="background:var(--text-main); color:var(--bg-canvas); border-color:var(--text-main);">Recommended</span>
+                            <span class="plan-badge" style="background:var(--bg-canvas); color:var(--text-main); border:1px solid var(--text-main);">Recommended</span>
                             <h3 style="font-size:1.25rem; font-weight:600; color:var(--text-main); margin:0 0 4px 0;">Creator Pro</h3>
                             <p style="font-size:0.8125rem; color:var(--text-muted); margin:0; line-height:1.4;">Uncapped automated Comment-to-DM for viral Reels & online shops.</p>
                             <div class="plan-price-row">
