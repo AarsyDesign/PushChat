@@ -232,6 +232,60 @@
             min-width: 0;
         }
 
+        /* Topbar Account Switcher Dropdown */
+        .account-selector-wrap {
+            position: relative;
+        }
+        .account-selector-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.8125rem;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .account-selector-btn:hover {
+            border-color: var(--text-muted);
+        }
+        .account-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 6px);
+            right: 0;
+            width: 260px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            display: none;
+            flex-direction: column;
+            padding: 6px;
+            z-index: 1000;
+        }
+        .account-dropdown-menu.show {
+            display: flex;
+        }
+        .account-dropdown-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .account-dropdown-item:hover {
+            background: var(--bg-canvas);
+        }
+        .account-dropdown-item.active {
+            background: var(--bg-canvas);
+            font-weight: 600;
+        }
+
         /* Top Bar */
         .topbar {
             background: var(--bg-surface);
@@ -2080,9 +2134,61 @@
                     </svg>
                 </button>
 
-                <div class="account-badge">
-                    <span class="status-dot"></span>
-                    <span>@creatorbrand.id (Instagram)</span>
+                <!-- Topbar Account Switcher Dropdown (Agency Mode) -->
+                <div class="account-selector-wrap" id="account-selector-wrap">
+                    <button class="account-selector-btn" id="active-account-btn" onclick="toggleAccountDropdown()">
+                        <span class="status-dot"></span>
+                        <span id="active-account-label">@dimsum.brand (Instagram)</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="account-dropdown-menu" id="account-dropdown-menu">
+                        <div style="font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); padding:4px 8px 6px; border-bottom:1px solid var(--border-color); margin-bottom:4px;">
+                            Active Agency Workspaces (4 / 10)
+                        </div>
+                        <div class="account-dropdown-item active" onclick="switchActiveAccount('@dimsum.brand', 'Instagram', this)">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="status-dot"></span>
+                                <div>
+                                    <div style="font-size:0.8125rem; color:var(--text-main);">@dimsum.brand</div>
+                                    <div style="font-size:0.6875rem; color:var(--text-muted);">Instagram Creator</div>
+                                </div>
+                            </div>
+                            <span style="font-size:0.6875rem; color:var(--text-muted);">Active</span>
+                        </div>
+                        <div class="account-dropdown-item" onclick="switchActiveAccount('@fashion.studio', 'Instagram', this)">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="status-dot"></span>
+                                <div>
+                                    <div style="font-size:0.8125rem; color:var(--text-main);">@fashion.studio</div>
+                                    <div style="font-size:0.6875rem; color:var(--text-muted);">Instagram Business</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="account-dropdown-item" onclick="switchActiveAccount('Toko Roti Prima', 'Facebook Page', this)">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="status-dot"></span>
+                                <div>
+                                    <div style="font-size:0.8125rem; color:var(--text-main);">Toko Roti Prima</div>
+                                    <div style="font-size:0.6875rem; color:var(--text-muted);">Facebook Page Bridge</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="account-dropdown-item" onclick="switchActiveAccount('@gadget.zone', 'Threads', this)">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span class="status-dot"></span>
+                                <div>
+                                    <div style="font-size:0.8125rem; color:var(--text-main);">@gadget.zone</div>
+                                    <div style="font-size:0.6875rem; color:var(--text-muted);">Threads Account</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="border-top:1px solid var(--border-color); margin-top:4px; padding-top:4px;">
+                            <a href="#accounts" onclick="navigate('accounts', event); toggleAccountDropdown();" style="display:flex; align-items:center; gap:6px; padding:6px 8px; font-size:0.75rem; color:var(--text-main); text-decoration:none; border-radius:4px;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                                Manage / Add New Client Account
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <button class="btn-icon" title="Refresh Live Data" onclick="loadRules()">
@@ -2898,38 +3004,44 @@
                 </div>
             </div>
 
-            <!-- View: Connected Accounts (Multi-Account & Free Tier Slot) -->
+            <!-- View: Connected Accounts (Multi-Account Agency Mode) -->
             <div id="view-accounts" class="route-view">
                 <!-- Header Plan & Quota Summary -->
                 <div class="accounts-header-banner">
                     <div class="tier-indicator">
-                        <span class="tier-badge">Starter Free</span>
+                        <span class="tier-badge" style="background:var(--text-main); color:var(--bg-canvas); font-weight:700;">Agency Pro Plan</span>
                         <div>
-                            <div style="font-size:0.875rem; font-weight:600; color:var(--text-main);">1 Connected Account Slot (1 / 1 In Use)</div>
-                            <div style="font-size:0.75rem; color:var(--text-muted);">Free forever tier for first 1,000 early creators. Upgrade to Pro for multi-account management.</div>
+                            <div style="font-size:0.875rem; font-weight:600; color:var(--text-main);">4 of 10 Client Account Slots Active</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted);">Manage up to 10 brand handles simultaneously with multi-operator role isolation.</div>
                         </div>
                     </div>
-                    <a href="#billing" class="btn btn-secondary" onclick="navigate('billing', event)" style="font-size:0.75rem; padding:7px 14px; gap:6px;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        Upgrade Account Limits
-                    </a>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-secondary" onclick="openOAuthConnectModal()" style="font-size:0.75rem; padding:7px 14px; gap:6px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                            + Connect Client Account
+                        </button>
+                        <a href="#billing" class="btn btn-secondary" onclick="navigate('billing', event)" style="font-size:0.75rem; padding:7px 14px; gap:6px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            Manage Plan
+                        </a>
+                    </div>
                 </div>
 
-                <!-- Account Grid -->
-                <div class="accounts-grid">
-                    <!-- Slot 1: Active Connected Instagram Account -->
+                <!-- Account Grid (Agency Mode: Multiple Live Accounts) -->
+                <div class="accounts-grid" id="accounts-cards-grid">
+                    <!-- Client 1: @dimsum.brand (Instagram) -->
                     <div class="account-card active-connected">
                         <div>
                             <div class="account-card-top">
                                 <div class="account-avatar-wrap">
                                     <div class="account-ig-avatar">
-                                        CB
+                                        DS
                                         <div class="account-status-dot" title="Token Live & Active"></div>
                                     </div>
                                     <div class="account-details">
-                                        <h4>@creatorbrand.id</h4>
+                                        <h4>@dimsum.brand</h4>
                                         <div class="account-meta-line">
-                                            <span>Instagram Creator Account</span>
+                                            <span>Instagram Creator</span>
                                             <span>&bull;</span>
                                             <span style="color:var(--text-main); font-weight:500;">Connected</span>
                                         </div>
@@ -2938,38 +3050,36 @@
                                 <span class="status-pill following" style="font-size:0.625rem; padding:2px 8px;">Active Live</span>
                             </div>
 
-                            <!-- Meta Page Bridge Details -->
                             <div class="meta-bridge-info">
                                 <div class="bridge-row">
-                                    <span class="bridge-label">Linked Facebook Page</span>
-                                    <span class="bridge-val">Creator Brand Official (ID: 104829104)</span>
+                                    <span class="bridge-label">Linked Page</span>
+                                    <span class="bridge-val">Dimsum Official FB (ID: 10842918)</span>
                                 </div>
                                 <div class="bridge-row">
                                     <span class="bridge-label">Instagram Scoped ID</span>
-                                    <span class="bridge-val">178414053928190</span>
+                                    <span class="bridge-val">178414092817290</span>
                                 </div>
                                 <div class="bridge-row">
                                     <span class="bridge-label">OAuth Token Status</span>
                                     <span class="bridge-val">60-Day Long-Lived Token (Valid)</span>
                                 </div>
                                 <div class="bridge-row">
-                                    <span class="bridge-label">Webhook Subscriptions</span>
-                                    <span class="bridge-val">comments, messaging_postbacks, mentions</span>
+                                    <span class="bridge-label">Webhooks</span>
+                                    <span class="bridge-val">comments, mentions, messaging</span>
                                 </div>
                             </div>
 
-                            <!-- Monthly Trigger Consumption Strip -->
                             <div class="account-quota-strip">
                                 <div class="quota-label-row">
-                                    <span style="color:var(--text-muted);">Free Monthly DM Quota</span>
-                                    <span style="color:var(--text-main); font-weight:600;">68 / 100 DMs Dispatched (68%)</span>
+                                    <span style="color:var(--text-muted);">Monthly Dispatch Quota</span>
+                                    <span style="color:var(--text-main); font-weight:600;">Unlimited (Agency Pro)</span>
                                 </div>
                                 <div class="quota-progress-track">
-                                    <div class="quota-progress-fill" style="width: 68%;"></div>
+                                    <div class="quota-progress-fill" style="width: 100%;"></div>
                                 </div>
                                 <div style="font-size:0.6875rem; color:var(--text-muted); margin-top:6px; display:flex; justify-content:space-between;">
-                                    <span>Resets on 1st of every month</span>
-                                    <span>32 DMs remaining</span>
+                                    <span>2.481 DMs sent this month</span>
+                                    <span>Zero overage fee</span>
                                 </div>
                             </div>
                         </div>
@@ -2980,35 +3090,246 @@
                                 Test Webhook
                             </button>
                             <button class="btn btn-secondary" style="font-size:0.75rem; padding:8px 12px;" onclick="openRefreshTokenModal()">
-                                Refresh Token
+                                Refresh
+                            </button>
+                            <button class="btn btn-secondary" style="font-size:0.75rem; padding:8px 12px; color:var(--text-muted);" onclick="openDisconnectModal('@dimsum.brand')">
+                                Disconnect
                             </button>
                         </div>
                     </div>
 
-                    <!-- Slot 2: Locked Slot (Requires Creator Pro Plan) -->
-                    <div class="account-card empty-slot">
-                        <div class="empty-slot-icon">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <!-- Client 2: @fashion.studio (Instagram) -->
+                    <div class="account-card active-connected">
+                        <div>
+                            <div class="account-card-top">
+                                <div class="account-avatar-wrap">
+                                    <div class="account-ig-avatar">
+                                        FS
+                                        <div class="account-status-dot" title="Token Live & Active"></div>
+                                    </div>
+                                    <div class="account-details">
+                                        <h4>@fashion.studio</h4>
+                                        <div class="account-meta-line">
+                                            <span>Instagram Business</span>
+                                            <span>&bull;</span>
+                                            <span style="color:var(--text-main); font-weight:500;">Connected</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="status-pill following" style="font-size:0.625rem; padding:2px 8px;">Active Live</span>
+                            </div>
+
+                            <div class="meta-bridge-info">
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Linked Page</span>
+                                    <span class="bridge-val">Studio Fashion ID (ID: 29481902)</span>
+                                </div>
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Instagram Scoped ID</span>
+                                    <span class="bridge-val">178414992816251</span>
+                                </div>
+                                <div class="bridge-row">
+                                    <span class="bridge-label">OAuth Token Status</span>
+                                    <span class="bridge-val">60-Day Long-Lived Token (Valid)</span>
+                                </div>
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Webhooks</span>
+                                    <span class="bridge-val">comments, messaging</span>
+                                </div>
+                            </div>
+
+                            <div class="account-quota-strip">
+                                <div class="quota-label-row">
+                                    <span style="color:var(--text-muted);">Monthly Dispatch Quota</span>
+                                    <span style="color:var(--text-main); font-weight:600;">Unlimited (Agency Pro)</span>
+                                </div>
+                                <div class="quota-progress-track">
+                                    <div class="quota-progress-fill" style="width: 100%;"></div>
+                                </div>
+                                <div style="font-size:0.6875rem; color:var(--text-muted); margin-top:6px; display:flex; justify-content:space-between;">
+                                    <span>1.120 DMs sent this month</span>
+                                    <span>Zero overage fee</span>
+                                </div>
+                            </div>
                         </div>
-                        <h4 style="font-size:0.9375rem; font-weight:600; color:var(--text-main); margin:0 0 6px 0;">Account Slot #2 (Locked)</h4>
+
+                        <div class="account-actions">
+                            <button class="btn btn-secondary" style="flex:1; font-size:0.75rem; padding:8px 12px; gap:6px;" onclick="openWebhookDiagnosticModal()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                                Test Webhook
+                            </button>
+                            <button class="btn btn-secondary" style="font-size:0.75rem; padding:8px 12px;" onclick="openRefreshTokenModal()">
+                                Refresh
+                            </button>
+                            <button class="btn btn-secondary" style="font-size:0.75rem; padding:8px 12px; color:var(--text-muted);" onclick="openDisconnectModal('@fashion.studio')">
+                                Disconnect
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Client 3: Toko Roti Prima (Facebook Page Bridge) -->
+                    <div class="account-card active-connected">
+                        <div>
+                            <div class="account-card-top">
+                                <div class="account-avatar-wrap">
+                                    <div class="account-ig-avatar" style="border-radius:6px;">
+                                        FB
+                                        <div class="account-status-dot" title="Token Live & Active"></div>
+                                    </div>
+                                    <div class="account-details">
+                                        <h4>Toko Roti Prima</h4>
+                                        <div class="account-meta-line">
+                                            <span>Facebook Page Bridge</span>
+                                            <span>&bull;</span>
+                                            <span style="color:var(--text-main); font-weight:500;">Connected</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="status-pill following" style="font-size:0.625rem; padding:2px 8px;">Active Live</span>
+                            </div>
+
+                            <div class="meta-bridge-info">
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Facebook Page ID</span>
+                                    <span class="bridge-val">6819204910281</span>
+                                </div>
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Page Access Token</span>
+                                    <span class="bridge-val">Never-Expiring Page Token (Valid)</span>
+                                </div>
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Webhooks</span>
+                                    <span class="bridge-val">feed, conversations</span>
+                                </div>
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Permission Scope</span>
+                                    <span class="bridge-val">pages_manage_posts, pages_messaging</span>
+                                </div>
+                            </div>
+
+                            <div class="account-quota-strip">
+                                <div class="quota-label-row">
+                                    <span style="color:var(--text-muted);">Monthly Dispatch Quota</span>
+                                    <span style="color:var(--text-main); font-weight:600;">Unlimited (Agency Pro)</span>
+                                </div>
+                                <div class="quota-progress-track">
+                                    <div class="quota-progress-fill" style="width: 100%;"></div>
+                                </div>
+                                <div style="font-size:0.6875rem; color:var(--text-muted); margin-top:6px; display:flex; justify-content:space-between;">
+                                    <span>530 DMs sent this month</span>
+                                    <span>Zero overage fee</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="account-actions">
+                            <button class="btn btn-secondary" style="flex:1; font-size:0.75rem; padding:8px 12px; gap:6px;" onclick="openWebhookDiagnosticModal()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                                Test Webhook
+                            </button>
+                            <button class="btn btn-secondary" style="font-size:0.75rem; padding:8px 12px;" onclick="openRefreshTokenModal()">
+                                Refresh
+                            </button>
+                            <button class="btn btn-secondary" style="font-size:0.75rem; padding:8px 12px; color:var(--text-muted);" onclick="openDisconnectModal('Toko Roti Prima')">
+                                Disconnect
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Client 4: @gadget.zone (Threads Account) -->
+                    <div class="account-card active-connected">
+                        <div>
+                            <div class="account-card-top">
+                                <div class="account-avatar-wrap">
+                                    <div class="account-ig-avatar">
+                                        TH
+                                        <div class="account-status-dot" title="Token Live & Active"></div>
+                                    </div>
+                                    <div class="account-details">
+                                        <h4>@gadget.zone</h4>
+                                        <div class="account-meta-line">
+                                            <span>Threads Account</span>
+                                            <span>&bull;</span>
+                                            <span style="color:var(--text-main); font-weight:500;">Connected</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="status-pill following" style="font-size:0.625rem; padding:2px 8px;">Active Live</span>
+                            </div>
+
+                            <div class="meta-bridge-info">
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Threads User ID</span>
+                                    <span class="bridge-val">9028190281901</span>
+                                </div>
+                                <div class="bridge-row">
+                                    <span class="bridge-label">OAuth Token Status</span>
+                                    <span class="bridge-val">60-Day Long-Lived Token (Valid)</span>
+                                </div>
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Webhooks</span>
+                                    <span class="bridge-val">threads_content_publish, mentions</span>
+                                </div>
+                                <div class="bridge-row">
+                                    <span class="bridge-label">Scope</span>
+                                    <span class="bridge-val">threads_basic, threads_read_replies</span>
+                                </div>
+                            </div>
+
+                            <div class="account-quota-strip">
+                                <div class="quota-label-row">
+                                    <span style="color:var(--text-muted);">Monthly Dispatch Quota</span>
+                                    <span style="color:var(--text-main); font-weight:600;">Unlimited (Agency Pro)</span>
+                                </div>
+                                <div class="quota-progress-track">
+                                    <div class="quota-progress-fill" style="width: 100%;"></div>
+                                </div>
+                                <div style="font-size:0.6875rem; color:var(--text-muted); margin-top:6px; display:flex; justify-content:space-between;">
+                                    <span>892 DMs sent this month</span>
+                                    <span>Zero overage fee</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="account-actions">
+                            <button class="btn btn-secondary" style="flex:1; font-size:0.75rem; padding:8px 12px; gap:6px;" onclick="openWebhookDiagnosticModal()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                                Test Webhook
+                            </button>
+                            <button class="btn btn-secondary" style="font-size:0.75rem; padding:8px 12px;" onclick="openRefreshTokenModal()">
+                                Refresh
+                            </button>
+                            <button class="btn btn-secondary" style="font-size:0.75rem; padding:8px 12px; color:var(--text-muted);" onclick="openDisconnectModal('@gadget.zone')">
+                                Disconnect
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Slot 5: Available Empty Agency Slot (+ Connect New) -->
+                    <div class="account-card empty-slot" style="border:1px dashed var(--border-color); cursor:pointer;" onclick="openOAuthConnectModal()">
+                        <div class="empty-slot-icon" style="background:var(--bg-canvas); border:1px solid var(--border-color);">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </div>
+                        <h4 style="font-size:0.9375rem; font-weight:600; color:var(--text-main); margin:0 0 6px 0;">Available Client Slot (Slot 5 of 10)</h4>
                         <p style="font-size:0.8125rem; color:var(--text-muted); max-width:280px; margin:0 0 18px 0; line-height:1.5;">
-                            Free tier allows 1 active Instagram account. Unlock 3 to 10 accounts with Creator Pro.
+                            Connect another Instagram Creator, Facebook Page, or Threads handle under your Agency Pro plan.
                         </p>
-                        <a href="#billing" class="btn btn-primary" onclick="navigate('billing', event)" style="font-size:0.75rem; padding:8px 16px;">
-                            Unlock with Creator Pro
-                        </a>
+                        <button class="btn btn-secondary" style="font-size:0.75rem; padding:8px 16px; gap:6px;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path></svg>
+                            Connect via Meta OAuth
+                        </button>
                     </div>
                 </div>
 
                 <!-- Official Meta OAuth Connect Banner -->
                 <div class="meta-oauth-banner">
                     <div class="oauth-desc-wrap">
-                        <h4>Connect a New Instagram Professional Account</h4>
-                        <p>Authenticate securely using official Facebook Login for Business. Grants comment reading, automatic reply, and private messaging permissions without exposing passwords.</p>
+                        <h4>Meta Business OAuth Multi-Brand Authorization</h4>
+                        <p>Authenticate multiple client business pages securely using official Facebook Login for Business. Grants comment reading, automatic reply, and private messaging permissions without exposing client passwords.</p>
                     </div>
                     <button class="btn btn-primary" style="padding:10px 18px; font-size:0.8125rem; white-space:nowrap; gap:8px;" onclick="openOAuthConnectModal()">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path></svg>
-                        Connect via Meta OAuth
+                        + Connect New Client Handle
                     </button>
                 </div>
             </div>
@@ -4503,6 +4824,44 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             showToast('Security audit log exported as JSON.');
+        }
+
+        // Multi-Account Switcher & Agency Workspace Management
+        function toggleAccountDropdown() {
+            const menu = document.getElementById('account-dropdown-menu');
+            if (menu) {
+                menu.classList.toggle('show');
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const wrap = document.getElementById('account-selector-wrap');
+            const menu = document.getElementById('account-dropdown-menu');
+            if (wrap && menu && !wrap.contains(e.target)) {
+                menu.classList.remove('show');
+            }
+        });
+
+        function switchActiveAccount(accountName, platform, itemEl) {
+            const label = document.getElementById('active-account-label');
+            if (label) {
+                label.textContent = `${accountName} (${platform})`;
+            }
+
+            // Update active state in dropdown
+            const items = document.querySelectorAll('.account-dropdown-item');
+            items.forEach(el => el.classList.remove('active'));
+            if (itemEl) {
+                itemEl.classList.add('active');
+            }
+
+            const menu = document.getElementById('account-dropdown-menu');
+            if (menu) {
+                menu.classList.remove('show');
+            }
+
+            showToast(`Switched active workspace to ${accountName}`);
         }
 
         // Initialize
