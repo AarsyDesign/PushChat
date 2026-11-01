@@ -3564,10 +3564,10 @@
                             </svg>
                         </div>
                         <div>
-                            <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); font-weight:600;">PushNotif Unified Wallet</div>
+                            <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted); font-weight:600;">Workspace Prepaid Wallet</div>
                             <div style="display:flex; align-items:baseline; gap:8px; margin-top:2px;">
                                 <span style="font-size:1.5rem; font-weight:700; color:var(--text-main);" id="wallet-balance-val">Rp 250.000</span>
-                                <span style="font-size:0.75rem; color:var(--text-muted);">Shared with WABA & Web Push</span>
+                                <span style="font-size:0.75rem; color:var(--text-muted);">Available for Instant 1-Click Upgrades</span>
                             </div>
                         </div>
                     </div>
@@ -4656,17 +4656,17 @@
                     </button>
                 </div>
                 <h3 class="modal-title">Upgrade to ${planName}</h3>
-                <p class="modal-body-text">Scan the dynamic QRIS code or pay directly from your unified PushNotif wallet balance. Subscription activates instantly upon settlement.</p>
+                <p class="modal-body-text">Scan the dynamic QRIS code or pay directly from your workspace prepaid wallet. Subscription activates instantly upon settlement.</p>
                 
-                <!-- PushNotif Wallet Quick Pay Option -->
+                <!-- Workspace Wallet Quick Pay Option -->
                 <div style="background:var(--bg-surface-subtle); border:1px solid var(--border-color); border-radius:6px; padding:12px 14px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
                     <div>
-                        <div style="font-size:0.8125rem; font-weight:600; color:var(--text-main);">PushNotif Wallet (Shared Balance)</div>
+                        <div style="font-size:0.8125rem; font-weight:600; color:var(--text-main);">Workspace Prepaid Wallet</div>
                         <div style="font-size:0.75rem; color:var(--text-muted);">Available: <strong style="color:var(--text-main);">Rp ${currentWalletBalance.toLocaleString('id-ID')}</strong></div>
                     </div>
                     <button class="btn ${canDeductWallet ? 'btn-primary' : 'btn-secondary'}" 
                             style="font-size:0.75rem; padding:6px 12px; white-space:nowrap;"
-                            onclick="payWithPushNotifWallet('${planName}', ${priceInt})"
+                            onclick="payWithWorkspaceWallet('${planName}', ${priceInt})"
                             ${canDeductWallet ? '' : 'disabled'}>
                         Pay with Balance
                     </button>
@@ -4717,7 +4717,7 @@
             `);
         }
 
-        function payWithPushNotifWallet(planName, priceInt) {
+        function payWithWorkspaceWallet(planName, priceInt) {
             if (currentWalletBalance < priceInt) {
                 showToast('Insufficient wallet balance. Please top up first.');
                 return;
@@ -4727,7 +4727,7 @@
             if (balEl) balEl.textContent = 'Rp ' + currentWalletBalance.toLocaleString('id-ID');
             
             closeModal();
-            showToast(`Success! ${planName} activated using PushNotif Wallet balance. Remaining: Rp ${currentWalletBalance.toLocaleString('id-ID')}`);
+            showToast(`Success! ${planName} activated using Workspace Wallet balance. Remaining: Rp ${currentWalletBalance.toLocaleString('id-ID')}`);
         }
 
         function openTopupModal(mode = 'sandbox') {
@@ -4749,7 +4749,7 @@
                     </button>
                 </div>
                 <h3 class="modal-title">${isSandbox ? 'Sandbox QRIS Simulator' : 'Prepaid Top-Up QRIS'}</h3>
-                <p class="modal-body-text">${isSandbox ? 'Test the dynamic QRIS settlement webhook in isolated sandbox mode without debiting real bank accounts.' : 'Top up your unified balance shared across PushChat, WhatsApp WABA, and Web Push notifications.'}</p>
+                <p class="modal-body-text">${isSandbox ? 'Test the dynamic QRIS settlement webhook in isolated sandbox mode without debiting real bank accounts.' : 'Top up your prepaid balance for subscriptions, extra account slots, and high-volume dispatch.'}</p>
                 
                 <div style="text-align:center;">
                     <div class="qris-canvas-box">
@@ -4773,7 +4773,7 @@
                     </div>
                     <div class="modal-meta-row">
                         <span style="color:var(--text-muted);">Destination Wallet</span>
-                        <span style="color:var(--text-main);">PushNotif Shared Pool</span>
+                        <span style="color:var(--text-main);">Workspace Prepaid Pool</span>
                     </div>
                     <div class="modal-meta-row">
                         <span style="color:var(--text-muted);">Environment</span>
