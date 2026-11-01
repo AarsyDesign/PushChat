@@ -771,14 +771,23 @@
                     <line x1="9" y1="8" x2="15" y2="8"></line>
                     <line x1="17" y1="16" x2="23" y2="16"></line>
                 </svg>
-                <span>Automation Rules</span>
+                <span>Automations</span>
             </a>
-            <a href="#history" class="nav-item" onclick="navigate('history', event)">
+            <a href="#audience" class="nav-item" onclick="navigate('audience', event)">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                 </svg>
-                <span>Interaction Log</span>
+                <span>Audience (Contacts)</span>
+            </a>
+            <a href="#inbox" class="nav-item" onclick="navigate('inbox', event)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>Live Inbox & Log</span>
             </a>
 
             <div class="nav-label" style="margin-top: 18px;">Settings</div>
@@ -802,7 +811,7 @@
                     <circle cx="12" cy="12" r="3"></circle>
                     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                 </svg>
-                <span>General Settings</span>
+                <span>General & API</span>
             </a>
         </div>
 
@@ -1195,18 +1204,35 @@
                 </div>
             </div>
 
-            <!-- View: Interaction Log (Placeholder) -->
-            <div id="view-history" class="route-view">
+            <!-- View: Audience (Contacts CRM Placeholder) -->
+            <div id="view-audience" class="route-view">
                 <div class="empty-view-card">
                     <div class="empty-icon">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                         </svg>
                     </div>
-                    <h3 class="empty-title">Interaction Log</h3>
-                    <p class="empty-desc">Real-time webhook inbound payload history, delivery latency, and follower verification audit trail.</p>
-                    <span class="empty-badge">Route: /history &bull; Standby for Module Hook</span>
+                    <h3 class="empty-title">Audience & Contacts CRM</h3>
+                    <p class="empty-desc">Instagram responder directory, follower verification status, click engagement history, and exportable lead data.</p>
+                    <span class="empty-badge">Route: /audience &bull; Standby for Module Hook</span>
+                </div>
+            </div>
+
+            <!-- View: Live Inbox & Interaction Log (Placeholder) -->
+            <div id="view-inbox" class="route-view">
+                <div class="empty-view-card">
+                    <div class="empty-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="empty-title">Live Inbox & Delivery Log</h3>
+                    <p class="empty-desc">Direct conversation audit stream, live human handover, webhook inbound payloads, and Meta API latency tracking.</p>
+                    <span class="empty-badge">Route: /inbox &bull; Standby for Module Hook</span>
                 </div>
             </div>
 
@@ -1263,11 +1289,12 @@
         // Client-side Navigation Router
         const ROUTE_TITLES = {
             'dashboard': 'Automation Overview',
-            'rules': 'Automation Rules Engine',
-            'history': 'Interaction & Payload Log',
+            'rules': 'Automations Engine',
+            'audience': 'Audience & Contacts CRM',
+            'inbox': 'Live Inbox & Delivery Log',
             'accounts': 'Connected Meta Accounts',
             'billing': 'Subscription & QRIS Billing',
-            'settings': 'General & AI Settings'
+            'settings': 'General & API Settings'
         };
 
         function navigate(route, event) {
