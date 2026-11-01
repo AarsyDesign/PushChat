@@ -2346,24 +2346,6 @@
             document.getElementById('meta-latency').innerText = latency;
         }
 
-        function sendMockReply(input) {
-            const val = input.value.trim();
-            if (!val) return;
-            const stream = document.getElementById('chat-stream-body');
-            const wrap = document.createElement('div');
-            wrap.className = 'chat-bubble-wrap outbound';
-            wrap.innerHTML = `
-                <div class="chat-sender-label" style="color:var(--text-muted);">Human Operator (Live Handover)</div>
-                <div class="chat-bubble-box" style="background:var(--text-main); color:var(--bg-main); border-bottom-right-radius:2px;">
-                    ${val.replace(/</g, '&lt;')}
-                </div>
-                <div class="chat-bubble-meta">Delivered &bull; Just now</div>
-            `;
-            stream.appendChild(wrap);
-            input.value = '';
-            stream.scrollTop = stream.scrollHeight;
-        }
-
         window.addEventListener('hashchange', handleHashChange);
 
         // Theme Toggle Logic (Full Light vs Full Dark Monochrome)
