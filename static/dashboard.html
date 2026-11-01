@@ -535,10 +535,11 @@
         /* Live Inbox Split-Pane Layout */
         .inbox-layout {
             display: grid;
-            grid-template-columns: 340px 1fr 300px;
+            grid-template-columns: 320px 1fr 290px;
             gap: 16px;
-            height: 720px;
-            margin-top: 16px;
+            height: calc(100vh - 165px);
+            min-height: 580px;
+            margin-top: 12px;
         }
 
         .inbox-pane {
