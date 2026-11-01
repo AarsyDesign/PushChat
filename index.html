@@ -532,6 +532,292 @@
             margin-right: 4px;
         }
 
+        /* Live Inbox Split-Pane Layout */
+        .inbox-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr 300px;
+            gap: 16px;
+            height: 720px;
+            margin-top: 16px;
+        }
+
+        .inbox-pane {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .inbox-pane-header {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--bg-surface-subtle);
+        }
+
+        .inbox-pane-title {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Conversation Thread List (Left Pane) */
+        .thread-search-box {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .thread-search-input {
+            width: 100%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 10px 6px 30px;
+            font-size: 0.75rem;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .thread-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .thread-item {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: background 0.15s ease;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .thread-item:hover {
+            background: var(--bg-surface-subtle);
+        }
+
+        .thread-item.active {
+            background: var(--bg-surface-subtle);
+            border-left: 3px solid var(--text-main);
+        }
+
+        .thread-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .thread-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+
+        .thread-user {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--text-main);
+            truncate: true;
+        }
+
+        .thread-time {
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+        }
+
+        .thread-snippet {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .thread-meta {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        /* Active Chat Conversation Area (Middle Pane) */
+        .chat-stream-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: var(--bg-main);
+        }
+
+        .chat-bubble-wrap {
+            display: flex;
+            flex-direction: column;
+            max-width: 78%;
+        }
+
+        .chat-bubble-wrap.inbound {
+            align-self: flex-start;
+        }
+
+        .chat-bubble-wrap.outbound {
+            align-self: flex-end;
+            align-items: flex-end;
+        }
+
+        .chat-sender-label {
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chat-bubble-box {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.8125rem;
+            line-height: 1.45;
+        }
+
+        .chat-bubble-wrap.inbound .chat-bubble-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-bottom-left-radius: 2px;
+        }
+
+        .chat-bubble-wrap.outbound .chat-bubble-box {
+            background: var(--text-main);
+            color: var(--bg-main);
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-bubble-meta {
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chat-link-card {
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .chat-compose-area {
+            padding: 12px 16px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chat-compose-input {
+            flex: 1;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 0.8125rem;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .chat-compose-input:focus {
+            border-color: var(--text-muted);
+        }
+
+        /* Telemetry & Lead Context (Right Pane) */
+        .context-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .context-profile-card {
+            text-align: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .context-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px auto;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .context-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .context-field-label {
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+        }
+
+        .context-field-val {
+            font-size: 0.8125rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .telemetry-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            padding: 4px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .telemetry-label {
+            color: var(--text-muted);
+        }
+
+        .telemetry-val {
+            font-family: monospace;
+            color: var(--text-main);
+        }
+
         /* Daily Performance Chart Bars (Monochrome) */
         .chart-container {
             margin-top: 16px;
@@ -1586,18 +1872,250 @@
                 </div>
             </div>
 
-            <!-- View: Live Inbox & Interaction Log (Placeholder) -->
+            <!-- View: Live Inbox & Delivery Log (Split-Pane Interface) -->
             <div id="view-inbox" class="route-view">
-                <div class="empty-view-card">
-                    <div class="empty-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
+                <!-- Top Stream Controls & Live Status -->
+                <div class="audience-toolbar" style="margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span class="status-pill following" style="font-weight: 600;">
+                            <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--text-main); margin-right:4px;"></span>
+                            Meta Webhook Stream: 200 OK Active
+                        </span>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">Payload Latency: <strong>342ms</strong> &bull; Zero Dropped Events</span>
                     </div>
-                    <h3 class="empty-title">Live Inbox & Delivery Log</h3>
-                    <p class="empty-desc">Direct conversation audit stream, live human handover, webhook inbound payloads, and Meta API latency tracking.</p>
-                    <span class="empty-badge">Route: /inbox &bull; Standby for Module Hook</span>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-export" onclick="alert('Exporting conversation logs...')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Export Audit Log
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3-Pane Split Screen Layout -->
+                <div class="inbox-layout">
+                    <!-- Left Pane: Conversation Threads -->
+                    <div class="inbox-pane">
+                        <div class="inbox-pane-header">
+                            <span class="inbox-pane-title">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                Active Threads
+                            </span>
+                            <span class="status-pill" style="font-size:0.6875rem;">6 Live</span>
+                        </div>
+                        <div class="thread-search-box">
+                            <div class="audience-search-wrap" style="width:100%;">
+                                <svg class="audience-search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input type="text" class="thread-search-input" placeholder="Search conversations...">
+                            </div>
+                        </div>
+                        <div class="thread-list">
+                            <!-- Thread 1 (Active) -->
+                            <div class="thread-item active" onclick="selectThread(this, 'sarah.foodies', 'SF', 'Reels #104 • Rendang Daging', 'recipe', 'New Follower', '4 DMs Sent • 3 Link Clicks', '248ms')">
+                                <div class="user-avatar-circle" style="width:34px; height:34px;">SF</div>
+                                <div class="thread-content">
+                                    <div class="thread-top">
+                                        <span class="thread-user">@sarah.foodies</span>
+                                        <span class="thread-time">Just now</span>
+                                    </div>
+                                    <div class="thread-snippet">Makasih min link resepnya sudah kebuka!</div>
+                                    <div class="thread-meta">
+                                        <span class="tag">recipe</span>
+                                        <span class="status-pill new-follower" style="font-size:0.625rem; padding:1px 5px;">Follow-Gate OK</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Thread 2 -->
+                            <div class="thread-item" onclick="selectThread(this, 'budi_santoso', 'BS', 'Post #89 • Flash Sale Promo', 'discount', 'Following', '2 DMs Sent • 2 Link Clicks', '310ms')">
+                                <div class="user-avatar-circle" style="width:34px; height:34px;">BS</div>
+                                <div class="thread-content">
+                                    <div class="thread-top">
+                                        <span class="thread-user">@budi_santoso</span>
+                                        <span class="thread-time">4m ago</span>
+                                    </div>
+                                    <div class="thread-snippet">Vouchernya bisa dipakai sampai jam berapa kak?</div>
+                                    <div class="thread-meta">
+                                        <span class="tag">discount</span>
+                                        <span class="status-pill following" style="font-size:0.625rem; padding:1px 5px;">Following</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Thread 3 -->
+                            <div class="thread-item" onclick="selectThread(this, 'hawksblack.id', 'HB', 'Reels #99 • AI Coding Agent', 'link', 'New Follower', '8 DMs Sent • 6 Link Clicks', '195ms')">
+                                <div class="user-avatar-circle" style="width:34px; height:34px;">HB</div>
+                                <div class="thread-content">
+                                    <div class="thread-top">
+                                        <span class="thread-user">@hawksblack.id</span>
+                                        <span class="thread-time">2h ago</span>
+                                    </div>
+                                    <div class="thread-snippet">Bisa webhook ke server lokal port 8090 ga?</div>
+                                    <div class="thread-meta">
+                                        <span class="tag">link</span>
+                                        <span class="status-pill new-follower" style="font-size:0.625rem; padding:1px 5px;">Follow-Gate OK</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Thread 4 -->
+                            <div class="thread-item" onclick="selectThread(this, 'dina_kitchen', 'DK', 'Reels #104 • Rendang Daging', 'recipe', 'New Follower', '1 DM Sent • 1 Link Click', '420ms')">
+                                <div class="user-avatar-circle" style="width:34px; height:34px;">DK</div>
+                                <div class="thread-content">
+                                    <div class="thread-top">
+                                        <span class="thread-user">@dina_kitchen</span>
+                                        <span class="thread-time">18m ago</span>
+                                    </div>
+                                    <div class="thread-snippet">resep rendang</div>
+                                    <div class="thread-meta">
+                                        <span class="tag">recipe</span>
+                                        <span class="status-pill following" style="font-size:0.625rem; padding:1px 5px;">Following</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Middle Pane: Active Conversation & DM Dispatch History -->
+                    <div class="inbox-pane">
+                        <div class="inbox-pane-header">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <div id="chat-header-avatar" class="user-avatar-circle" style="width:28px; height:28px;">SF</div>
+                                <div>
+                                    <div id="chat-header-user" style="font-size:0.8125rem; font-weight:600; color:var(--text-main);">@sarah.foodies</div>
+                                    <div style="font-size:0.6875rem; color:var(--text-muted);">Instagram Direct Messaging &bull; Window 24h Active</div>
+                                </div>
+                            </div>
+                            <div style="display:flex; gap:8px;">
+                                <span class="status-pill following" style="font-size:0.6875rem;">Verified Follower</span>
+                            </div>
+                        </div>
+
+                        <!-- Chat Messages Stream -->
+                        <div id="chat-stream-body" class="chat-stream-body">
+                            <!-- Inbound Public Trigger Notification -->
+                            <div style="text-align:center; margin: 4px 0;">
+                                <span style="font-size:0.6875rem; color:var(--text-muted); background:var(--bg-surface); padding:3px 10px; border-radius:12px; border:1px solid var(--border-color);">
+                                    Triggered by comment: <strong>"mau resep rendangnya dong kak"</strong> on Reels #104
+                                </span>
+                            </div>
+
+                            <!-- Bot Public Comment Reply Notice -->
+                            <div class="chat-bubble-wrap inbound" style="max-width:90%;">
+                                <div class="chat-sender-label">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                    Automated Public Comment Reply (Random Variant #2)
+                                </div>
+                                <div class="chat-bubble-box" style="font-style:italic; font-size:0.75rem;">
+                                    "Resep rahasia rendang daging empuk sudah meluncur ke inbox DM kamu ya kak! Silakan dicek."
+                                </div>
+                                <div class="chat-bubble-meta">HTTP 200 &bull; Comment reply posted in 218ms</div>
+                            </div>
+
+                            <!-- Bot Automated Private DM Dispatch -->
+                            <div class="chat-bubble-wrap outbound">
+                                <div class="chat-sender-label" style="color:var(--text-muted);">PushChat Automation Bot</div>
+                                <div class="chat-bubble-box">
+                                    Halo Kak Sarah! Ini link resep lengkap bumbu rendang daging empuk khas Minang yang tadi kamu minta:
+                                    <div class="chat-link-card">
+                                        <div style="display:flex; align-items:center; gap:8px;">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                                            <span>Buka Resep Rendang PDF</span>
+                                        </div>
+                                        <span style="font-size:0.6875rem; text-decoration:underline;">aarsydesign.github.io</span>
+                                    </div>
+                                </div>
+                                <div class="chat-bubble-meta">Delivered &bull; Follow-Gate Verified &bull; Just now</div>
+                            </div>
+
+                            <!-- User Direct Reply -->
+                            <div class="chat-bubble-wrap inbound">
+                                <div class="chat-sender-label">@sarah.foodies</div>
+                                <div class="chat-bubble-box">
+                                    Makasih min link resepnya sudah kebuka! Sangat membantu buat persiapan lebaran nanti.
+                                </div>
+                                <div class="chat-bubble-meta">Direct Inbound &bull; Just now</div>
+                            </div>
+                        </div>
+
+                        <!-- Manual Response / Live Human Handover Bar -->
+                        <div class="chat-compose-area">
+                            <input type="text" class="chat-compose-input" placeholder="Type a direct human reply (Free 24h Messaging Window)..." onkeydown="if(event.key==='Enter') sendMockReply(this)">
+                            <button class="btn btn-primary" style="padding:7px 14px; font-size:0.75rem;" onclick="sendMockReply(document.querySelector('.chat-compose-input'))">
+                                Send
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Pane: Telemetry & Lead Intelligence -->
+                    <div class="inbox-pane">
+                        <div class="inbox-pane-header">
+                            <span class="inbox-pane-title">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                </svg>
+                                Lead Telemetry
+                            </span>
+                            <span class="status-pill following" style="font-size:0.6875rem;">Verified</span>
+                        </div>
+                        <div class="context-body">
+                            <!-- Profile Overview -->
+                            <div class="context-profile-card">
+                                <div id="meta-avatar" class="context-avatar">SF</div>
+                                <div id="meta-user" style="font-weight:600; font-size:0.875rem; color:var(--text-main);">@sarah.foodies</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">IG User ID: 178414053928190</div>
+                            </div>
+
+                            <!-- Origin & Rule Trigger -->
+                            <div class="context-field-group">
+                                <span class="context-field-label">Origin Media</span>
+                                <span id="meta-source" class="context-field-val">Reels #104 &bull; Rendang Daging</span>
+                            </div>
+
+                            <div class="context-field-group">
+                                <span class="context-field-label">Triggered Keyword</span>
+                                <div><span id="meta-keyword" class="tag">recipe</span></div>
+                            </div>
+
+                            <div class="context-field-group">
+                                <span class="context-field-label">Follow-Gate Status</span>
+                                <div><span id="meta-follow" class="status-pill new-follower">Follower Converted</span></div>
+                            </div>
+
+                            <div class="context-field-group">
+                                <span class="context-field-label">Engagement Accumulator</span>
+                                <span id="meta-engagement" class="context-field-val">4 DMs Sent &bull; 3 Link Clicks</span>
+                            </div>
+
+                            <!-- Meta Webhook Diagnostic Specs -->
+                            <div style="margin-top:8px;">
+                                <span class="context-field-label" style="margin-bottom:6px; display:block;">API Diagnostic Telemetry</span>
+                                <div class="telemetry-row">
+                                    <span class="telemetry-label">Meta Graph API</span>
+                                    <span class="telemetry-val">v21.0</span>
+                                </div>
+                                <div class="telemetry-row">
+                                    <span class="telemetry-label">Delivery Latency</span>
+                                    <span id="meta-latency" class="telemetry-val">248 ms</span>
+                                </div>
+                                <div class="telemetry-row">
+                                    <span class="telemetry-label">HMAC SHA-256</span>
+                                    <span class="telemetry-val">Verified Valid</span>
+                                </div>
+                                <div class="telemetry-row">
+                                    <span class="telemetry-label">24h Window</span>
+                                    <span class="telemetry-val">Open (23h 58m left)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1755,6 +2273,41 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+        }
+
+        // Live Inbox Dynamic Thread Selection & Handover
+        function selectThread(el, user, avatar, source, keyword, followStatus, engagement, latency) {
+            document.querySelectorAll('.thread-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+
+            // Update Header & Telemetry
+            document.getElementById('chat-header-user').innerText = '@' + user;
+            document.getElementById('chat-header-avatar').innerText = avatar;
+            document.getElementById('meta-user').innerText = '@' + user;
+            document.getElementById('meta-avatar').innerText = avatar;
+            document.getElementById('meta-source').innerText = source;
+            document.getElementById('meta-keyword').innerText = keyword;
+            document.getElementById('meta-follow').innerText = followStatus;
+            document.getElementById('meta-engagement').innerText = engagement;
+            document.getElementById('meta-latency').innerText = latency;
+        }
+
+        function sendMockReply(input) {
+            const val = input.value.trim();
+            if (!val) return;
+            const stream = document.getElementById('chat-stream-body');
+            const wrap = document.createElement('div');
+            wrap.className = 'chat-bubble-wrap outbound';
+            wrap.innerHTML = `
+                <div class="chat-sender-label" style="color:var(--text-muted);">Human Operator (Live Handover)</div>
+                <div class="chat-bubble-box" style="background:var(--text-main); color:var(--bg-main); border-bottom-right-radius:2px;">
+                    ${val.replace(/</g, '&lt;')}
+                </div>
+                <div class="chat-bubble-meta">Delivered &bull; Just now</div>
+            `;
+            stream.appendChild(wrap);
+            input.value = '';
+            stream.scrollTop = stream.scrollHeight;
         }
 
         window.addEventListener('hashchange', handleHashChange);
