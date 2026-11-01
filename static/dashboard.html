@@ -364,6 +364,174 @@
             font-weight: 500;
         }
 
+        /* Audience Filter Tabs & Search Controls */
+        .audience-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 6px;
+            background: var(--bg-surface-subtle);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-tab {
+            padding: 6px 14px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            user-select: none;
+            border: none;
+            background: transparent;
+        }
+
+        .filter-tab:hover {
+            color: var(--text-main);
+        }
+
+        .filter-tab.active {
+            background: var(--bg-surface);
+            color: var(--text-main);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-weight: 600;
+        }
+
+        .audience-search-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+
+        .audience-search-input {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 12px 8px 34px;
+            color: var(--text-main);
+            font-size: 0.8125rem;
+            min-width: 260px;
+            outline: none;
+        }
+
+        .audience-search-input:focus {
+            border-color: var(--text-muted);
+        }
+
+        .audience-search-icon {
+            position: absolute;
+            left: 11px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .btn-export {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .btn-export:hover {
+            background: var(--bg-surface-subtle);
+        }
+
+        /* Audience User Table Styling */
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        .user-info-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-handle {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 0.8125rem;
+        }
+
+        .user-meta-sub {
+            font-size: 0.6875rem;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface-subtle);
+            color: var(--text-main);
+        }
+
+        .status-pill.following {
+            background: var(--bg-surface);
+            border-color: var(--text-muted);
+        }
+
+        .status-pill.new-follower {
+            font-weight: 600;
+            background: var(--bg-surface);
+            border-color: var(--text-main);
+        }
+
+        .interest-badge {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.6875rem;
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            margin-right: 4px;
+        }
+
         /* Daily Performance Chart Bars (Monochrome) */
         .chart-container {
             margin-top: 16px;
@@ -1204,20 +1372,217 @@
                 </div>
             </div>
 
-            <!-- View: Audience (Contacts CRM Placeholder) -->
+            <!-- View: Audience (Contacts CRM & Lead Database) -->
             <div id="view-audience" class="route-view">
-                <div class="empty-view-card">
-                    <div class="empty-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
+                <!-- Top Audience Metric Summary -->
+                <div class="metric-grid" style="margin-bottom: 24px;">
+                    <div class="metric-card">
+                        <div class="metric-label">Total Unique Leads</div>
+                        <div class="metric-value">1,248</div>
+                        <div class="metric-sub">Responded via comments or DMs</div>
                     </div>
-                    <h3 class="empty-title">Audience & Contacts CRM</h3>
-                    <p class="empty-desc">Instagram responder directory, follower verification status, click engagement history, and exportable lead data.</p>
-                    <span class="empty-badge">Route: /audience &bull; Standby for Module Hook</span>
+                    <div class="metric-card">
+                        <div class="metric-label">Verified Followers</div>
+                        <div class="metric-value">982</div>
+                        <div class="metric-sub">78.6% Follower conversion rate</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">New Followers (Gated)</div>
+                        <div class="metric-value">+412</div>
+                        <div class="metric-sub">Converted directly via Follow-Gate</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">High-Intent Clickers</div>
+                        <div class="metric-value">845</div>
+                        <div class="metric-sub">Clicked destination URL &ge; 2 times</div>
+                    </div>
+                </div>
+
+                <!-- Audience Toolbar: Filters, Search & Export -->
+                <div class="audience-toolbar">
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" onclick="filterAudience('all', this)">All Leads (1,248)</button>
+                        <button class="filter-tab" onclick="filterAudience('new', this)">New Followers (+412)</button>
+                        <button class="filter-tab" onclick="filterAudience('following', this)">Existing Followers (570)</button>
+                        <button class="filter-tab" onclick="filterAudience('unverified', this)">Unverified (266)</button>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <div class="audience-search-wrap">
+                            <svg class="audience-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" id="audience-search" class="audience-search-input" placeholder="Search by @username, keyword, or tag..." oninput="handleSearchAudience(this.value)">
+                        </div>
+
+                        <button class="btn-export" onclick="exportAudienceCSV()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            <span>Export CSV</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Audience Table Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Instagram Lead & Follower Directory</h2>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Comprehensive contact database captured from Reels and Post comment automations</div>
+                        </div>
+                        <span class="empty-badge" id="audience-count-badge">Showing 7 of 1,248 contacts</span>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="rules-table">
+                            <thead>
+                                <tr>
+                                    <th>Contact Profile</th>
+                                    <th>Trigger Keyword</th>
+                                    <th>Follow Status</th>
+                                    <th>Tags & Interests</th>
+                                    <th>Interactions</th>
+                                    <th>Last Active</th>
+                                </tr>
+                            </thead>
+                            <tbody id="audience-tbody">
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-circle">SF</div>
+                                            <div class="user-info-wrap">
+                                                <span class="user-handle">@sarah.foodies</span>
+                                                <span class="user-meta-sub">Reels #104 &bull; Rendang Daging</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="tag">recipe</span></td>
+                                    <td><span class="status-pill new-follower">&bull; New Follower</span></td>
+                                    <td>
+                                        <span class="interest-badge">Food & Beverage</span>
+                                        <span class="interest-badge">Recipe E-Book</span>
+                                    </td>
+                                    <td><strong>4 DMs</strong> &bull; 3 Clicks</td>
+                                    <td style="color:var(--text-muted);">Just now</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-circle">BS</div>
+                                            <div class="user-info-wrap">
+                                                <span class="user-handle">@budi_santoso</span>
+                                                <span class="user-meta-sub">Post #89 &bull; Flash Sale Promo</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="tag">discount</span></td>
+                                    <td><span class="status-pill following">Following</span></td>
+                                    <td>
+                                        <span class="interest-badge">Shopee Voucher</span>
+                                        <span class="interest-badge">VIP Member</span>
+                                    </td>
+                                    <td><strong>2 DMs</strong> &bull; 2 Clicks</td>
+                                    <td style="color:var(--text-muted);">4 mins ago</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-circle">DK</div>
+                                            <div class="user-info-wrap">
+                                                <span class="user-handle">@dina_kitchen</span>
+                                                <span class="user-meta-sub">Reels #104 &bull; Rendang Daging</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="tag">recipe</span></td>
+                                    <td><span class="status-pill new-follower">&bull; New Follower</span></td>
+                                    <td>
+                                        <span class="interest-badge">Culinary Arts</span>
+                                    </td>
+                                    <td><strong>1 DM</strong> &bull; 1 Click</td>
+                                    <td style="color:var(--text-muted);">18 mins ago</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-circle">RA</div>
+                                            <div class="user-info-wrap">
+                                                <span class="user-handle">@rizky_amalia</span>
+                                                <span class="user-meta-sub">Reels #102 &bull; Cost Calculator</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="tag">guide</span></td>
+                                    <td><span class="status-pill following">Following</span></td>
+                                    <td>
+                                        <span class="interest-badge">F&B Business</span>
+                                        <span class="interest-badge">Templates</span>
+                                    </td>
+                                    <td><strong>5 DMs</strong> &bull; 4 Clicks</td>
+                                    <td style="color:var(--text-muted);">1 hour ago</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-circle">HB</div>
+                                            <div class="user-info-wrap">
+                                                <span class="user-handle">@hawksblack.id</span>
+                                                <span class="user-meta-sub">Reels #99 &bull; AI Agent Stack</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="tag">link</span></td>
+                                    <td><span class="status-pill new-follower">&bull; New Follower</span></td>
+                                    <td>
+                                        <span class="interest-badge">AI Technology</span>
+                                        <span class="interest-badge">SaaS Dev</span>
+                                    </td>
+                                    <td><strong>8 DMs</strong> &bull; 6 Clicks</td>
+                                    <td style="color:var(--text-muted);">2 hours ago</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-circle">AN</div>
+                                            <div class="user-info-wrap">
+                                                <span class="user-handle">@andi_novan</span>
+                                                <span class="user-meta-sub">Post #76 &bull; Catalog Dropship</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="tag">katalog</span></td>
+                                    <td><span class="status-pill" style="color:var(--text-muted);">Unverified</span></td>
+                                    <td>
+                                        <span class="interest-badge">E-Commerce</span>
+                                    </td>
+                                    <td><strong>1 DM</strong> &bull; 0 Click</td>
+                                    <td style="color:var(--text-muted);">5 hours ago</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <div class="user-avatar-circle">ML</div>
+                                            <div class="user-info-wrap">
+                                                <span class="user-handle">@malz_creative</span>
+                                                <span class="user-meta-sub">Reels #104 &bull; Rendang Daging</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="tag">recipe</span></td>
+                                    <td><span class="status-pill following">Following</span></td>
+                                    <td>
+                                        <span class="interest-badge">Culinary Arts</span>
+                                    </td>
+                                    <td><strong>3 DMs</strong> &bull; 3 Clicks</td>
+                                    <td style="color:var(--text-muted);">Yesterday</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -1332,6 +1697,64 @@
             const validRoutes = ['dashboard', 'rules', 'audience', 'inbox', 'accounts', 'billing', 'settings'];
             const targetRoute = validRoutes.includes(hash) ? hash : 'dashboard';
             navigate(targetRoute);
+        }
+
+        // Audience CRM Filter & Search Logic
+        function filterAudience(filter, btn) {
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const rows = document.querySelectorAll('#audience-tbody tr');
+            let visibleCount = 0;
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                let match = false;
+                if (filter === 'all') match = true;
+                else if (filter === 'new' && text.includes('new follower')) match = true;
+                else if (filter === 'following' && text.includes('following') && !text.includes('new follower')) match = true;
+                else if (filter === 'unverified' && text.includes('unverified')) match = true;
+
+                row.style.display = match ? '' : 'none';
+                if (match) visibleCount++;
+            });
+
+            const badge = document.getElementById('audience-count-badge');
+            if (badge) badge.innerText = `Showing ${visibleCount} contacts`;
+        }
+
+        function handleSearchAudience(query) {
+            const q = query.toLowerCase().trim();
+            const rows = document.querySelectorAll('#audience-tbody tr');
+            let visibleCount = 0;
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                const match = !q || text.includes(q);
+                row.style.display = match ? '' : 'none';
+                if (match) visibleCount++;
+            });
+            const badge = document.getElementById('audience-count-badge');
+            if (badge) badge.innerText = `Showing ${visibleCount} contacts`;
+        }
+
+        function exportAudienceCSV() {
+            const csvRows = [
+                ['Username', 'Origin Source', 'Keyword', 'Follow Status', 'Tags', 'DMs Sent', 'Clicks', 'Last Active'],
+                ['sarah.foodies', 'Reels #104 Rendang', 'recipe', 'New Follower', 'Food & Beverage; Recipe E-Book', '4', '3', 'Just now'],
+                ['budi_santoso', 'Post #89 Flash Sale', 'discount', 'Following', 'Shopee Voucher; VIP Member', '2', '2', '4 mins ago'],
+                ['dina_kitchen', 'Reels #104 Rendang', 'recipe', 'New Follower', 'Culinary Arts', '1', '1', '18 mins ago'],
+                ['rizky_amalia', 'Reels #102 Calculator', 'guide', 'Following', 'F&B Business; Templates', '5', '4', '1 hour ago'],
+                ['hawksblack.id', 'Reels #99 AI Agent', 'link', 'New Follower', 'AI Technology; SaaS Dev', '8', '6', '2 hours ago'],
+                ['andi_novan', 'Post #76 Dropship', 'katalog', 'Unverified', 'E-Commerce', '1', '0', '5 hours ago'],
+                ['malz_creative', 'Reels #104 Rendang', 'recipe', 'Following', 'Culinary Arts', '3', '3', 'Yesterday']
+            ];
+            const csvContent = 'data:text/csv;charset=utf-8,' + csvRows.map(e => e.map(i => `"${i}"`).join(',')).join('\\n');
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', 'pushchat_audience_export.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         window.addEventListener('hashchange', handleHashChange);
