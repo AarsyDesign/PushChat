@@ -3884,8 +3884,11 @@
                                 <div style="display:flex; flex-direction:column; gap:10px;">
                                     <div class="settings-toggle-wrap">
                                         <div class="settings-toggle-info">
-                                            <span class="settings-toggle-title">lead.captured</span>
-                                            <span class="settings-toggle-desc">Triggered when an Instagram user provides their phone number, email, or intent tag.</span>
+                                            <div style="display:flex; align-items:center; gap:8px;">
+                                                <span class="settings-toggle-title" style="font-weight:600;">New Lead Captured</span>
+                                                <code style="font-size:0.6875rem; background:var(--bg-surface-subtle); border:1px solid var(--border-color); padding:1px 5px; border-radius:3px; color:var(--text-muted); font-family:monospace;">lead.captured</code>
+                                            </div>
+                                            <span class="settings-toggle-desc">Trigger when an audience interacts, leaves contact details, or unlocks an exclusive link.</span>
                                         </div>
                                         <label class="switch-mono">
                                             <input type="checkbox" checked>
@@ -3895,8 +3898,11 @@
 
                                     <div class="settings-toggle-wrap">
                                         <div class="settings-toggle-info">
-                                            <span class="settings-toggle-title">dm.dispatched</span>
-                                            <span class="settings-toggle-desc">Triggered every time a Comment-to-DM message is successfully delivered via Graph API.</span>
+                                            <div style="display:flex; align-items:center; gap:8px;">
+                                                <span class="settings-toggle-title" style="font-weight:600;">Auto-DM Successfully Sent</span>
+                                                <code style="font-size:0.6875rem; background:var(--bg-surface-subtle); border:1px solid var(--border-color); padding:1px 5px; border-radius:3px; color:var(--text-muted); font-family:monospace;">dm.dispatched</code>
+                                            </div>
+                                            <span class="settings-toggle-desc">Trigger whenever an automated Comment-to-DM message is delivered to Instagram inbox.</span>
                                         </div>
                                         <label class="switch-mono">
                                             <input type="checkbox" checked>
@@ -3906,8 +3912,11 @@
 
                                     <div class="settings-toggle-wrap">
                                         <div class="settings-toggle-info">
-                                            <span class="settings-toggle-title">handover.requested</span>
-                                            <span class="settings-toggle-desc">Triggered when a lead asks for human assistance or replies outside automated keyword rules.</span>
+                                            <div style="display:flex; align-items:center; gap:8px;">
+                                                <span class="settings-toggle-title" style="font-weight:600;">Need Human Staff Help</span>
+                                                <code style="font-size:0.6875rem; background:var(--bg-surface-subtle); border:1px solid var(--border-color); padding:1px 5px; border-radius:3px; color:var(--text-muted); font-family:monospace;">handover.requested</code>
+                                            </div>
+                                            <span class="settings-toggle-desc">Trigger when an audience asks for human support or sends a custom reply outside rules.</span>
                                         </div>
                                         <label class="switch-mono">
                                             <input type="checkbox" checked>
