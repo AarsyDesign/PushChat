@@ -3,33 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In • PushChat Micro-SaaS</title>
+    <title>PushChat • Authentication</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-canvas: #000000;
             --bg-surface: #0A0A0A;
-            --bg-surface-subtle: #141414;
-            --border-color: #262626;
-            --border-hover: #404040;
-            --text-main: #FFFFFF;
-            --text-muted: #A3A3A3;
-            --text-subtle: #737373;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
+            --bg-surface-subtle: #121212;
+            --border-color: #222222;
+            --border-hover: #383838;
+            --text-main: #EDEDED;
+            --text-muted: #888888;
+            --text-subtle: #555555;
+            --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-mono: 'Geist Mono', monospace;
+            --ascii-color: #888888;
+            --badge-bg: #141414;
         }
 
         [data-theme="light"] {
             --bg-canvas: #FFFFFF;
-            --bg-surface: #FAFAFA;
-            --bg-surface-subtle: #F4F4F5;
-            --border-color: #E4E4E7;
-            --border-hover: #A1A1AA;
-            --text-main: #09090B;
-            --text-muted: #71717A;
-            --text-subtle: #A1A1AA;
+            --bg-surface: #F9F9F9;
+            --bg-surface-subtle: #F0F0F0;
+            --border-color: #E2E2E2;
+            --border-hover: #B5B5B5;
+            --text-main: #0A0A0A;
+            --text-muted: #666666;
+            --text-subtle: #999999;
+            --ascii-color: #444444;
+            --badge-bg: #EAEAEA;
         }
 
         * {
@@ -44,81 +48,89 @@
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            transition: background-color 0.25s ease, color 0.25s ease;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .login-split-container {
+        .auth-container {
             display: flex;
             width: 100vw;
             min-height: 100vh;
         }
 
-        /* Left Column: Form & Auth */
-        .login-form-pane {
+        /* Left Side: Vercel-Style Minimalist Auth Card */
+        .auth-panel {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 40px 60px;
+            padding: 48px 56px;
             background: var(--bg-canvas);
+            border-right: 1px solid var(--border-color);
             position: relative;
-            max-width: 620px;
+            z-index: 10;
+            max-width: 560px;
         }
 
-        .login-topbar {
+        .auth-topbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
         }
 
-        .brand-logo {
+        .brand-link {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.125rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-main);
+            gap: 12px;
             text-decoration: none;
+            color: var(--text-main);
         }
 
-        .brand-icon-box {
-            width: 32px;
-            height: 32px;
-            background: var(--text-main);
-            color: var(--bg-canvas);
-            border-radius: 8px;
+        .brand-symbol {
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: var(--text-main);
+            color: var(--bg-canvas);
+            border-radius: 6px;
         }
 
-        .login-controls {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        .brand-title {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: var(--text-main);
         }
 
-        .lang-switch {
+        .topbar-tools {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 14px;
+        }
+
+        .lang-toggle {
+            display: flex;
+            align-items: center;
+            gap: 5px;
             font-size: 0.8125rem;
-            color: var(--text-muted);
-            font-weight: 500;
+            font-family: var(--font-mono);
+            color: var(--text-subtle);
         }
 
-        .lang-item {
+        .lang-opt {
             cursor: pointer;
             transition: color 0.15s ease;
         }
-        .lang-item.active {
+        .lang-opt.active {
             color: var(--text-main);
-            font-weight: 700;
+            font-weight: 600;
         }
 
-        .btn-theme {
+        .theme-toggle-btn {
             background: transparent;
             border: 1px solid var(--border-color);
             color: var(--text-main);
@@ -133,161 +145,152 @@
             overflow: hidden;
             transition: border-color 0.2s ease, transform 0.15s ease;
         }
-        .btn-theme:hover {
+        .theme-toggle-btn:hover {
             border-color: var(--text-muted);
         }
-        .btn-theme:active {
+        .theme-toggle-btn:active {
             transform: scale(0.92);
         }
 
-        /* Animated Dark/Light Mode Icon Transitions */
-        .auth-theme-icon-animated {
+        .theme-icon-anim {
             position: absolute;
             transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
         }
 
-        /* In Dark mode: Sun is visible, Moon is rotated away */
-        [data-theme="dark"] #auth-theme-icon-sun {
+        [data-theme="dark"] #auth-theme-sun {
             opacity: 1;
             transform: rotate(0deg) scale(1);
             pointer-events: auto;
         }
-
-        [data-theme="dark"] #auth-theme-icon-moon {
+        [data-theme="dark"] #auth-theme-moon {
             opacity: 0;
             transform: rotate(90deg) scale(0.4);
             pointer-events: none;
         }
-
-        /* In Light mode: Moon is visible, Sun is rotated away */
-        [data-theme="light"] #auth-theme-icon-sun {
+        [data-theme="light"] #auth-theme-sun {
             opacity: 0;
             transform: rotate(-90deg) scale(0.4);
             pointer-events: none;
         }
-
-        [data-theme="light"] #auth-theme-icon-moon {
+        [data-theme="light"] #auth-theme-moon {
             opacity: 1;
             transform: rotate(0deg) scale(1);
             pointer-events: auto;
         }
 
-        .login-form-content {
+        /* Form Center Box */
+        .auth-center {
             width: 100%;
-            max-width: 420px;
-            margin: 0 auto;
-            padding: 40px 0;
+            max-width: 400px;
+            margin: 40px auto;
         }
 
-        .login-header-group {
-            margin-bottom: 28px;
+        .auth-heading-group {
+            margin-bottom: 24px;
         }
 
-        .login-title {
-            font-size: 1.875rem;
-            font-weight: 700;
-            letter-spacing: -0.03em;
+        .auth-headline {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.04em;
             color: var(--text-main);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
-        .login-subtitle {
-            font-size: 0.9375rem;
+        .auth-caption {
+            font-size: 0.875rem;
             color: var(--text-muted);
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
-        /* Role Switcher Pill Container (Main Account vs Operator) */
-        .role-switcher {
+        /* Vercel Monochromatic Segmented Role Switch */
+        .auth-tabs {
             display: flex;
             background: var(--bg-surface-subtle);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 4px;
+            padding: 3px;
             margin-bottom: 24px;
-            gap: 4px;
         }
 
-        .role-btn {
+        .auth-tab-item {
             flex: 1;
-            padding: 8px 12px;
-            border: none;
             background: transparent;
+            border: none;
             color: var(--text-muted);
+            font-family: inherit;
             font-size: 0.8125rem;
             font-weight: 500;
+            padding: 7px 12px;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.15s ease;
             text-align: center;
         }
 
-        .role-btn.active {
-            background: var(--bg-surface);
+        .auth-tab-item.active {
+            background: var(--bg-canvas);
             color: var(--text-main);
             font-weight: 600;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border: 1px solid var(--border-color);
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 20px;
+        .form-row {
+            margin-bottom: 16px;
         }
 
-        .form-label-row {
+        .field-label-group {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 6px;
         }
 
-        .form-label {
+        .field-label {
             font-size: 0.8125rem;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text-main);
         }
 
-        .forgot-link {
-            font-size: 0.8125rem;
+        .field-link {
+            font-size: 0.75rem;
             color: var(--text-muted);
             text-decoration: none;
             transition: color 0.15s ease;
         }
-        .forgot-link:hover {
+        .field-link:hover {
             color: var(--text-main);
             text-decoration: underline;
         }
 
-        .input-wrap {
+        .field-input-box {
             position: relative;
             display: flex;
             align-items: center;
         }
 
-        .form-input {
+        .auth-input {
             width: 100%;
-            height: 42px;
+            height: 40px;
             padding: 0 14px;
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 6px;
             color: var(--text-main);
-            font-size: 0.875rem;
             font-family: inherit;
+            font-size: 0.875rem;
             outline: none;
             transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
 
-        .form-input:focus {
+        .auth-input:focus {
             border-color: var(--text-main);
             box-shadow: 0 0 0 1px var(--text-main);
         }
 
-        .input-btn-eye {
+        .eye-toggle-btn {
             position: absolute;
-            right: 12px;
+            right: 10px;
             background: transparent;
             border: none;
             color: var(--text-muted);
@@ -297,57 +300,61 @@
             align-items: center;
             justify-content: center;
         }
-        .input-btn-eye:hover {
+        .eye-toggle-btn:hover {
             color: var(--text-main);
         }
 
-        .btn-submit {
+        .btn-auth-primary {
             width: 100%;
-            height: 42px;
+            height: 40px;
             background: var(--text-main);
             color: var(--bg-canvas);
             border: 1px solid var(--text-main);
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 0.875rem;
             font-weight: 600;
             font-family: inherit;
             cursor: pointer;
             margin-top: 6px;
-            transition: all 0.15s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            transition: opacity 0.15s ease, transform 0.1s ease;
         }
-        .btn-submit:hover {
-            opacity: 0.92;
+        .btn-auth-primary:hover {
+            opacity: 0.9;
+        }
+        .btn-auth-primary:active {
+            transform: scale(0.99);
         }
 
-        .auth-divider {
+        .auth-separator {
             display: flex;
             align-items: center;
-            margin: 24px 0;
+            margin: 20px 0;
             color: var(--text-subtle);
-            font-size: 0.75rem;
+            font-size: 0.6875rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
+            font-family: var(--font-mono);
         }
-        .auth-divider::before, .auth-divider::after {
+        .auth-separator::before, .auth-separator::after {
             content: '';
             flex: 1;
             height: 1px;
             background: var(--border-color);
         }
-        .auth-divider span {
-            padding: 0 14px;
+        .auth-separator span {
+            padding: 0 12px;
         }
 
-        .btn-google {
+        .btn-oauth {
             width: 100%;
-            height: 42px;
+            height: 40px;
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 6px;
             color: var(--text-main);
             font-size: 0.875rem;
             font-weight: 500;
@@ -359,227 +366,266 @@
             gap: 10px;
             transition: all 0.15s ease;
         }
-        .btn-google:hover {
-            background: var(--bg-surface-subtle);
+        .btn-oauth:hover {
             border-color: var(--border-hover);
+            background: var(--bg-surface-subtle);
         }
 
-        .login-footer-auth {
+        .auth-bottom-switch {
             text-align: center;
             font-size: 0.8125rem;
             color: var(--text-muted);
-            margin-top: 24px;
+            margin-top: 20px;
         }
-
-        .login-footer-auth a {
+        .auth-bottom-switch a {
             color: var(--text-main);
             font-weight: 600;
             text-decoration: none;
             margin-left: 4px;
         }
-        .login-footer-auth a:hover {
+        .auth-bottom-switch a:hover {
             text-decoration: underline;
         }
 
-        .legal-notice {
+        .auth-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             font-size: 0.75rem;
             color: var(--text-subtle);
-            line-height: 1.5;
-            text-align: center;
-            margin-top: 32px;
+            width: 100%;
         }
 
-        /* Right Column: Hero Brand & Logic Visualizer (Repliz / Cloudflare Style) */
-        .login-brand-pane {
-            flex: 1.2;
-            background: #000000;
-            border-left: 1px solid #1F1F1F;
+        /* Right Side: Authentic ASCII Animation Showcase (Vercel / 21st.dev Style) */
+        .ascii-stage-pane {
+            flex: 1.35;
+            background: var(--bg-canvas);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 60px 80px;
+            padding: 48px;
             position: relative;
             overflow: hidden;
-            color: #FFFFFF;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        /* Subtle Grid Pattern */
-        .login-brand-pane::before {
+        .ascii-stage-pane::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
+            inset: 0;
             background-image: 
-                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+                linear-gradient(to right, var(--border-color) 1px, transparent 1px),
+                linear-gradient(to bottom, var(--border-color) 1px, transparent 1px);
+            background-size: 48px 48px;
+            opacity: 0.35;
             pointer-events: none;
         }
 
-        .brand-pane-header {
+        .ascii-top-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             position: relative;
-            z-index: 2;
+            z-index: 5;
         }
 
-        .meta-api-pill {
+        .ascii-status-pill {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #111111;
-            border: 1px solid #262626;
-            padding: 6px 14px;
+            background: var(--badge-bg);
+            border: 1px solid var(--border-color);
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
+            font-size: 0.6875rem;
+            font-family: var(--font-mono);
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: #A3A3A3;
-            margin-bottom: 24px;
         }
 
-        .meta-api-pill .dot {
+        .ascii-status-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: #FFFFFF;
+            background: #10B981;
+            box-shadow: 0 0 8px #10B981;
         }
 
-        .hero-statement {
-            font-size: 2.25rem;
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            line-height: 1.3;
-            margin-bottom: 24px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Replica of Repliz Interactive Pill Logic */
-        .logic-card-box {
-            background: #0A0A0A;
-            border: 1px solid #262626;
-            border-radius: 12px;
-            padding: 24px;
-            margin: 32px 0;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        }
-
-        .logic-badge {
-            display: inline-block;
-            background: #181818;
-            border: 1px solid #333333;
-            color: #FFFFFF;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-family: var(--font-mono);
-            font-size: 0.8125rem;
-            font-weight: 500;
-            margin: 2px 4px;
-        }
-
-        .logic-prose {
-            font-size: 1.0625rem;
-            line-height: 1.8;
-            color: #D4D4D8;
-        }
-
-        .feature-bullets {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-top: 24px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .feature-item {
+        .ascii-control-pills {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 0.875rem;
-            color: #A3A3A3;
-            line-height: 1.4;
-        }
-
-        .feature-item svg {
-            flex-shrink: 0;
-            margin-top: 2px;
-            color: #FFFFFF;
-        }
-
-        .brand-pane-footer {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            position: relative;
-            z-index: 2;
-            border-top: 1px solid #1F1F1F;
-            padding-top: 20px;
-            font-size: 0.75rem;
-            color: #737373;
+            gap: 6px;
         }
 
-        /* Toast Container */
-        .toast-pill {
+        .ascii-btn-mode {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .ascii-btn-mode:hover, .ascii-btn-mode.active {
+            color: var(--text-main);
+            border-color: var(--text-muted);
+            background: var(--bg-surface-subtle);
+        }
+
+        /* Central ASCII Canvas Stage */
+        .ascii-canvas-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            margin: 20px 0;
+            z-index: 5;
+        }
+
+        #ascii-output {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            line-height: 11px;
+            letter-spacing: 0px;
+            white-space: pre;
+            color: var(--ascii-color);
+            text-align: center;
+            cursor: grab;
+            transition: color 0.25s ease;
+            text-shadow: 0 0 1px rgba(255,255,255,0.05);
+        }
+        #ascii-output:active {
+            cursor: grabbing;
+        }
+
+        .ascii-caption-strip {
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .ascii-caption-strip span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Bottom Architecture Banner */
+        .ascii-bottom-banner {
+            position: relative;
+            z-index: 5;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .ascii-banner-lead {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .ascii-banner-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .ascii-banner-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .ascii-banner-meta {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--text-subtle);
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        /* Toast notification */
+        .auth-toast {
             position: fixed;
             bottom: 24px;
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #18181B;
-            border: 1px solid #3F3F46;
-            color: #FFFFFF;
-            padding: 10px 20px;
-            border-radius: 30px;
+            transform: translateX(-50%) translateY(40px);
+            opacity: 0;
+            pointer-events: none;
+            background: var(--text-main);
+            color: var(--bg-canvas);
             font-size: 0.8125rem;
             font-weight: 500;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            opacity: 0;
+            padding: 8px 18px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 9999;
-            pointer-events: none;
+            z-index: 1000;
         }
-        .toast-pill.show {
-            transform: translateX(-50%) translateY(0);
+        .auth-toast.show {
             opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
 
-        @media (max-width: 992px) {
-            .login-brand-pane {
-                display: none;
+        @media (max-width: 900px) {
+            .auth-container {
+                flex-direction: column;
             }
-            .login-form-pane {
+            .auth-panel {
                 max-width: 100%;
-                padding: 30px 24px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 32px 24px;
+            }
+            .ascii-stage-pane {
+                min-height: 380px;
+                padding: 24px;
+            }
+            #ascii-output {
+                font-size: 8px;
+                line-height: 8.5px;
             }
         }
     </style>
 </head>
 <body>
-
-    <div class="login-split-container">
-        <!-- Left Column: Form & Auth -->
-        <section class="login-form-pane">
-            <header class="login-topbar">
-                <a href="./" class="brand-logo">
-                    <div class="brand-icon-box">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <div class="auth-container">
+        <!-- Left Panel: Minimalist High-Density Auth Form -->
+        <main class="auth-panel">
+            <header class="auth-topbar">
+                <a href="./#dashboard" class="brand-link" title="Back to workspace">
+                    <div class="brand-symbol">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                         </svg>
                     </div>
-                    <span>PushChat</span>
+                    <span class="brand-title">PushChat</span>
                 </a>
 
-                <div class="login-controls">
-                    <div class="lang-switch">
-                        <span class="lang-item active" onclick="setLang('en', this)">EN</span>
+                <div class="topbar-tools">
+                    <div class="lang-toggle">
+                        <span class="lang-opt active" id="lang-en" onclick="switchLanguage('en')">EN</span>
                         <span>/</span>
-                        <span class="lang-item" onclick="setLang('id', this)">ID</span>
+                        <span class="lang-opt" id="lang-id" onclick="switchLanguage('id')">ID</span>
                     </div>
 
-                    <button class="btn-theme" id="theme-btn" onclick="toggleAuthTheme()" title="Toggle Light/Dark Theme">
-                        <!-- Sun Icon (shown when dark) -->
-                        <svg id="auth-theme-icon-sun" class="auth-theme-icon-animated" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <button class="theme-toggle-btn" id="theme-btn" onclick="toggleThemeAuth()" title="Toggle Dark/Light Mode">
+                        <!-- Sun Icon (Active in Dark Mode) -->
+                        <svg id="auth-theme-sun" class="theme-icon-anim" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="5"></circle>
                             <line x1="12" y1="1" x2="12" y2="3"></line>
                             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -590,45 +636,45 @@
                             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                         </svg>
-                        <!-- Moon Icon (shown when light) -->
-                        <svg id="auth-theme-icon-moon" class="auth-theme-icon-animated" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Moon Icon (Active in Light Mode) -->
+                        <svg id="auth-theme-moon" class="theme-icon-anim" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                         </svg>
                     </button>
                 </div>
             </header>
 
-            <main class="login-form-content">
-                <div class="login-header-group">
-                    <h1 class="login-title" id="auth-title">Sign in to your account</h1>
-                    <p class="login-subtitle" id="auth-subtitle">Automate Instagram comments & DMs with zero-spaghetti workflows.</p>
+            <div class="auth-center">
+                <div class="auth-heading-group">
+                    <h1 class="auth-headline" id="title-headline">Welcome back</h1>
+                    <p class="auth-caption" id="title-caption">Sign in to your Instagram Comment-to-DM automation console.</p>
                 </div>
 
-                <!-- Repliz-Style Role Switcher (Main Account vs Operator) -->
-                <div class="role-switcher">
-                    <button type="button" class="role-btn active" id="btn-role-main" onclick="selectRole('main')">Main Account</button>
-                    <button type="button" class="role-btn" id="btn-role-operator" onclick="selectRole('operator')">Operator / Team</button>
+                <!-- Vercel-style Tab Bar -->
+                <div class="auth-tabs" role="tablist">
+                    <button type="button" class="auth-tab-item active" id="tab-main" onclick="selectRole('main')">Main Workspace</button>
+                    <button type="button" class="auth-tab-item" id="tab-operator" onclick="selectRole('operator')">Operator Seat</button>
                 </div>
 
-                <form id="login-form" onsubmit="handleAuthSubmit(event)">
-                    <div class="form-group">
-                        <div class="form-label-row">
-                            <label class="form-label" for="login-email" id="lbl-email">Work Email</label>
+                <form onsubmit="handleAuthSubmit(event)">
+                    <div class="form-row">
+                        <div class="field-label-group">
+                            <label class="field-label" id="label-email" for="input-email">Work Email</label>
                         </div>
-                        <div class="input-wrap">
-                            <input type="email" id="login-email" class="form-input" placeholder="name@company.com" required value="arsyad@aarsydesign.com">
+                        <div class="field-input-box">
+                            <input type="email" id="input-email" class="auth-input" placeholder="name@company.com" required value="arsyad@aarsydesign.com">
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="form-label-row">
-                            <label class="form-label" for="login-pass" id="lbl-pass">Password</label>
-                            <a href="javascript:void(0)" class="forgot-link" onclick="handleForgot()">Forgot password?</a>
+                    <div class="form-row">
+                        <div class="field-label-group">
+                            <label class="field-label" id="label-pass" for="input-pass">Password</label>
+                            <a href="javascript:void(0)" class="field-link" onclick="handleForgot()">Forgot?</a>
                         </div>
-                        <div class="input-wrap">
-                            <input type="password" id="login-pass" class="form-input" placeholder="Enter your password" required value="••••••••••••">
-                            <button type="button" class="input-btn-eye" onclick="togglePassVisibility()" title="Toggle visibility">
-                                <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <div class="field-input-box">
+                            <input type="password" id="input-pass" class="auth-input" placeholder="••••••••••••" required value="pushchat-admin">
+                            <button type="button" class="eye-toggle-btn" onclick="togglePasswordVisibility()" title="Show/Hide Password">
+                                <svg id="eye-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                                     <circle cx="12" cy="12" r="3"></circle>
                                 </svg>
@@ -636,191 +682,397 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-submit" id="btn-submit-text">
-                        <span>Sign In</span>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    <button type="submit" class="btn-auth-primary" id="btn-submit">
+                        <span>Continue</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </button>
                 </form>
 
-                <div class="auth-divider">
-                    <span>or continue with</span>
+                <div class="auth-separator">
+                    <span>or connect via</span>
                 </div>
 
-                <button type="button" class="btn-google" onclick="handleGoogleLogin()">
-                    <svg width="18" height="18" viewBox="0 0 24 24">
+                <button type="button" class="btn-oauth" onclick="handleGoogleOAuth()">
+                    <svg width="16" height="16" viewBox="0 0 24 24">
                         <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3h3.86c2.26-2.09 3.68-5.17 3.68-9.09z"/>
                         <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09C3.26 21.3 7.37 24 12 24z"/>
                         <path fill="#FBBC05" d="M5.27 14.29c-.25-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.62H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.38l3.98-3.09z"/>
                         <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.37 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/>
                     </svg>
-                    <span>Continue with Google</span>
+                    <span>Google Workspace</span>
                 </button>
 
-                <div class="login-footer-auth">
-                    <span>Don't have an account?</span>
-                    <a href="./#billing" id="link-signup">Start Free (1 Account Included)</a>
+                <div class="auth-bottom-switch">
+                    <span id="txt-no-account">Need an account?</span>
+                    <a href="./#billing" id="link-create">Start Starter Free</a>
                 </div>
+            </div>
 
-                <div class="legal-notice">
-                    Protected by enterprise zero-trust security. Official Meta Graph API verified application.
-                </div>
-            </main>
-
-            <footer style="font-size:0.75rem; color:var(--text-subtle); display:flex; justify-content:space-between;">
-                <span>© 2026 PushChat by AarsyDesign</span>
-                <div style="display:flex; gap:14px;">
-                    <a href="javascript:void(0)" style="color:inherit; text-decoration:none;">Privacy</a>
-                    <a href="javascript:void(0)" style="color:inherit; text-decoration:none;">Terms</a>
-                    <a href="javascript:void(0)" style="color:inherit; text-decoration:none;">Status</a>
-                </div>
+            <footer class="auth-footer">
+                <span>PushChat Micro-SaaS Engine</span>
+                <span style="font-family:var(--font-mono);">v1.0.0</span>
             </footer>
-        </section>
+        </main>
 
-        <!-- Right Column: Hero Brand & Logic Visualizer (Repliz / Cloudflare Style) -->
-        <section class="login-brand-pane">
-            <div class="brand-pane-header">
-                <div class="meta-api-pill">
-                    <span class="dot"></span>
-                    <span>Official Meta Graph API v21.0</span>
+        <!-- Right Panel: Kinetic 3D Monochromatic ASCII Stage (Serafim / 21st.dev Style) -->
+        <section class="ascii-stage-pane" aria-hidden="true">
+            <div class="ascii-top-meta">
+                <div class="ascii-status-pill">
+                    <span class="ascii-status-dot"></span>
+                    <span>Graph Engine Active • Meta v21.0</span>
                 </div>
-                <h2 class="hero-statement">Turn Viral Reels Comments into Paying Customers. Instantly.</h2>
-            </div>
 
-            <div class="logic-card-box">
-                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.06em; color:#737373; margin-bottom:12px; font-weight:600;">Automation Flow Simulator</div>
-                <p class="logic-prose">
-                    When someone <span class="logic-badge">comments "price"</span> on <span class="logic-badge">your Reels</span>, PushChat replies in public, enforcers <span class="logic-badge">Follow-Gate</span>, and <span class="logic-badge">dispatches product DM</span> with zero delay.
-                </p>
-                <div style="margin-top:16px; padding-top:14px; border-top:1px solid #222; display:flex; justify-content:space-between; align-items:center; font-size:0.8125rem;">
-                    <span style="color:#A3A3A3;">Latency Average: <strong style="color:#FFF;">180ms</strong></span>
-                    <span style="color:#A3A3A3;">Meta Compliance: <strong style="color:#FFF;">100% Whitelisted</strong></span>
+                <div class="ascii-control-pills">
+                    <button type="button" class="ascii-btn-mode active" id="btn-mode-torus" onclick="setAsciiMode('torus')">3D Torus</button>
+                    <button type="button" class="ascii-btn-mode" id="btn-mode-sphere" onclick="setAsciiMode('sphere')">Wave Grid</button>
+                    <button type="button" class="ascii-btn-mode" id="btn-mode-cube" onclick="setAsciiMode('cube')">Hypercube</button>
                 </div>
             </div>
 
-            <div>
-                <div class="feature-bullets">
-                    <div class="feature-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Follow-Gate Enforcer (Gain authentic followers before delivering links)</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Human Randomized Delay (Anti-shadowban safety algorithms)</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Instant Prepaid Wallet (Direct QRIS top-up & 1-click subscription upgrades)</span>
-                    </div>
-                    <div class="feature-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        <span>Multi-Operator Handover (Live Inbox with human agent takeover)</span>
-                    </div>
+            <div class="ascii-canvas-wrapper">
+                <pre id="ascii-output"></pre>
+                
+                <div class="ascii-caption-strip">
+                    <span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                        <span id="ascii-fps">24 FPS</span>
+                    </span>
+                    <span>•</span>
+                    <span>Interactive 3D Kernel Drag Enabled</span>
+                    <span>•</span>
+                    <span style="font-family:var(--font-mono);">Ramp: .:-=+*#%@</span>
                 </div>
             </div>
 
-            <footer class="brand-pane-footer">
-                <span>Enterprise SLA • Cloudflare Edge Network Protected</span>
-                <span>PushChat Engine v1.0</span>
-            </footer>
+            <div class="ascii-bottom-banner">
+                <div class="ascii-banner-lead">
+                    <div class="ascii-banner-title">Automated Comment-to-DM Graph Pipeline</div>
+                    <div class="ascii-banner-desc">Official Meta Graph API webhook dispatcher with zero-delay delivery.</div>
+                </div>
+                <div class="ascii-banner-meta">
+                    <div>LATENCY: ~180MS</div>
+                    <div>STATUS: 100% WHITELISTED</div>
+                </div>
+            </div>
         </section>
     </div>
 
-    <!-- Floating Monochromatic Toast -->
-    <div id="toast-pill" class="toast-pill">Notification message</div>
+    <div id="toast-el" class="auth-toast">Notification</div>
 
     <script>
+        // --- AUTH & UI LOGIC ---
         let currentRole = 'main';
+        let currentLang = 'en';
 
         function selectRole(role) {
             currentRole = role;
-            const btnMain = document.getElementById('btn-role-main');
-            const btnOperator = document.getElementById('btn-role-operator');
-            const authTitle = document.getElementById('auth-title');
-            const authSubtitle = document.getElementById('auth-subtitle');
-            const lblEmail = document.getElementById('lbl-email');
+            const tabMain = document.getElementById('tab-main');
+            const tabOp = document.getElementById('tab-operator');
+            const headline = document.getElementById('title-headline');
+            const caption = document.getElementById('title-caption');
+            const lblEmail = document.getElementById('label-email');
 
             if (role === 'main') {
-                btnMain.classList.add('active');
-                btnOperator.classList.remove('active');
-                authTitle.textContent = "Sign in to your account";
-                authSubtitle.textContent = "Automate Instagram comments & DMs with zero-spaghetti workflows.";
-                lblEmail.textContent = "Work Email";
-                showToast("Switched to Main Workspace Account mode.");
+                tabMain.classList.add('active');
+                tabOp.classList.remove('active');
+                if (currentLang === 'en') {
+                    headline.textContent = "Welcome back";
+                    caption.textContent = "Sign in to your Instagram Comment-to-DM automation console.";
+                    lblEmail.textContent = "Work Email";
+                } else {
+                    headline.textContent = "Selamat Datang";
+                    caption.textContent = "Masuk ke konsol otomasi Comment-to-DM Instagram Anda.";
+                    lblEmail.textContent = "Email Bisnis";
+                }
+                showToast("Workspace Account Mode Selected");
             } else {
-                btnOperator.classList.add('active');
-                btnMain.classList.remove('active');
-                authTitle.textContent = "Operator Team Sign In";
-                authSubtitle.textContent = "Access assigned client inbox channels and live manual handover.";
-                lblEmail.textContent = "Operator Email / Username";
-                showToast("Switched to Team Operator Access mode.");
+                tabOp.classList.add('active');
+                tabMain.classList.remove('active');
+                if (currentLang === 'en') {
+                    headline.textContent = "Operator Sign In";
+                    caption.textContent = "Direct access to Live Inbox and customer handover channels.";
+                    lblEmail.textContent = "Operator Email / Username";
+                } else {
+                    headline.textContent = "Masuk Operator Tim";
+                    caption.textContent = "Akses langsung ke Live Inbox dan alih tangan pesan pelanggan.";
+                    lblEmail.textContent = "Email / Username Operator";
+                }
+                showToast("Team Operator Access Mode Selected");
             }
         }
 
-        function togglePassVisibility() {
-            const passInput = document.getElementById('login-pass');
-            if (passInput.type === 'password') {
-                passInput.type = 'text';
-            } else {
-                passInput.type = 'password';
-            }
+        function togglePasswordVisibility() {
+            const pass = document.getElementById('input-pass');
+            pass.type = pass.type === 'password' ? 'text' : 'password';
         }
 
-        function toggleAuthTheme() {
+        function toggleThemeAuth() {
             const html = document.documentElement;
-            const current = html.getAttribute('data-theme') || 'dark';
-            const next = current === 'dark' ? 'light' : 'dark';
+            const cur = html.getAttribute('data-theme') || 'dark';
+            const next = cur === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', next);
+            localStorage.setItem('pushchat_theme', next);
             showToast(`Theme switched to ${next.toUpperCase()}`);
         }
 
-        function setLang(lang, el) {
-            document.querySelectorAll('.lang-item').forEach(i => i.classList.remove('active'));
-            el.classList.add('active');
+        function switchLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('lang-id').classList.toggle('active', lang === 'id');
+
             if (lang === 'id') {
-                document.getElementById('auth-title').textContent = currentRole === 'main' ? "Masuk ke akun Anda" : "Masuk Tim Operator";
-                document.getElementById('auth-subtitle').textContent = "Otomatisasi komentar & DM Instagram tanpa alur rumit.";
-                document.getElementById('lbl-email').textContent = currentRole === 'main' ? "Email Bisnis" : "Email / Username Operator";
-                document.getElementById('lbl-pass').textContent = "Kata Sandi";
-                document.getElementById('btn-submit-text').querySelector('span').textContent = "Masuk Sekarang";
-                document.getElementById('link-signup').textContent = "Daftar Gratis (Termasuk 1 Akun)";
-                showToast("Bahasa dialihkan ke Bahasa Indonesia.");
+                selectRole(currentRole);
+                document.getElementById('label-pass').textContent = "Kata Sandi";
+                document.getElementById('btn-submit').querySelector('span').textContent = "Masuk";
+                document.getElementById('txt-no-account').textContent = "Belum punya akun?";
+                document.getElementById('link-create').textContent = "Mulai Gratis (1 Akun)";
+                showToast("Bahasa dialihkan ke Bahasa Indonesia");
             } else {
                 selectRole(currentRole);
-                document.getElementById('lbl-pass').textContent = "Password";
-                document.getElementById('btn-submit-text').querySelector('span').textContent = "Sign In";
-                document.getElementById('link-signup').textContent = "Start Free (1 Account Included)";
-                showToast("Language set to English.");
+                document.getElementById('label-pass').textContent = "Password";
+                document.getElementById('btn-submit').querySelector('span').textContent = "Continue";
+                document.getElementById('txt-no-account').textContent = "Need an account?";
+                document.getElementById('link-create').textContent = "Start Starter Free";
+                showToast("Language switched to English");
             }
         }
 
         function handleAuthSubmit(e) {
             e.preventDefault();
-            const email = document.getElementById('login-email').value;
-            showToast(`Authenticating ${email}... Redirecting to workspace`);
+            const email = document.getElementById('input-email').value;
+            showToast(`Authenticating ${email}...`);
             setTimeout(() => {
                 window.location.href = './#dashboard';
-            }, 800);
+            }, 750);
         }
 
-        function handleGoogleLogin() {
+        function handleGoogleOAuth() {
             showToast("Connecting to Google OAuth 2.0...");
             setTimeout(() => {
                 window.location.href = './#dashboard';
-            }, 900);
+            }, 850);
         }
 
         function handleForgot() {
-            showToast("Password reset instructions dispatched to your email.");
+            showToast("Password reset dispatched to your email inbox.");
         }
 
         function showToast(msg) {
-            const t = document.getElementById('toast-pill');
+            const t = document.getElementById('toast-el');
             t.textContent = msg;
             t.classList.add('show');
-            setTimeout(() => {
-                t.classList.remove('show');
-            }, 2500);
+            setTimeout(() => t.classList.remove('show'), 2400);
         }
+
+        // Initialize Theme from localStorage
+        (function() {
+            const saved = localStorage.getItem('pushchat_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', saved);
+        })();
+
+        // --- AUTHENTIC 3D ASCII ENGINE (Vercel / Serafim Inspired) ---
+        const pre = document.getElementById('ascii-output');
+        let asciiMode = 'torus';
+        let A = 0;
+        let B = 0;
+        let isDragging = false;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+
+        function setAsciiMode(mode) {
+            asciiMode = mode;
+            document.querySelectorAll('.ascii-btn-mode').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-mode-${mode}`).classList.add('active');
+            showToast(`Render Kernel: ${mode.toUpperCase()}`);
+        }
+
+        // Interactive Mouse Drag on ASCII Art
+        pre.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.clientX - lastMouseX;
+            const deltaY = e.clientY - lastMouseY;
+            B += deltaX * 0.015;
+            A += deltaY * 0.015;
+            lastMouseX = e.clientX;
+            lastMouseY = e.clientY;
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // 3D Donut / Torus ASCII Mathematical Renderer
+        function renderTorus() {
+            const width = 64;
+            const height = 30;
+            const b = [];
+            const z = [];
+            for (let k = 0; k < width * height; k++) {
+                b[k] = ' ';
+                z[k] = 0;
+            }
+
+            const sin = Math.sin;
+            const cos = Math.cos;
+
+            // Step through theta and phi
+            for (let j = 0; j < 6.28; j += 0.08) {
+                for (let i = 0; i < 6.28; i += 0.03) {
+                    const c = sin(i);
+                    const d = cos(j);
+                    const e = sin(A);
+                    const f = sin(j);
+                    const g = cos(A);
+                    const h = d + 2;
+                    const D = 1 / (c * h * e + f * g + 5);
+                    const l = cos(i);
+                    const m = cos(B);
+                    const n = sin(B);
+                    const t = c * h * g - f * e;
+
+                    const x = Math.floor(width / 2 + 28 * D * (l * h * m - t * n));
+                    const y = Math.floor(height / 2 + 14 * D * (l * h * n + t * m));
+                    const o = x + width * y;
+                    const N = Math.floor(8 * ((f * e - c * d * g) * m - c * d * e - f * g - l * d * n));
+
+                    if (height > y && y >= 0 && width > x && x >= 0 && D > z[o]) {
+                        z[o] = D;
+                        b[o] = ".,-~:;=!*#$@"[N > 0 ? (N < 12 ? N : 11) : 0];
+                    }
+                }
+            }
+
+            let output = '';
+            for (let k = 0; k < width * height; k++) {
+                output += (k % width === 0 && k !== 0 ? '\n' : '') + b[k];
+            }
+            pre.textContent = output;
+        }
+
+        // Dynamic 3D Wave / Matrix Grid
+        let waveTick = 0;
+        function renderWaveGrid() {
+            const width = 64;
+            const height = 30;
+            let output = '';
+            const ramp = " .:-=+*#%@";
+            waveTick += 0.04;
+
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const dx = (x - width / 2) / 10;
+                    const dy = (y - height / 2) / 5;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const val = Math.sin(dist - waveTick * 2) + Math.cos(dx * 0.8 + waveTick) * 0.5;
+                    const normalized = (val + 1.5) / 3;
+                    const charIdx = Math.max(0, Math.min(ramp.length - 1, Math.floor(normalized * ramp.length)));
+                    output += ramp[charIdx];
+                }
+                output += '\n';
+            }
+            pre.textContent = output;
+        }
+
+        // Rotating Wireframe Hypercube (3D Projection)
+        function renderHypercube() {
+            const width = 64;
+            const height = 30;
+            const grid = Array(height).fill(null).map(() => Array(width).fill(' '));
+            
+            // 8 Cube Vertices in 3D
+            const size = 1.6;
+            const vertices = [
+                [-size, -size, -size], [size, -size, -size], [size, size, -size], [-size, size, -size],
+                [-size, -size, size], [size, -size, size], [size, size, size], [-size, size, size]
+            ];
+
+            // 12 Edges connecting vertices
+            const edges = [
+                [0,1], [1,2], [2,3], [3,0],
+                [4,5], [5,6], [6,7], [7,4],
+                [0,4], [1,5], [2,6], [3,7]
+            ];
+
+            // Rotate Vertices
+            const rotA = A;
+            const rotB = B;
+            const cosA = Math.cos(rotA), sinA = Math.sin(rotA);
+            const cosB = Math.cos(rotB), sinB = Math.sin(rotB);
+
+            const proj = vertices.map(([x, y, z]) => {
+                // Rotate around X
+                let y1 = y * cosA - z * sinA;
+                let z1 = y * sinA + z * cosA;
+                // Rotate around Y
+                let x2 = x * cosB + z1 * sinB;
+                let z2 = -x * sinB + z1 * cosB;
+
+                const distance = 4.2;
+                const fov = 30 / (distance + z2);
+                const px = Math.floor(width / 2 + x2 * fov * 2);
+                const py = Math.floor(height / 2 + y1 * fov);
+                return [px, py];
+            });
+
+            // Draw line between 2 projected points
+            function drawLine(p1, p2, char) {
+                let [x0, y0] = p1;
+                let [x1, y1] = p2;
+                const dx = Math.abs(x1 - x0);
+                const dy = Math.abs(y1 - y0);
+                const sx = (x0 < x1) ? 1 : -1;
+                const sy = (y0 < y1) ? 1 : -1;
+                let err = dx - dy;
+
+                while (true) {
+                    if (x0 >= 0 && x0 < width && y0 >= 0 && y0 < height) {
+                        grid[y0][x0] = char;
+                    }
+                    if (x0 === x1 && y0 === y1) break;
+                    const e2 = 2 * err;
+                    if (e2 > -dy) { err -= dy; x0 += sx; }
+                    if (e2 < dx) { err += dx; y0 += sy; }
+                }
+            }
+
+            edges.forEach(([u, v]) => {
+                drawLine(proj[u], proj[v], '#');
+            });
+
+            pre.textContent = grid.map(row => row.join('')).join('\n');
+        }
+
+        // Frame Loop (Capped at 24 FPS for authentic terminal stepping)
+        let lastFrameTime = 0;
+        const targetFPS = 24;
+        const frameInterval = 1000 / targetFPS;
+
+        function animate(timestamp) {
+            requestAnimationFrame(animate);
+            if (timestamp - lastFrameTime < frameInterval) return;
+            lastFrameTime = timestamp;
+
+            if (!isDragging) {
+                A += 0.035;
+                B += 0.02;
+            }
+
+            if (asciiMode === 'torus') {
+                renderTorus();
+            } else if (asciiMode === 'sphere') {
+                renderWaveGrid();
+            } else if (asciiMode === 'cube') {
+                renderHypercube();
+            }
+        }
+
+        requestAnimationFrame(animate);
     </script>
 </body>
 </html>
