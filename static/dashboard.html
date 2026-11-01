@@ -1329,7 +1329,7 @@
 
         function handleHashChange() {
             const hash = window.location.hash.replace('#', '') || 'dashboard';
-            const validRoutes = ['dashboard', 'rules', 'history', 'accounts', 'billing', 'settings'];
+            const validRoutes = ['dashboard', 'rules', 'audience', 'inbox', 'accounts', 'billing', 'settings'];
             const targetRoute = validRoutes.includes(hash) ? hash : 'dashboard';
             navigate(targetRoute);
         }
