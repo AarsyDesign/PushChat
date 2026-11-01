@@ -129,10 +129,47 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.15s ease;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s ease, transform 0.15s ease;
         }
         .btn-theme:hover {
             border-color: var(--text-muted);
+        }
+        .btn-theme:active {
+            transform: scale(0.92);
+        }
+
+        /* Animated Dark/Light Mode Icon Transitions */
+        .auth-theme-icon-animated {
+            position: absolute;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+        }
+
+        /* In Dark mode: Sun is visible, Moon is rotated away */
+        [data-theme="dark"] #auth-theme-icon-sun {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+            pointer-events: auto;
+        }
+
+        [data-theme="dark"] #auth-theme-icon-moon {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.4);
+            pointer-events: none;
+        }
+
+        /* In Light mode: Moon is visible, Sun is rotated away */
+        [data-theme="light"] #auth-theme-icon-sun {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.4);
+            pointer-events: none;
+        }
+
+        [data-theme="light"] #auth-theme-icon-moon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+            pointer-events: auto;
         }
 
         .login-form-content {
@@ -541,7 +578,8 @@
                     </div>
 
                     <button class="btn-theme" id="theme-btn" onclick="toggleAuthTheme()" title="Toggle Light/Dark Theme">
-                        <svg id="theme-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- Sun Icon (shown when dark) -->
+                        <svg id="auth-theme-icon-sun" class="auth-theme-icon-animated" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="5"></circle>
                             <line x1="12" y1="1" x2="12" y2="3"></line>
                             <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -551,6 +589,10 @@
                             <line x1="21" y1="12" x2="23" y2="12"></line>
                             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
                             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                        <!-- Moon Icon (shown when light) -->
+                        <svg id="auth-theme-icon-moon" class="auth-theme-icon-animated" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                         </svg>
                     </button>
                 </div>
