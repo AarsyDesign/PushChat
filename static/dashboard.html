@@ -1914,19 +1914,19 @@
                                     <circle cx="11" cy="11" r="8"></circle>
                                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                 </svg>
-                                <input type="text" class="thread-search-input" placeholder="Search conversations...">
+                                <input type="text" class="thread-search-input" placeholder="Search conversations..." oninput="searchThreads(this.value)">
                             </div>
                         </div>
                         <div class="thread-list">
                             <!-- Thread 1 (Active) -->
-                            <div class="thread-item active" onclick="selectThread(this, 'sarah.foodies', 'SF', 'Reels #104 • Rendang Daging', 'recipe', 'New Follower', '4 DMs Sent • 3 Link Clicks', '248ms')">
+                            <div class="thread-item active" onclick="selectThread(this, 'sarah.foodies', 'SF', 'Reels #104 • Beef Rendang Guide', 'recipe', 'New Follower', '4 DMs Sent • 3 Link Clicks', '248ms')">
                                 <div class="user-avatar-circle" style="width:34px; height:34px;">SF</div>
                                 <div class="thread-content">
                                     <div class="thread-top">
                                         <span class="thread-user">@sarah.foodies</span>
                                         <span class="thread-time">Just now</span>
                                     </div>
-                                    <div class="thread-snippet">Makasih min link resepnya sudah kebuka!</div>
+                                    <div class="thread-snippet">Thanks! The link opened right away...</div>
                                     <div class="thread-meta">
                                         <span class="tag">recipe</span>
                                         <span class="status-pill new-follower" style="font-size:0.625rem; padding:1px 5px;">Follow-Gate OK</span>
@@ -1941,7 +1941,7 @@
                                         <span class="thread-user">@budi_santoso</span>
                                         <span class="thread-time">4m ago</span>
                                     </div>
-                                    <div class="thread-snippet">Vouchernya bisa dipakai sampai jam berapa kak?</div>
+                                    <div class="thread-snippet">Until what time is the discount code valid?</div>
                                     <div class="thread-meta">
                                         <span class="tag">discount</span>
                                         <span class="status-pill following" style="font-size:0.625rem; padding:1px 5px;">Following</span>
@@ -1956,7 +1956,7 @@
                                         <span class="thread-user">@hawksblack.id</span>
                                         <span class="thread-time">2h ago</span>
                                     </div>
-                                    <div class="thread-snippet">Bisa webhook ke server lokal port 8090 ga?</div>
+                                    <div class="thread-snippet">Can I forward webhooks to my local server?</div>
                                     <div class="thread-meta">
                                         <span class="tag">link</span>
                                         <span class="status-pill new-follower" style="font-size:0.625rem; padding:1px 5px;">Follow-Gate OK</span>
@@ -1964,14 +1964,14 @@
                                 </div>
                             </div>
                             <!-- Thread 4 -->
-                            <div class="thread-item" onclick="selectThread(this, 'dina_kitchen', 'DK', 'Reels #104 • Rendang Daging', 'recipe', 'New Follower', '1 DM Sent • 1 Link Click', '420ms')">
+                            <div class="thread-item" onclick="selectThread(this, 'dina_kitchen', 'DK', 'Reels #104 • Beef Rendang Guide', 'recipe', 'New Follower', '1 DM Sent • 1 Link Click', '420ms')">
                                 <div class="user-avatar-circle" style="width:34px; height:34px;">DK</div>
                                 <div class="thread-content">
                                     <div class="thread-top">
                                         <span class="thread-user">@dina_kitchen</span>
                                         <span class="thread-time">18m ago</span>
                                     </div>
-                                    <div class="thread-snippet">resep rendang</div>
+                                    <div class="thread-snippet">rendang recipe please</div>
                                     <div class="thread-meta">
                                         <span class="tag">recipe</span>
                                         <span class="status-pill following" style="font-size:0.625rem; padding:1px 5px;">Following</span>
@@ -2001,7 +2001,7 @@
                             <!-- Inbound Public Trigger Notification -->
                             <div style="text-align:center; margin: 4px 0;">
                                 <span style="font-size:0.6875rem; color:var(--text-muted); background:var(--bg-surface); padding:3px 10px; border-radius:12px; border:1px solid var(--border-color);">
-                                    Triggered by comment: <strong>"mau resep rendangnya dong kak"</strong> on Reels #104
+                                    Triggered by comment: <strong>"can you send me the beef rendang recipe link please"</strong> on Reels #104
                                 </span>
                             </div>
 
@@ -2012,7 +2012,7 @@
                                     Automated Public Comment Reply (Random Variant #2)
                                 </div>
                                 <div class="chat-bubble-box" style="font-style:italic; font-size:0.75rem;">
-                                    "Resep rahasia rendang daging empuk sudah meluncur ke inbox DM kamu ya kak! Silakan dicek."
+                                    "The secret beef rendang recipe guide has just been delivered to your DM inbox! Check it out."
                                 </div>
                                 <div class="chat-bubble-meta">HTTP 200 &bull; Comment reply posted in 218ms</div>
                             </div>
@@ -2021,11 +2021,11 @@
                             <div class="chat-bubble-wrap outbound">
                                 <div class="chat-sender-label" style="color:var(--text-muted);">PushChat Automation Bot</div>
                                 <div class="chat-bubble-box">
-                                    Halo Kak Sarah! Ini link resep lengkap bumbu rendang daging empuk khas Minang yang tadi kamu minta:
+                                    Hello Sarah! Here is the complete step-by-step beef rendang recipe guide you requested:
                                     <div class="chat-link-card">
                                         <div style="display:flex; align-items:center; gap:8px;">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-                                            <span>Buka Resep Rendang PDF</span>
+                                            <span>Open Recipe PDF Guide</span>
                                         </div>
                                         <span style="font-size:0.6875rem; text-decoration:underline;">aarsydesign.github.io</span>
                                     </div>
@@ -2037,7 +2037,7 @@
                             <div class="chat-bubble-wrap inbound">
                                 <div class="chat-sender-label">@sarah.foodies</div>
                                 <div class="chat-bubble-box">
-                                    Makasih min link resepnya sudah kebuka! Sangat membantu buat persiapan lebaran nanti.
+                                    Thanks! The link opened right away. This is super helpful for my upcoming dinner.
                                 </div>
                                 <div class="chat-bubble-meta">Direct Inbound &bull; Just now</div>
                             </div>
@@ -2076,7 +2076,7 @@
                             <!-- Origin & Rule Trigger -->
                             <div class="context-field-group">
                                 <span class="context-field-label">Origin Media</span>
-                                <span id="meta-source" class="context-field-val">Reels #104 &bull; Rendang Daging</span>
+                                <span id="meta-source" class="context-field-val">Reels #104 &bull; Beef Rendang Guide</span>
                             </div>
 
                             <div class="context-field-group">
@@ -2273,6 +2273,59 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+        }
+
+        // Inbound Search in Live Inbox
+        function searchThreads(query) {
+            const q = query.toLowerCase().trim();
+            document.querySelectorAll('.thread-item').forEach(item => {
+                const user = item.querySelector('.thread-user') ? item.querySelector('.thread-user').innerText.toLowerCase() : '';
+                const snippet = item.querySelector('.thread-snippet') ? item.querySelector('.thread-snippet').innerText.toLowerCase() : '';
+                const tag = item.querySelector('.tag') ? item.querySelector('.tag').innerText.toLowerCase() : '';
+                if (!q || user.includes(q) || snippet.includes(q) || tag.includes(q)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Send Human Reply via Meta Graph API Simulation
+        function sendMockReply(inputEl) {
+            const text = inputEl ? inputEl.value.trim() : '';
+            if (!text) return;
+
+            const stream = document.getElementById('chat-stream-body');
+            const newBubble = document.createElement('div');
+            newBubble.className = 'chat-bubble-wrap outbound';
+            newBubble.innerHTML = `
+                <div class="chat-sender-label" style="color:var(--text-muted);">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline; vertical-align:middle; margin-right:4px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    Human Operator (Live Handover)
+                </div>
+                <div class="chat-bubble-box" style="border: 1px solid var(--text-muted);">
+                    ${escapeHtml(text)}
+                </div>
+                <div class="chat-bubble-meta">HTTP 200 &bull; Meta Graph API v21.0 &bull; Just now</div>
+            `;
+            stream.appendChild(newBubble);
+            inputEl.value = '';
+            stream.scrollTop = stream.scrollHeight;
+        }
+
+        function escapeHtml(string) {
+            return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;',
+                    '/': '&#x2F;',
+                    '`': '&#x60;',
+                    '=': '&#x3D;'
+                }[s];
+            });
         }
 
         // Live Inbox Dynamic Thread Selection & Handover
