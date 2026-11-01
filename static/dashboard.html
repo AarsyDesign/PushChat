@@ -3476,6 +3476,7 @@
         function openSubscriptionQRISModal(planName, priceInt) {
             const invId = 'INV-PC-' + Date.now().toString().slice(-6);
             const formattedPrice = 'Rp ' + priceInt.toLocaleString('id-ID');
+            const canDeductWallet = currentWalletBalance >= priceInt;
             
             openModal(`
                 <div class="modal-top-row">
@@ -3490,8 +3491,28 @@
                     </button>
                 </div>
                 <h3 class="modal-title">Upgrade to ${planName}</h3>
-                <p class="modal-body-text">Scan the dynamic QRIS code below using BCA, Mandiri, GoPay, OVO, Dana, or any banking app. Subscription activates instantly upon settlement.</p>
+                <p class="modal-body-text">Scan the dynamic QRIS code or pay directly from your unified PushNotif wallet balance. Subscription activates instantly upon settlement.</p>
                 
+                <!-- PushNotif Wallet Quick Pay Option -->
+                <div style="background:var(--bg-surface-subtle); border:1px solid var(--border-color); border-radius:6px; padding:12px 14px; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                    <div>
+                        <div style="font-size:0.8125rem; font-weight:600; color:var(--text-main);">PushNotif Wallet (Shared Balance)</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted);">Available: <strong style="color:var(--text-main);">Rp ${currentWalletBalance.toLocaleString('id-ID')}</strong></div>
+                    </div>
+                    <button class="btn ${canDeductWallet ? 'btn-primary' : 'btn-secondary'}" 
+                            style="font-size:0.75rem; padding:6px 12px; white-space:nowrap;"
+                            onclick="payWithPushNotifWallet('${planName}', ${priceInt})"
+                            ${canDeductWallet ? '' : 'disabled'}>
+                        Pay with Balance
+                    </button>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+                    <div style="height:1px; flex:1; background:var(--border-color);"></div>
+                    <span style="font-size:0.6875rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em;">Or Scan Dynamic QRIS</span>
+                    <div style="height:1px; flex:1; background:var(--border-color);"></div>
+                </div>
+
                 <div style="text-align:center;">
                     <div class="qris-canvas-box">
                         <div style="font-size:0.75rem; font-weight:700; color:#09090B; letter-spacing:0.05em; margin-bottom:6px;">QRIS STANDAR PEMBAYARAN NASIONAL</div>
@@ -3518,17 +3539,30 @@
                     </div>
                     <div class="modal-meta-row">
                         <span style="color:var(--text-muted);">Mode</span>
-                        <span style="color:var(--text-main); font-weight:600;">Live Production Gateway</span>
+                        <span style="color:var(--text-main); font-weight:600;">Live Production Gateway (BI QRIS)</span>
                     </div>
                 </div>
 
                 <div class="modal-actions-row">
                     <button class="btn btn-secondary" onclick="closeModal()" style="padding:8px 16px; font-size:0.8125rem;">Cancel</button>
                     <button class="btn btn-primary" onclick="simulateSandboxPayment('${invId}', '${planName}', ${priceInt})" style="padding:8px 16px; font-size:0.8125rem;">
-                        Simulate Instant Settlement
+                        Simulate QRIS Paid Webhook
                     </button>
                 </div>
             `);
+        }
+
+        function payWithPushNotifWallet(planName, priceInt) {
+            if (currentWalletBalance < priceInt) {
+                showToast('Insufficient wallet balance. Please top up first.');
+                return;
+            }
+            currentWalletBalance -= priceInt;
+            const balEl = document.getElementById('wallet-balance-val');
+            if (balEl) balEl.textContent = 'Rp ' + currentWalletBalance.toLocaleString('id-ID');
+            
+            closeModal();
+            showToast(`Success! ${planName} activated using PushNotif Wallet balance. Remaining: Rp ${currentWalletBalance.toLocaleString('id-ID')}`);
         }
 
         function openTopupModal(mode = 'sandbox') {
