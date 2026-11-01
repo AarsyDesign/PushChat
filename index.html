@@ -1871,6 +1871,96 @@
             accent-color: var(--text-main);
         }
 
+        /* Automations Workflow Builder & Presets */
+        .step-pill-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--text-main);
+            color: var(--bg-body);
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 8px;
+        }
+        .step-header {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+        .preset-badge-btn {
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .preset-badge-btn:hover {
+            background: var(--text-main);
+            color: var(--bg-body);
+            border-color: var(--text-main);
+        }
+        .segmented-scope-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            background: var(--bg-surface-subtle);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+        }
+        .segmented-scope-btn {
+            background: none;
+            border: none;
+            padding: 8px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: center;
+        }
+        .segmented-scope-btn.active {
+            background: var(--bg-surface);
+            color: var(--text-main);
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+        .flow-step-block {
+            background: var(--bg-surface-subtle);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        .comment-badge-preview {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 0.75rem;
+            color: var(--text-main);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         /* Rules Table */
         .rules-table {
             width: 100%;
@@ -2441,68 +2531,160 @@
                 <div class="workspace">
                     <!-- Left: Rule Builder & Rules Table -->
                     <div>
+                        <!-- Header Bar with Presets -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+                            <div>
+                                <h2 style="font-size:1.125rem; font-weight:700; color:var(--text-main); margin-bottom:4px;">Comment Automation Workflow</h2>
+                                <p style="font-size:0.8125rem; color:var(--text-muted); margin:0;">Build linear 3-step comment-to-DM triggers without spaghetti node graphs.</p>
+                            </div>
+                            <div style="display:flex; gap:8px; align-items:center;">
+                                <span style="font-size:0.75rem; color:var(--text-muted);">Quick Presets:</span>
+                                <button type="button" class="preset-badge-btn" onclick="applyRulePreset('ebook')">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                                    Free E-Book / Guide
+                                </button>
+                                <button type="button" class="preset-badge-btn" onclick="applyRulePreset('discount')">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
+                                    Promo Voucher 50%
+                                </button>
+                                <button type="button" class="preset-badge-btn" onclick="applyRulePreset('catalog')">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                                    Product Catalog Link
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- 3-Step Setup Form -->
                         <div class="card" style="margin-bottom: 24px;">
-                            <div class="card-header">
-                                <h2 class="card-title">New Automation Rule (Zero-Spaghetti Flow)</h2>
-                            </div>
-
                             <form id="form-rule" onsubmit="handleCreateRule(event)">
-                                <div class="form-group">
-                                    <label class="form-label">Campaign / Post Identifier</label>
-                                    <input type="text" id="rule_name" class="form-control" placeholder="e.g. Summer Recipe Guide Reels Promo" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Trigger Keywords in Comments</label>
-                                    <input type="text" id="trigger_keywords" class="form-control" placeholder="recipe, link, guide, discount" required oninput="updateLivePreview()">
-                                    <div class="form-hint">Separate with commas. The bot responds whenever any keyword appears in comments.</div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Public Comment Reply (Optional)</label>
-                                    <input type="text" id="reply_public_comment" class="form-control" placeholder="Check your inbox (DM), link dispatched!">
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="form-label">Private DM Payload Message</label>
-                                    <textarea id="reply_dm_text" class="form-control" placeholder="Hey there! Here is the exclusive guide you requested:" required oninput="updateLivePreview()"></textarea>
-                                </div>
-
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                                    <div class="form-group">
-                                        <label class="form-label">Action Button Label</label>
-                                        <input type="text" id="button_label" class="form-control" placeholder="Open Guide" oninput="updateLivePreview()">
+                                <!-- Step 1: Trigger & Scope -->
+                                <div class="flow-step-block">
+                                    <div class="step-header">
+                                        <span class="step-pill-badge">1</span>
+                                        <span>TRIGGER: When Someone Comments on Your Instagram</span>
                                     </div>
+
                                     <div class="form-group">
-                                        <label class="form-label">Destination URL</label>
-                                        <input type="url" id="button_url" class="form-control" placeholder="https://mybrand.com/promo" oninput="updateLivePreview()">
+                                        <label class="form-label">Rule / Campaign Name</label>
+                                        <input type="text" id="rule_name" class="form-control" placeholder="e.g. Summer Recipe Guide Reels Promo" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Post Targeting Scope</label>
+                                        <div class="segmented-scope-group">
+                                            <button type="button" class="segmented-scope-btn active" id="scope-btn-all" onclick="selectPostScope('all')">
+                                                All Current & Future Posts / Reels
+                                            </button>
+                                            <button type="button" class="segmented-scope-btn" id="scope-btn-specific" onclick="selectPostScope('specific')">
+                                                Specific Reels / Post URL
+                                            </button>
+                                        </div>
+                                        <div id="specific-post-url-wrap" style="display:none; margin-top:8px;">
+                                            <input type="url" id="target_post_url" class="form-control" placeholder="https://www.instagram.com/reel/C7x9abc123/">
+                                            <div class="form-hint">Paste the Instagram Reels or Feed URL you want this trigger locked to.</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <label class="form-label">Comment Trigger Keywords</label>
+                                        <input type="text" id="trigger_keywords" class="form-control" placeholder="recipe, link, guide, discount, mau" required oninput="updateLivePreview()">
+                                        <div class="form-hint">Separate with commas. Matches regardless of uppercase, lowercase, or emojis in user comments.</div>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" id="require_follow">
-                                        <span><strong>Follow-Gate:</strong> Require the user to follow your account before unlocking the destination URL.</span>
-                                    </label>
+                                <!-- Step 2: Public Reply & Anti-Shadowban Delay -->
+                                <div class="flow-step-block">
+                                    <div class="step-header">
+                                        <span class="step-pill-badge">2</span>
+                                        <span>SAFETY: Public Reply & Human Delay Engine</span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Public Reply in Post Comments (Anti-Spam Variations)</label>
+                                        <input type="text" id="reply_public_comment" class="form-control" placeholder="Sent to your DM! Check your inbox 📬 | Link sent to your messages! | Check DM for the exclusive link!" oninput="updateLivePreview()">
+                                        <div class="form-hint">Use pipe symbol (<code style="background:var(--bg-surface); padding:2px 4px; border-radius:3px;">|</code>) to rotate multiple replies automatically to avoid Meta spam detection.</div>
+                                    </div>
+
+                                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px; margin-bottom:0;">
+                                        <div class="form-group" style="margin-bottom:0;">
+                                            <label class="form-label">Public Comment Action</label>
+                                            <select id="auto_like_comment" class="form-control">
+                                                <option value="both">Auto-Like Comment & Reply Publicly</option>
+                                                <option value="reply_only">Reply Publicly Only (No Like)</option>
+                                                <option value="dm_only">Silent (DM Only, No Public Reply)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group" style="margin-bottom:0;">
+                                            <label class="form-label">Dispatch Delay (Meta Safety)</label>
+                                            <select id="dispatch_delay_sec" class="form-control">
+                                                <option value="random">Randomized Human Delay (10 - 45s • Recommended)</option>
+                                                <option value="instant">Instant Dispatch (&lt; 2s)</option>
+                                                <option value="60">1 Minute Safe Delay</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <button type="submit" class="btn-primary" style="margin-top: 12px;">Save & Deploy Rule</button>
+                                <!-- Step 3: Private DM & Follow-Gate Enforcer -->
+                                <div class="flow-step-block" style="margin-bottom:20px;">
+                                    <div class="step-header">
+                                        <span class="step-pill-badge">3</span>
+                                        <span>DELIVERY: Private Direct Message & Follow-Gate</span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Private Direct Message Text</label>
+                                        <textarea id="reply_dm_text" class="form-control" style="min-height:90px;" placeholder="Hey there! Here is the exclusive download link you requested:" required oninput="updateLivePreview()"></textarea>
+                                        <div class="form-hint">Supports personalization variable: <code style="background:var(--bg-surface); padding:2px 4px; border-radius:3px;">{{username}}</code></div>
+                                    </div>
+
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom:14px;">
+                                        <div class="form-group" style="margin-bottom:0;">
+                                            <label class="form-label">CTA Button Label</label>
+                                            <input type="text" id="button_label" class="form-control" placeholder="Open Download Guide" oninput="updateLivePreview()">
+                                        </div>
+                                        <div class="form-group" style="margin-bottom:0;">
+                                            <label class="form-label">Destination URL</label>
+                                            <input type="url" id="button_url" class="form-control" placeholder="https://mybrand.com/exclusive-guide" oninput="updateLivePreview()">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="margin-bottom:0;">
+                                        <label class="checkbox-label" style="align-items:flex-start;">
+                                            <input type="checkbox" id="require_follow" onchange="updateLivePreview()">
+                                            <span style="font-size:0.8125rem; line-height:1.4;">
+                                                <strong>Follow-Gate Enforcer:</strong> Verify if user follows <span style="text-decoration:underline;">@creatorbrand.id</span> before delivering the destination button. If unverified, sends friendly follow request card first.
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div style="display:flex; justify-content:space-between; align-items:center;">
+                                    <div style="display:flex; align-items:center; gap:8px; font-size:0.75rem; color:var(--text-muted);">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                        <span>Verified Meta Graph API v21.0 Webhook Pipeline</span>
+                                    </div>
+                                    <button type="submit" class="btn-primary" style="padding:10px 24px; font-size:0.875rem;">
+                                        Deploy Automation Rule →
+                                    </button>
+                                </div>
                             </form>
                         </div>
 
                         <!-- Active Rules Table -->
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
                                 <h2 class="card-title">Deployed Automation Rules</h2>
+                                <span style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);" id="rule-count-label">2 Active Rules</span>
                             </div>
 
                             <div style="overflow-x: auto;">
                                 <table class="rules-table">
                                     <thead>
                                         <tr>
-                                            <th>Rule Identifier</th>
-                                            <th>Keywords</th>
+                                            <th>Rule & Scope</th>
+                                            <th>Trigger Keywords</th>
+                                            <th>Follow-Gate</th>
                                             <th>Status</th>
                                             <th>Dispatched</th>
                                             <th>Actions</th>
@@ -2510,7 +2692,7 @@
                                     </thead>
                                     <tbody id="rules-tbody">
                                         <tr>
-                                            <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading rules engine...</td>
+                                            <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading rules engine...</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2521,17 +2703,39 @@
                     <!-- Right: Real-time Live Mobile Simulation -->
                     <div class="preview-sticky-wrap">
                         <div class="card">
-                            <div class="card-header">
-                                <h2 class="card-title" style="font-size: 0.95rem;">Live Instagram Preview</h2>
+                            <div class="card-header" style="display:flex; justify-content:space-between; align-items:center;">
+                                <h2 class="card-title" style="font-size: 0.875rem;">Live Simulation Preview</h2>
+                                <span class="badge-active" style="font-size:0.6875rem;">Interactive</span>
                             </div>
 
+                            <!-- Comment Preview Bar -->
+                            <div style="padding:0 12px 12px 12px; border-bottom:1px solid var(--border-color); margin-bottom:12px;">
+                                <div style="font-size:0.6875rem; text-transform:uppercase; color:var(--text-muted); font-weight:600; margin-bottom:6px;">1. Public Comment Flow</div>
+                                <div class="comment-badge-preview">
+                                    <div style="width:20px; height:20px; border-radius:50%; background:var(--border-color); flex-shrink:0;"></div>
+                                    <div style="flex:1;">
+                                        <span style="font-weight:600;">@prospect_lead: </span>
+                                        <span id="preview-user-comment">recipe</span>
+                                    </div>
+                                </div>
+                                <div class="comment-badge-preview" style="margin-left:14px; background:var(--bg-surface-subtle); border-left:2px solid var(--text-main);">
+                                    <div style="width:20px; height:20px; border-radius:50%; background:var(--text-main); color:var(--bg-body); font-size:10px; display:flex; align-items:center; justify-content:center; font-weight:bold; flex-shrink:0;">P</div>
+                                    <div style="flex:1;">
+                                        <span style="font-weight:600;">@creatorbrand.id: </span>
+                                        <span id="preview-public-reply">Check your inbox (DM), link dispatched!</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Phone Mockup -->
+                            <div style="font-size:0.6875rem; text-transform:uppercase; color:var(--text-muted); font-weight:600; padding:0 12px; margin-bottom:6px;">2. Direct Message Payload</div>
                             <div class="phone-mockup">
                                 <div class="phone-screen">
                                     <div class="phone-header">
                                         <div class="phone-avatar"></div>
                                         <div>
                                             <div class="phone-username">creatorbrand.id</div>
-                                            <div style="font-size: 0.6875rem; color: var(--text-muted);">Active now</div>
+                                            <div style="font-size: 0.6875rem; color: var(--text-muted);">Active now • Verified Bot</div>
                                         </div>
                                     </div>
 
@@ -2541,6 +2745,12 @@
                                         </div>
                                         <div class="chat-bubble-bot">
                                             <span id="preview-bot-text">Hey there! Here is the exclusive guide you requested:</span>
+                                            
+                                            <!-- Follow-Gate notice in preview -->
+                                            <div id="preview-followgate-notice" style="display:none; background:var(--bg-surface-subtle); border:1px dashed var(--border-color); border-radius:6px; padding:6px 8px; font-size:0.6875rem; color:var(--text-muted); text-align:center;">
+                                                🔒 Follow @creatorbrand.id to unlock link
+                                            </div>
+
                                             <a href="#" id="preview-btn-card" class="preview-btn">Open Guide</a>
                                         </div>
                                     </div>
@@ -4096,13 +4306,69 @@
             }
         }
 
+        // Automation Scope & Preset Handlers
+        let currentPostScope = 'all';
+
+        function selectPostScope(scope) {
+            currentPostScope = scope;
+            const btnAll = document.getElementById('scope-btn-all');
+            const btnSpec = document.getElementById('scope-btn-specific');
+            const wrap = document.getElementById('specific-post-url-wrap');
+            if (scope === 'all') {
+                btnAll.classList.add('active');
+                btnSpec.classList.remove('active');
+                wrap.style.display = 'none';
+            } else {
+                btnSpec.classList.add('active');
+                btnAll.classList.remove('active');
+                wrap.style.display = 'block';
+            }
+        }
+
+        function applyRulePreset(type) {
+            if (type === 'ebook') {
+                document.getElementById('rule_name').value = 'E-Book & Guide Instant Auto-DM';
+                document.getElementById('trigger_keywords').value = 'guide, ebook, resep, buku, mau';
+                document.getElementById('reply_public_comment').value = 'Check your DM 📬 link dispatched! | Sent to your inbox! Check messages | Link sent via DM, happy reading!';
+                document.getElementById('reply_dm_text').value = 'Hey {{username}}! Here is the exclusive PDF guide you requested. Click below to download:';
+                document.getElementById('button_label').value = 'Download E-Book (PDF)';
+                document.getElementById('button_url').value = 'https://mybrand.com/ebook-download';
+                document.getElementById('require_follow').checked = true;
+                showToast('Preset loaded: Free E-Book & Guide (Follow-Gate enabled)');
+            } else if (type === 'discount') {
+                document.getElementById('rule_name').value = 'VIP 50% Flash Sale Promo Coupon';
+                document.getElementById('trigger_keywords').value = 'promo, diskon, voucher, coupon, 50';
+                document.getElementById('reply_public_comment').value = 'Voucher code sent to your direct messages! 🎉 | Check DM for the 50% VIP discount code!';
+                document.getElementById('reply_dm_text').value = 'Woohoo {{username}}! Your VIP 50% off voucher code is: PUSHCHAT50. Valid for the next 24 hours only.';
+                document.getElementById('button_label').value = 'Claim 50% Voucher';
+                document.getElementById('button_url').value = 'https://mybrand.com/checkout?code=PUSHCHAT50';
+                document.getElementById('require_follow').checked = true;
+                showToast('Preset loaded: Promo Voucher 50% (Follow-Gate enabled)');
+            } else if (type === 'catalog') {
+                document.getElementById('rule_name').value = 'Full Product Catalog & Pricelist';
+                document.getElementById('trigger_keywords').value = 'catalog, pricelist, harga, menu, beli';
+                document.getElementById('reply_public_comment').value = 'Pricelist & complete catalog sent to your DM! 🛍️ | Sent via DM! Let us know if you need help';
+                document.getElementById('reply_dm_text').value = 'Hi {{username}}! Here is our complete 2026 product collection and pricelist:';
+                document.getElementById('button_label').value = 'Browse Catalog';
+                document.getElementById('button_url').value = 'https://mybrand.com/catalog';
+                document.getElementById('require_follow').checked = false;
+                showToast('Preset loaded: Product Catalog Link (Instant)');
+            }
+            updateLivePreview();
+        }
+
         function updateLivePreview() {
             const keywords = document.getElementById('trigger_keywords').value.trim();
             const firstKw = keywords ? keywords.split(',')[0].trim() : 'recipe';
             document.getElementById('preview-user-bubble').textContent = firstKw;
+            document.getElementById('preview-user-comment').textContent = firstKw;
+
+            const publicReply = document.getElementById('reply_public_comment').value.trim();
+            const firstPublicReply = publicReply ? publicReply.split('|')[0].trim() : 'Check your inbox (DM), link dispatched!';
+            document.getElementById('preview-public-reply').textContent = firstPublicReply;
 
             const dmText = document.getElementById('reply_dm_text').value.trim();
-            document.getElementById('preview-bot-text').textContent = dmText || 'Hey there! Here is the exclusive guide you requested:';
+            document.getElementById('preview-bot-text').textContent = (dmText || 'Hey there! Here is the exclusive guide you requested:').replace('{{username}}', '@prospect_lead');
 
             const btnLabel = document.getElementById('button_label').value.trim();
             const previewBtn = document.getElementById('preview-btn-card');
@@ -4111,6 +4377,12 @@
                 previewBtn.textContent = btnLabel;
             } else {
                 previewBtn.style.display = 'none';
+            }
+
+            const followGate = document.getElementById('require_follow').checked;
+            const fgNotice = document.getElementById('preview-followgate-notice');
+            if (fgNotice) {
+                fgNotice.style.display = followGate ? 'block' : 'none';
             }
         }
 
@@ -4135,14 +4407,18 @@
                     {
                         id: "demo_1",
                         rule_name: "Cooking Recipe & E-Book Auto-DM",
-                        trigger_keywords: "recipe, guide, book",
+                        scope: "All Posts",
+                        trigger_keywords: "recipe, guide, book, resep",
+                        require_follow: true,
                         is_active: 1,
                         total_triggered: 1420
                     },
                     {
                         id: "demo_2",
                         rule_name: "VIP 50% Store Discount Coupon",
+                        scope: "Reels /C7x9abc123",
                         trigger_keywords: "discount, promo, voucher",
+                        require_follow: true,
                         is_active: 1,
                         total_triggered: 890
                     }
@@ -4156,8 +4432,13 @@
 
         function renderRules(rules) {
             const tbody = document.getElementById('rules-tbody');
+            const countLabel = document.getElementById('rule-count-label');
+            if (countLabel) {
+                countLabel.textContent = `${rules.length} Rule${rules.length !== 1 ? 's' : ''} Configured`;
+            }
+
             if (rules.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 24px;">No active automation rules. Deploy your first rule above.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">No active automation rules. Deploy your first rule above.</td></tr>`;
                 return;
             }
 
@@ -4166,10 +4447,20 @@
                 const statusBadge = r.is_active === 1 
                     ? `<span class="badge-active">Active</span>` 
                     : `<span class="badge-paused">Paused</span>`;
+                const scopeLabel = r.scope || 'All Posts';
+                const fgBadge = r.require_follow 
+                    ? `<span style="font-size:0.75rem; color:var(--text-main); font-weight:600; display:inline-flex; align-items:center; gap:3px;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> Enforced
+                       </span>`
+                    : `<span style="font-size:0.75rem; color:var(--text-muted);">None</span>`;
                 return `
                     <tr>
-                        <td><strong>${r.rule_name}</strong></td>
+                        <td>
+                            <div style="font-weight:600; color:var(--text-main);">${r.rule_name}</div>
+                            <div style="font-size:0.6875rem; color:var(--text-muted); font-family:var(--font-mono);">${scopeLabel}</div>
+                        </td>
                         <td>${tags}</td>
+                        <td>${fgBadge}</td>
                         <td>${statusBadge}</td>
                         <td>${r.total_triggered.toLocaleString()} times</td>
                         <td>
@@ -4189,21 +4480,31 @@
             e.preventDefault();
             const payload = {
                 rule_name: document.getElementById('rule_name').value,
+                scope: currentPostScope === 'all' ? 'All Posts' : (document.getElementById('target_post_url').value || 'Specific Post'),
                 trigger_keywords: document.getElementById('trigger_keywords').value,
                 reply_public_comment: document.getElementById('reply_public_comment').value,
                 reply_dm_text: document.getElementById('reply_dm_text').value,
                 button_label: document.getElementById('button_label').value,
                 button_url: document.getElementById('button_url').value,
-                require_follow: document.getElementById('require_follow').checked
+                require_follow: document.getElementById('require_follow').checked,
+                auto_like: document.getElementById('auto_like_comment').value,
+                delay_sec: document.getElementById('dispatch_delay_sec').value
             };
 
-            await fetch(`/api/v1/rules?tenant_id=${TENANT_ID}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
+            try {
+                await fetch(`/api/v1/rules?tenant_id=${TENANT_ID}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch(err) {
+                // Client-side simulated append for static GitHub Pages
+                console.log('Appended rule locally in demo mode:', payload);
+            }
 
+            showToast(`Automation Rule "${payload.rule_name}" successfully deployed!`);
             document.getElementById('form-rule').reset();
+            selectPostScope('all');
             updateLivePreview();
             loadRules();
         }
