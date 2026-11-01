@@ -3426,31 +3426,56 @@
                             <div id="ai-settings-subfields" style="display:none; flex-direction:column; gap:20px;">
                                 <div class="settings-field-row">
                                     <div class="settings-field-label-wrap">
-                                        <span class="settings-field-label">AI Model Provider</span>
-                                        <span class="settings-field-desc">Select your preferred model architecture.</span>
+                                        <span class="settings-field-label">AI Engine Provider</span>
+                                        <span class="settings-field-desc">Choose your preferred LLM backend.</span>
                                     </div>
-                                    <select class="form-control" id="ai-provider-select">
-                                        <option value="openai">OpenAI (gpt-4o-mini / gpt-4o)</option>
-                                        <option value="anthropic">Anthropic (claude-3-5-haiku)</option>
-                                        <option value="gemini">Google Gemini (gemini-1.5-flash)</option>
-                                        <option value="groq">Groq Llama 3.3 70B (Ultra Low Latency)</option>
+                                    <div style="display:flex; flex-direction:column; gap:10px;">
+                                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+                                            <button type="button" class="btn-secondary" id="btn-provider-openai" onclick="selectAiProvider('openai')" style="padding:8px 12px; font-size:0.8125rem; font-weight:600; border-color:var(--text-main); background:var(--bg-surface-subtle); display:flex; align-items:center; justify-content:center; gap:6px;">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8M8 12h8"></path></svg>
+                                                OpenAI
+                                            </button>
+                                            <button type="button" class="btn-secondary" id="btn-provider-anthropic" onclick="selectAiProvider('anthropic')" style="padding:8px 12px; font-size:0.8125rem; font-weight:500; display:flex; align-items:center; justify-content:center; gap:6px;">
+                                                Anthropic
+                                            </button>
+                                            <button type="button" class="btn-secondary" id="btn-provider-gemini" onclick="selectAiProvider('gemini')" style="padding:8px 12px; font-size:0.8125rem; font-weight:500; display:flex; align-items:center; justify-content:center; gap:6px;">
+                                                Google Gemini
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="settings-field-row">
+                                    <div class="settings-field-label-wrap">
+                                        <span class="settings-field-label">AI Model Architecture</span>
+                                        <span class="settings-field-desc">Select model capacity and latency tier.</span>
+                                    </div>
+                                    <select class="form-control" id="ai-model-select">
+                                        <option value="gpt-4o-mini">gpt-4o-mini (Recommended • Fast & Cost-Efficient)</option>
+                                        <option value="gpt-4o">gpt-4o (High Intelligence & Complex Logic)</option>
                                     </select>
                                 </div>
 
                                 <div class="settings-field-row">
                                     <div class="settings-field-label-wrap">
-                                        <span class="settings-field-label">Provider API Key</span>
-                                        <span class="settings-field-desc">Encrypted with AES-256. Never exposed in client code.</span>
+                                        <div style="display:flex; align-items:center; gap:8px;">
+                                            <span class="settings-field-label">Personal API Key</span>
+                                            <span style="font-size:0.6875rem; font-family:monospace; padding:1px 6px; border-radius:3px; background:var(--bg-surface-subtle); border:1px solid var(--border-color); color:var(--text-main);">AES-256 Vault</span>
+                                        </div>
+                                        <span class="settings-field-desc">Zero platform markup. Never logged in plaintext.</span>
                                     </div>
-                                    <input type="password" id="ai-api-key-input" class="form-control" placeholder="sk-proj-..." value="">
+                                    <div class="api-token-box">
+                                        <input type="password" id="ai-api-key-input" class="api-token-input" placeholder="sk-proj-..." value="sk-proj-7749102948291048291048291048">
+                                        <button type="button" class="copy-pill-btn" onclick="toggleSecretVisibility('ai-api-key-input', this)">Show</button>
+                                    </div>
                                 </div>
 
                                 <div class="settings-field-row">
                                     <div class="settings-field-label-wrap">
                                         <span class="settings-field-label">System Persona Prompt</span>
-                                        <span class="settings-field-desc">Instruction set defining tone, catalog facts, and store rules.</span>
+                                        <span class="settings-field-desc">Fallback rules, tone guidelines, and catalog facts.</span>
                                     </div>
-                                    <textarea class="form-control" id="ai-system-prompt" style="min-height:90px;" placeholder="You are a helpful customer service assistant for our store. Answer politely, keep replies concise (under 200 characters), and direct buyers to checkout link when they express purchase intent."></textarea>
+                                    <textarea class="form-control" id="ai-system-prompt" style="min-height:90px;" placeholder="You are a helpful customer service assistant for our store. Answer politely, keep replies concise (under 200 characters), and direct buyers to checkout link when they express purchase intent.">You are a helpful customer service assistant for our store. Answer politely, keep replies concise (under 200 characters), and direct buyers to checkout link when they express purchase intent.</textarea>
                                 </div>
 
                                 <div style="display:flex; justify-content:flex-end; gap:12px; border-top:1px solid var(--border-color); padding-top:16px;">
@@ -4386,6 +4411,64 @@
 
         function saveWebhookSettings() {
             showToast('Webhook destination and subscriptions saved.');
+        }
+
+        function selectAiProvider(provider) {
+            const btnOpenAI = document.getElementById('btn-provider-openai');
+            const btnAnthropic = document.getElementById('btn-provider-anthropic');
+            const btnGemini = document.getElementById('btn-provider-gemini');
+            const modelSelect = document.getElementById('ai-model-select');
+            const keyInput = document.getElementById('ai-api-key-input');
+
+            [btnOpenAI, btnAnthropic, btnGemini].forEach(b => {
+                if (b) {
+                    b.style.borderColor = 'var(--border-color)';
+                    b.style.fontWeight = '500';
+                    b.style.background = 'transparent';
+                }
+            });
+
+            if (provider === 'openai') {
+                if (btnOpenAI) {
+                    btnOpenAI.style.borderColor = 'var(--text-main)';
+                    btnOpenAI.style.fontWeight = '600';
+                    btnOpenAI.style.background = 'var(--bg-surface-subtle)';
+                }
+                if (modelSelect) {
+                    modelSelect.innerHTML = `
+                        <option value="gpt-4o-mini">gpt-4o-mini (Recommended • Fast & Cost-Efficient)</option>
+                        <option value="gpt-4o">gpt-4o (High Intelligence & Complex Logic)</option>
+                    `;
+                }
+                if (keyInput) keyInput.placeholder = 'sk-proj-...';
+            } else if (provider === 'anthropic') {
+                if (btnAnthropic) {
+                    btnAnthropic.style.borderColor = 'var(--text-main)';
+                    btnAnthropic.style.fontWeight = '600';
+                    btnAnthropic.style.background = 'var(--bg-surface-subtle)';
+                }
+                if (modelSelect) {
+                    modelSelect.innerHTML = `
+                        <option value="claude-3-5-haiku-20241022">claude-3-5-haiku (Recommended • Fast Response)</option>
+                        <option value="claude-3-5-sonnet-20241022">claude-3-5-sonnet (Nuanced Tone & Problem Solving)</option>
+                    `;
+                }
+                if (keyInput) keyInput.placeholder = 'sk-ant-api03-...';
+            } else if (provider === 'gemini') {
+                if (btnGemini) {
+                    btnGemini.style.borderColor = 'var(--text-main)';
+                    btnGemini.style.fontWeight = '600';
+                    btnGemini.style.background = 'var(--bg-surface-subtle)';
+                }
+                if (modelSelect) {
+                    modelSelect.innerHTML = `
+                        <option value="gemini-1.5-flash">gemini-1.5-flash (Sub-Second Latency • High Speed)</option>
+                        <option value="gemini-1.5-pro">gemini-1.5-pro (Long Context & Complex Catalog)</option>
+                    `;
+                }
+                if (keyInput) keyInput.placeholder = 'AIzaSy...';
+            }
+            showToast(`Selected ${provider.toUpperCase()} AI Engine.`);
         }
 
         function toggleAiFields(enabled) {
