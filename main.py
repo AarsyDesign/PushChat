@@ -22,8 +22,16 @@ VERIFY_TOKEN = os.getenv("META_VERIFY_TOKEN", "pushchat_meta_verify_2026")
 def on_startup():
     init_pushchat_db()
 
-# Serve static dashboard
+# Serve static landing page on root /
 @app.get("/")
+def serve_landing():
+    landing_path = os.path.join(os.path.dirname(__file__), "landing.html")
+    if os.path.exists(landing_path):
+        return FileResponse(landing_path)
+    return {"status": "ONLINE", "message": "Landing page not found"}
+
+# Serve static dashboard on /app
+@app.get("/app")
 def serve_dashboard():
     dashboard_path = os.path.join(os.path.dirname(__file__), "index.html")
     if os.path.exists(dashboard_path):
