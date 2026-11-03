@@ -25,10 +25,17 @@ def on_startup():
 # Serve static dashboard
 @app.get("/")
 def serve_dashboard():
-    dashboard_path = os.path.join(os.path.dirname(__file__), "static", "dashboard.html")
+    dashboard_path = os.path.join(os.path.dirname(__file__), "index.html")
     if os.path.exists(dashboard_path):
         return FileResponse(dashboard_path)
     return {"status": "ONLINE", "message": "Dashboard not found"}
+
+@app.get("/login")
+def serve_login():
+    login_path = os.path.join(os.path.dirname(__file__), "login.html")
+    if os.path.exists(login_path):
+        return FileResponse(login_path)
+    return {"status": "ONLINE", "message": "Login page not found"}
 
 @app.get("/health")
 def health_check():
